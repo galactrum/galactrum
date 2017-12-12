@@ -130,7 +130,10 @@ const std::map<std::string, std::vector<std::string> >& mapMultiArgs = _mapMulti
 bool fDebug = false;
 bool fPrintToConsole = false;
 bool fPrintToDebugLog = true;
-
+bool fLimitDebugLogSize = true;
+bool fDaemon = false;
+bool fServer = false;
+string strMiscWarning;
 bool fLogTimestamps = DEFAULT_LOGTIMESTAMPS;
 bool fLogTimeMicros = DEFAULT_LOGTIMEMICROS;
 bool fLogThreadNames = DEFAULT_LOGTHREADNAMES;
@@ -206,12 +209,12 @@ static boost::once_flag debugPrintInitFlag = BOOST_ONCE_INIT;
  * We use boost::call_once() to make sure mutexDebugLog and
  * vMsgsBeforeOpenLog are initialized in a thread-safe manner.
  *
- * NOTE: fileout, mutexDebugLog and sometimes vMsgsBeforeOpenLog
+ * NOTE: debugLogFp, mutexDebugLog and sometimes vMsgsBeforeOpenLog
  * are leaked on exit. This is ugly, but will be cleaned up by
  * the OS/libc. When the shutdown sequence is fully audited and
  * tested, explicit destruction of these objects can be implemented.
  */
-static FILE* fileout = NULL;
+static FILE* debugLogFp = NULL;
 static boost::mutex* mutexDebugLog = NULL;
 static std::list<std::string>* vMsgsBeforeOpenLog;
 
@@ -227,20 +230,25 @@ static void DebugPrintInit()
     vMsgsBeforeOpenLog = new std::list<std::string>;
 }
 
+boost::filesystem::path GetDebugLogPath()
+{
+    return GetDataDir() / "debug.log";
+}
+
 void OpenDebugLog()
 {
     boost::call_once(&DebugPrintInit, debugPrintInitFlag);
     boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
-
-    assert(fileout == NULL);
+    boost::filesystem::path pathDebug = GetDebugLogPath();
+    assert(debugLogFp == NULL);
     assert(vMsgsBeforeOpenLog);
     boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-    fileout = fopen(pathDebug.string().c_str(), "a");
-    if (fileout) {
-        setbuf(fileout, NULL); // unbuffered
+    debugLogFp = fopen(pathDebug.string().c_str(), "a");
+    if (debugLogFp) {
+        setbuf(debugLogFp, NULL); // unbuffered
         // dump buffered messages from before we opened the log
         while (!vMsgsBeforeOpenLog->empty()) {
-            FileWriteStr(vMsgsBeforeOpenLog->front(), fileout);
+            FileWriteStr(vMsgsBeforeOpenLog->front(), debugLogFp);
             vMsgsBeforeOpenLog->pop_front();
         }
     }
@@ -373,22 +381,25 @@ int LogPrintStr(const std::string &str)
         boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
 
         // buffer if we haven't opened the log yet
-        if (fileout == NULL) {
+        if (debugLogFp == NULL) {
             assert(vMsgsBeforeOpenLog);
             ret = strTimestamped.length();
             vMsgsBeforeOpenLog->push_back(strTimestamped);
         }
         else
         {
+            // preveng endless log growth
+            if (fLimitDebugLogSize)
+                ShrinkDebugFile();
             // reopen the log file, if requested
             if (fReopenDebugLog) {
                 fReopenDebugLog = false;
-                boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-                if (freopen(pathDebug.string().c_str(),"a",fileout) != NULL)
-                    setbuf(fileout, NULL); // unbuffered
+                boost::filesystem::path pathDebug = GetDebugLogPath();
+                if (freopen(pathDebug.string().c_str(),"a", debugLogFp) != NULL)
+                    setbuf(debugLogFp, NULL);
             }
 
-            ret = FileWriteStr(strTimestamped, fileout);
+            ret = FileWriteStr(strTimestamped, debugLogFp);
         }
     }
     return ret;
@@ -824,30 +835,24 @@ void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length) {
 
 void ShrinkDebugFile()
 {
-    // Amount of debug.log to save at end when shrinking (must fit in memory)
-    constexpr size_t RECENT_DEBUG_HISTORY_SIZE = 10 * 1000000;
     // Scroll debug.log if it's getting too big
-    boost::filesystem::path pathLog = GetDataDir() / "debug.log";
-    FILE* file = fopen(pathLog.string().c_str(), "r");
-    // If debug.log file is more than 10% bigger the RECENT_DEBUG_HISTORY_SIZE
-    // trim it down by saving only the last RECENT_DEBUG_HISTORY_SIZE bytes
-    if (file && boost::filesystem::file_size(pathLog) > 11 * (RECENT_DEBUG_HISTORY_SIZE / 10))
+    boost::filesystem::path pathDebug = GetDebugLogPath();
+    if (boost::filesystem::exists(pathDebug) && boost::filesystem::file_size(pathDebug) > 10 * 1000000)
     {
         // Restart the file with some of the end
-        std::vector<char> vch(RECENT_DEBUG_HISTORY_SIZE, 0);
+        FILE* file = fopen(pathDebug.string().c_str(), "r");
+        std::vector <char> vch(200000, 0);
         fseek(file, -((long)vch.size()), SEEK_END);
         int nBytes = fread(vch.data(), 1, vch.size(), file);
         fclose(file);
 
-        file = fopen(pathLog.string().c_str(), "w");
+        file = fopen(pathDebug.string().c_str(), "w");
         if (file)
         {
             fwrite(vch.data(), 1, nBytes, file);
             fclose(file);
         }
     }
-    else if (file != NULL)
-        fclose(file);
 }
 
 #ifdef WIN32
