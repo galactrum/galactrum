@@ -579,6 +579,7 @@ std::string HelpMessage(HelpMessageMode mode)
 #endif
     }
     strUsage += HelpMessageOpt("-shrinkdebugfile", _("Shrink debug.log file on client startup (default: 1 when no -debug)"));
+    strUsage += HelpMessageOpt("-limitdebuglogsize", _("Limit the debug.log file size to 10Mb (default: 1 when no -debug)"));
     AppendParamsHelpMessages(strUsage, showDebug);
     strUsage += HelpMessageOpt("-litemode=<n>", strprintf(_("Disable all Galactrum specific functionality (Masternodes, Cloaking, InstantSend, Governance) (0-1, default: %u)"), 0));
 
@@ -1239,6 +1240,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 #ifndef WIN32
     CreatePidFile(GetPidFile(), getpid());
 #endif
+    fLimitDebugLogSize = GetBoolArg("-limitdebuglogsize", !fDebug);
     if (GetBoolArg("-shrinkdebugfile", !fDebug)) {
         // Do this first since it both loads a bunch of debug.log into memory,
         // and because this needs to happen before any other debug.log printing
