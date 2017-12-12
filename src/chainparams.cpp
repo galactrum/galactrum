@@ -161,6 +161,15 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
         strSporkPubKey = "04859dda6dfefa11b0f81a0f24622c2f22bd53d75d7cc071a46a69ceea0e2fe152c9fcb5e3a07c246af2fcb84ec7b5300a146766d6abf7b8dcd3d0ec5fd9e0dd29";
+
+        checkpointData = (CCheckpointData) {
+             boost::assign::map_list_of
+             (0, uint256S("0x0000082da923a04678394f873852c7f08b777af30224b6e23296f586370e80ae"))
+             (500, uint256S("0x00000000105a10accb2871f7c3a7e51afffb3c4ee9170d4156e7e6bb9bfd38f7")),
+             1513090414,
+             0,
+             2800
+        };
     }
 };
 static CMainParams mainParams;
@@ -261,17 +270,7 @@ public:
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
         strSporkPubKey = "046f78dcf911fbd61910136f7f0f8d90578f68d0b3ac973b5040fb7afb501b5939f39b108b0569dca71488f5bbf498d92e4d1194f6f941307ffd95f75e76869f0e";
 
-        /*checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
-            (    261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618"))
-            (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
-            (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5")),
-
-            1462856598, // * UNIX timestamp of last checkpoint block
-            3094,       // * total number of transactions between genesis and last checkpoint
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            500         // * estimated number of transactions per day after checkpoint
-        };*/
+      
 
     }
 };
