@@ -19,6 +19,10 @@ systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you usin
 
 # Gather input from user
 read -e -p "Masternode Private Key (e.g. 7edfjLCUzGczZi3JQw8GHp434R9kNY33eFyMGeKRymkB56G4324h) : " key
+if [[ "$key" == "" ]]; then
+    echo "WARNING: No private key entered, exiting!!!"
+    echo && exit
+fi
 echo && echo "Pressing ENTER will use the default value for the next prompts."
 echo && sleep 3
 guessed_ip=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'`
@@ -29,6 +33,9 @@ fi
 read -e -p "Add swap space? (Recommended) [Y/n] : " add_swap
 if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
     read -e -p "Swap Size [2G] : " swap_size
+    if [[ "$swap_size" == "" ]]; then
+        swap_size="2G"
+    fi
 fi    
 read -e -p "Install Fail2ban? (Recommended) [Y/n] : " install_fail2ban
 read -e -p "Install UFW and configure ports? (Recommended) [Y/n] : " UFW
@@ -46,7 +53,7 @@ if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
         sudo sysctl vm.vfs_cache_pressure=50
         echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
         echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
-    else;
+    else
         echo && echo "WARNING: Swap file detected, skipping add swap!"
         sleep 3
     fi
@@ -55,7 +62,7 @@ fi
 
 # Add masternode group and user
 groupadd masternode
-useradd -m -d -g masternode masternode
+useradd -m -g masternode masternode
 
 # Update system 
 echo && echo "Upgrading system..."
@@ -79,15 +86,14 @@ sudo apt-get -y install \
     libevent-dev \
     libboost-dev \
     libboost-chrono-dev \
-    libboost-program-options-dev
+    libboost-filesystem-dev \
+    libboost-program-options-dev \
     libboost-system-dev \
     libboost-test-dev \
     libboost-thread-dev \
     libdb4.8-dev \
     libdb4.8++-dev \
     libminiupnpc-dev 
-
-# Add Swap if needed
 
 # Install fail2ban if needed
 if [[ ("$install_fail2ban" == "y" || "$install_fail2ban" == "Y" || "$install_fail2ban" == "") ]]; then
@@ -108,7 +114,7 @@ if [[ ("$UFW" == "y" || "$UFW" == "Y" || "$UFW" == "") ]]; then
     sudo ufw default allow outgoing
     sudo ufw allow ssh
     sudo ufw allow 6270/tcp
-    sudo ufw enable -y
+    echo "y" | sudo ufw enable
     echo && echo "Firewall installed and enabled!"
 fi
 
@@ -116,7 +122,7 @@ fi
 echo && echo "Downloading Galactrum v1.1.3..."
 sleep 3
 wget https://github.com/galactrum/galactrum/releases/download/v1.1.3/galactrum-1.1.3-ubuntu16.04-server.tar.gz
-tar -xcf galactrum-1.1.3-ubuntu16.04-server.tar.gz
+tar -xvf galactrum-1.1.3-ubuntu16.04-server.tar.gz
 rm galactrum-1.1.3-ubuntu16.04-server.tar.gz
 
 # Install Galactrum
@@ -130,6 +136,7 @@ sleep 3
 rpcuser=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
 rpcpassword=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
 sudo mkdir -p /home/masternode/.galactrum
+sudo touch /home/masternode/.galactrum/galactrum.conf
 echo '
 rpcuser='$rpcuser'
 rpcpassword='$rpcpassword'
@@ -144,12 +151,13 @@ bind='$ip':6270
 masternodeaddr='$ip'
 masternodeprivkey='$key'
 masternode=1
-' | sudo -E tee /home/masterode/.galactrum/galactrum.conf
+' | sudo -E tee /home/masternode/.galactrum/galactrum.conf
 sudo chown -R masternode:masternode /home/masternode/.galactrum
 sudo chmod 600 /home/masternode/.galactrum/galactrum.conf
 
 # Setup systemd service
 echo && echo "Starting Galactrum Daemon..."
+sudo touch /etc/systemd/system/galactrumd.service
 echo '[Unit]
 Description=galactrumd
 After=network.target
@@ -164,19 +172,19 @@ Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
-' | sudo -E tee /etc/system/systemd/galactrumd.service
+' | sudo -E tee /etc/systemd/system/galactrumd.service
 sudo systemctl enable galactrumd
 sudo systemctl start galactrumd
 
 # Download and install sentinel
 echo && echo "Installing Sentinel..."
 sleep 3
-sudo apt-get -y install python-virtualenv python-pip
+sudo apt-get -y install virtualenv python-pip
 sudo git clone https://github.com/galactrum/sentinel /home/masternode/sentinel
 cd /home/masternode/sentinel
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
-sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
+(sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
 
 echo && echo "Masternode setup complete!"
