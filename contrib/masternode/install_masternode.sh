@@ -2,18 +2,17 @@
 
 clear
 cd ~
+echo "*********************************************************************"
+echo "* Ubuntu 16.04 is the recommended opearting system or this install. *"
+echo "*                                                                   *"
+echo "* This script will install and configure your Galactrum masternode. *"
+echo "*********************************************************************"
+echo && echo
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "Make sure you double check before hitting enter!"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo
-echo "Ubuntu 16.04 is the recommended opearting system or this install."
-echo
+echo && echo
 sleep 3
-echo "This script will install and configure your Galactrum masternode."
-echo 
-echo "Root powers are required for this script!"
-sleep 3
-echo
 
 # Check for systemd
 systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you using Ubuntu 16.04?"  >&2; exit 1; }
