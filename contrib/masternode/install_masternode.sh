@@ -30,7 +30,7 @@ echo && sleep 3
 guessed_ip=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'`
 read -e -p "Server IP Address [$guessed_ip]: " ip
 if [[ "$ip" == "" ]]; then
-    ip=guessed_ip
+    ip=$guessed_ip
 fi
 read -e -p "Add swap space? (Recommended) [Y/n] : " add_swap
 if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
@@ -150,7 +150,6 @@ logtimestamps=1
 maxconnections=256
 externalip='$ip'
 bind='$ip':6270
-masternodeaddr='$ip'
 masternodeprivkey='$key'
 masternode=1
 ' | sudo -E tee /home/masternode/.galactrum/galactrum.conf
@@ -188,5 +187,10 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 (sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
+chown -R masternode:masternode /home/masternode/sentinel
+cd ~
 
+# Add alias to run galactrum-cli
 echo && echo "Masternode setup complete!"
+touch ~/.bash_aliases
+echo "alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'" | tee -a ~/.bash_aliases
