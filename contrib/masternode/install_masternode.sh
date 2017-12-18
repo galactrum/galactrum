@@ -19,8 +19,14 @@ echo
 systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you using Ubuntu 16.04?"  >&2; exit 1; }
 
 # Gather input from user
-read -e -p "Server IP Address : " ip
 read -e -p "Masternode Private Key (e.g. 7edfjLCUzGczZi3JQw8GHp434R9kNY33eFyMGeKRymkB56G4324h) : " key
+echo && echo "Pressing ENTER will use the default value for the next prompts."
+echo && sleep 3
+guessed_ip=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'`
+read -e -p "Server IP Address [$guessed_ip]: " ip
+if [[ "$ip" == "" ]]; then
+    ip=guessed_ip
+fi
 read -e -p "Add swap space? (Recommended) [Y/n] : " add_swap
 if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
     read -e -p "Swap Size [2G] : " swap_size
