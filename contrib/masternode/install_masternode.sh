@@ -2,15 +2,17 @@
 
 clear
 cd ~
-
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "Make sure you double check before hitting enter!"
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo
 echo "Ubuntu 16.04 is the recommended opearting system or this install."
 echo
 sleep 3
 echo "This script will install and configure your Galactrum masternode."
-sleep 3
+echo 
 echo "Root powers are required for this script!"
-sleep 1
+sleep 3
 echo
 
 # Check for systemd
