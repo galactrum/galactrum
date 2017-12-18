@@ -2,16 +2,18 @@
 
 clear
 cd ~
-echo "*********************************************************************"
-echo "* Ubuntu 16.04 is the recommended opearting system or this install. *"
-echo "*                                                                   *"
-echo "* This script will install and configure your Galactrum masternode. *"
-echo "*********************************************************************"
-echo && echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "Make sure you double check before hitting enter!"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo && echo
+echo "**********************************************************************"
+echo "* Ubuntu 16.04 is the recommended opearting system for this install. *"
+echo "*                                                                    *"
+echo "* This script will install and configure your Galactrum masternode.  *"
+echo "**********************************************************************"
+echo && echo && echo
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "!                                                 !"
+echo "! Make sure you double check before hitting enter !"
+echo "!                                                 !"
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo && echo && echo
 sleep 3
 
 # Check for systemd
