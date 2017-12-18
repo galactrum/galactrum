@@ -5,16 +5,13 @@ cd ~
 
 echo "Make sure you double check before hitting enter!"
 echo "Ubuntu 16.04 is the recommended opearting system or this install."
+echo
 sleep 3
-echo "This script will install a firewall and configure your masternode."
+echo "This script will install and configure your Galactrum masternode."
 sleep 3
-echo ''
-
-# Check that we have sudo powers
-if "$(whereis sudo)" == *'/'* && "$(sudo -nv 2>&1)"; then 
-    echo "Sudo powers are required for running this script!"
-    exit;
-fi
+echo "Root powers are required for this script!"
+sleep 1
+echo
 
 # Check for systemd
 systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you using Ubuntu 16.04?"  >&2; exit 1; }
