@@ -21,10 +21,33 @@ systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you usin
 
 # Gather input from user
 read -e -p "Server IP Address : " ip
-read -e -p "Masternode Private Key (e.g. 7edfjLCUzGczZi3JQw8GHp434R9kNY33eFyMGeKRymkB56G4324h # THE KEY YOU GENERATED EARLIER) : " key
-read -e -p "Add swap space? (Recommended) [Y/n]"
+read -e -p "Masternode Private Key (e.g. 7edfjLCUzGczZi3JQw8GHp434R9kNY33eFyMGeKRymkB56G4324h) : " key
+read -e -p "Add swap space? (Recommended) [Y/n] : " add_swap
+if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
+    read -e -p "Swap Size [2G] : " swap_size
+fi    
 read -e -p "Install Fail2ban? (Recommended) [Y/n] : " install_fail2ban
 read -e -p "Install UFW and configure ports? (Recommended) [Y/n] : " UFW
+
+# Add swap if needed
+if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
+    if [ ! -f /swapfile ]; then
+        echo && echo "Adding swap space..."
+        sudo fallocate -l $swap_size /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+        sudo sysctl vm.swappiness=10
+        sudo sysctl vm.vfs_cache_pressure=50
+        echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+        echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+    else;
+        echo && echo "WARNING: Swap file detected, skipping add swap!"
+        sleep 3
+    fi
+fi
+
 
 # Add masternode group and user
 groupadd masternode
@@ -60,6 +83,8 @@ sudo apt-get -y install \
     libdb4.8++-dev \
     libminiupnpc-dev 
 
+# Add Swap if needed
+
 # Install fail2ban if needed
 if [[ ("$install_fail2ban" == "y" || "$install_fail2ban" == "Y" || "$install_fail2ban" == "") ]]; then
     echo && echo "Installing fail2ban..."
@@ -68,6 +93,7 @@ if [[ ("$install_fail2ban" == "y" || "$install_fail2ban" == "Y" || "$install_fai
     sudo service fail2ban restart 
 fi
 
+# Install firewall if needed
 if [[ ("$UFW" == "y" || "$UFW" == "Y" || "$UFW" == "") ]]; then
     echo && echo "Installing UFW..."
     sleep 3
