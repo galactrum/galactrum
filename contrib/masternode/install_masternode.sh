@@ -194,3 +194,5 @@ cd ~
 echo && echo "Masternode setup complete!"
 touch ~/.bash_aliases
 echo "alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'" | tee -a ~/.bash_aliases
+source ~/.bash_aliases
+galactrum-cli getinfo
