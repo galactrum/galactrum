@@ -187,7 +187,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 export EDITOR=vi
 (sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
-chown -R masternode:masternode /home/masternode/sentinel
+sudo chown -R masternode:masternode /home/masternode/sentinel
 cd ~
 
 # Add alias to run galactrum-cli
