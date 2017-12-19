@@ -154,7 +154,6 @@ masternodeprivkey='$key'
 masternode=1
 ' | sudo -E tee /home/masternode/.galactrum/galactrum.conf
 sudo chown -R masternode:masternode /home/masternode/.galactrum
-sudo chmod 600 /home/masternode/.galactrum/galactrum.conf
 
 # Setup systemd service
 echo && echo "Starting Galactrum Daemon..."
@@ -186,6 +185,7 @@ cd /home/masternode/sentinel
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
+export EDITOR=vi
 (sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
 chown -R masternode:masternode /home/masternode/sentinel
 cd ~
