@@ -63,8 +63,8 @@ fi
 
 
 # Add masternode group and user
-groupadd masternode
-useradd -m -g masternode masternode
+sudo groupadd masternode
+sudo useradd -m -g masternode masternode
 
 # Update system 
 echo && echo "Upgrading system..."
