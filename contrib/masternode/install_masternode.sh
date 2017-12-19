@@ -145,7 +145,6 @@ daemon=0 # required for systemd
 logtimestamps=1
 maxconnections=256
 externalip='$ip'
-bind='$ip':6270
 masternodeprivkey='$key'
 masternode=1
 ' | sudo -E tee /home/masternode/.galactrum/galactrum.conf
@@ -179,7 +178,7 @@ sudo apt-get -y install virtualenv python-pip
 sudo git clone https://github.com/galactrum/sentinel /home/masternode/sentinel
 cd /home/masternode/sentinel
 virtualenv venv
-source venv/bin/activate
+. venv/bin/activate
 pip install -r requirements.txt
 export EDITOR=vi
 (sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
@@ -190,5 +189,5 @@ cd ~
 echo && echo "Masternode setup complete!"
 touch ~/.bash_aliases
 echo "alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'" | tee -a ~/.bash_aliases
-source ~/.bash_aliases
+alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'
 galactrum-cli getinfo
