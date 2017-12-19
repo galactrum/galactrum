@@ -180,8 +180,8 @@ cd /home/masternode/sentinel
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
-export EDITOR=vi
-(sudo crontab -l -e -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -e -u masternode
+export EDITOR=nano
+(crontab -l -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -u masternode -
 sudo chown -R masternode:masternode /home/masternode/sentinel
 cd ~
 
