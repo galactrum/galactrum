@@ -42,6 +42,7 @@ read -e -p "Install UFW and configure ports? (Recommended) [Y/n] : " UFW
 if [[ ("$add_swap" == "y" || "$add_swap" == "Y" || "$add_swap" == "") ]]; then
     if [ ! -f /swapfile ]; then
         echo && echo "Adding swap space..."
+        sleep 3
         sudo fallocate -l $swap_size /swapfile
         sudo chmod 600 /swapfile
         sudo mkswap /swapfile
@@ -152,6 +153,7 @@ sudo chown -R masternode:masternode /home/masternode/.galactrum
 
 # Setup systemd service
 echo && echo "Starting Galactrum Daemon..."
+sleep 3
 sudo touch /etc/systemd/system/galactrumd.service
 echo '[Unit]
 Description=galactrumd
@@ -189,5 +191,5 @@ cd ~
 echo && echo "Masternode setup complete!"
 touch ~/.bash_aliases
 echo "alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'" | tee -a ~/.bash_aliases
-alias galactrum-cli='galactrum-cli -conf=/home/masternode/.galactrum/galactrum.conf -datadir=/home/masternode/.galactrum'
-galactrum-cli getinfo
+
+echo && echo "Now run 'source ~/.bash_alises' (without quotes) to use galactrum-cli"
