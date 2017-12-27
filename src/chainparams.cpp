@@ -48,7 +48,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  *
  * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
  *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
- *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
+ *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d010447746865677561726469616e2031332f4f63742f3230313720426974636f696e20707269636520736f6172732061626f75742024352c30303020746f207265636f72642068696768)
  *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
  *   vMerkleTree: e0028e
  */
@@ -164,8 +164,12 @@ public:
 
         checkpointData = (CCheckpointData) {
              boost::assign::map_list_of
-             (0, uint256S("0x0000082da923a04678394f873852c7f08b777af30224b6e23296f586370e80ae"))
-             (500, uint256S("0x00000000105a10accb2871f7c3a7e51afffb3c4ee9170d4156e7e6bb9bfd38f7")),
+             (0,     uint256S("0x0000082da923a04678394f873852c7f08b777af30224b6e23296f586370e80ae"))
+             (500,   uint256S("0x00000000105a10accb2871f7c3a7e51afffb3c4ee9170d4156e7e6bb9bfd38f7"))
+             (1000,  uint256S("0x000000000051d186c0e07f59128b44e829785954620c5f454a4904d8b5791c2c"))
+             (5000,  uint256S("0x000000000001524e6c53ff7e6b76531fadfef30843a5a6cb364bac011c874368"))
+             (10000, uint256S("0x00000000000081b37df3c6926e1cc922c09ebede9a30bead40bca6f48c1bcc0c"))
+             ,
              1513090414,
              0,
              2800
