@@ -516,6 +516,7 @@ void BitcoinGUI::createActions()
 
     // Get restart command-line parameters and handle restart
     connect(rpcConsole, SIGNAL(handleRestart(QStringList)), this, SLOT(handleRestart(QStringList)));
+    connect(walletFrame, SIGNAL(handleRestart(QStringList)), this, SLOT(handleRestart(QStringList)));
     
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, SIGNAL(triggered()), rpcConsole, SLOT(hide()));
