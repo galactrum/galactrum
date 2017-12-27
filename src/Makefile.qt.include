@@ -346,6 +346,7 @@ RES_ICONS = \
   qt/res/icons/light/cancel.png \
   qt/res/icons/light/info.png \
   qt/res/icons/light/cloak.png \
+  qt/res/icons/light/inputs.png \
   qt/res/icons/light/reset.png \
   qt/res/icons/light/hidden.png \
   qt/res/icons/light/alert.png \
