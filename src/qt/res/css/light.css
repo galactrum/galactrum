@@ -298,7 +298,8 @@ QPushButton#pushButtonBackupWallet:hover,
 QDialog#SendCoinsDialog .QPushButton#addButton,  /* Add Button */
 QDialog#SendCoinsDialog .QPushButton#buttonChooseFee,
 #buttonShowPrivateSend,
-#buttonHidePrivateSend
+#buttonHidePrivateSend,
+#buttonMinimizeFee
 {
     background-color: #1a82ae;
 }
@@ -331,7 +332,7 @@ border:0px solid transparent;
 
 QComboBox::drop-down {
 width:25px;
-border:0px;
+border:0px solid transparent;
 }
 
 QComboBox::down-arrow {
@@ -345,7 +346,9 @@ border:1px solid #333;
 padding-right:1px;
 padding-left:1px;
 }
+QComboBox::drop-down {
 
+}
 QComboBox QAbstractItemView::item { margin:4px; }
 
 QComboBox::item {
@@ -1254,6 +1257,60 @@ QTreeWidget#treeWidget:indicator:indeterminate:pressed {
 image:url(':/images/light/checked');
 }
 
+QRadioButton {
+    color: #ddd;
+}
+QRadioButton:disabled {
+    color: #999;
+}
+
+QRadioButton::indicator::unchecked {
+    image: url(:/images/light/radio_unchecked);
+}
+
+QRadioButton::indicator:unchecked:hover {
+    image: url(:/images/light/radio_unchecked);
+}
+
+QRadioButton::indicator:unchecked:pressed {
+    image: url(:/images/light/radio_unchecked);
+}
+
+QRadioButton::indicator::checked {
+    image: url(:/images/light/radio_checked);
+}
+
+QRadioButton::indicator:checked:hover {
+    image: url(:/images/light/radio_checked);
+}
+
+QRadioButton::indicator:checked:pressed {
+    image: url(:/images/light/radio_checked);
+}
+
+QRadioButton::indicator::unchecked:disabled {
+    image: url(:/images/light/radio_disabled_unchecked);
+}
+
+QRadioButton::indicator:unchecked:hover:disabled {
+    image: url(:/images/light/radio_disabled_unchecked);
+}
+
+QRadioButton::indicator:unchecked:pressed:disabled {
+    image: url(:/images/light/radio_disabled_unchecked);
+}
+
+QRadioButton::indicator::checked:disabled {
+    image: url(:/images/light/radio_disabled_checked);
+}
+
+QRadioButton::indicator:checked:hover:disabled {
+    image: url(:/images/light/radio_disabled_checked);
+}
+
+QRadioButton::indicator:checked:pressed:disabled {
+    image: url(:/images/light/radio_disabled_checked);
+}
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlQuantityText { /* Coin Control Quantity Label */
 min-height:30px;
@@ -1322,7 +1379,7 @@ padding-right:10px;
 min-height:25px;
 }
 
-QDialog#CoinControlDialog .QFrame#frame .QRadioButton#radioTreeMode { /* Coin Control Tree Mode Selector */
+QDialog#CoinControlDialog .QFrame#frame .QRadioButtoneMode { /* Coin Control Tree Mode Selector :disabled*/
 color:#818181;
 background-color:transparent;
 }

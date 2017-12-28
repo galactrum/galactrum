@@ -515,6 +515,10 @@ RES_IMAGES = \
   qt/res/images/light/drkblue_walletFrame_bg.png \
   qt/res/images/light/orchid222.png \
   qt/res/images/light/static.png \
+  qt/res/images/light/radio_checked.png \
+  qt/res/images/light/radio_unchecked.png \
+  qt/res/images/light/radio_disabled_unchecked.png \
+  qt/res/images/light/radio_disabled_checked.png \
   qt/res/images/trad/about.png \
   qt/res/images/trad/splash.png \
   qt/res/images/trad/splash_testnet.png \

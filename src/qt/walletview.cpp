@@ -53,6 +53,7 @@ WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
     if (platformStyle->getImagesOnButtons()) {
         QString theme = GUIUtil::getThemeName();
         exportButton->setIcon(QIcon(":/icons/" + theme + "/export"));
+        exportButton->setIconSize(QSize(32, 32));
     }
     hbox_buttons->addStretch();
 
