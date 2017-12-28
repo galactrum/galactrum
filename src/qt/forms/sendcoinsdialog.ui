@@ -13,9 +13,9 @@
 		<property name="windowTitle">
 			<string>Send Coins</string>
 		</property>
-		<layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,1,0,0">
+		<layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,1,0,0">
 			<property name="bottomMargin">
-				<number>8</number>
+				<number>0</number>
 			</property>
 			<item>
 				<widget class="QFrame" name="frameSendTopButton">
@@ -25,12 +25,6 @@
 							<verstretch>0</verstretch>
 						</sizepolicy>
 					</property>
-					<property name="maximumSize">
-						<size>
-							<width>16777215</width>
-							<height>16777215</height>
-						</size>
-					</property>
 					<property name="frameShape">
 						<enum>QFrame::StyledPanel</enum>
 					</property>
@@ -38,6 +32,18 @@
 						<enum>QFrame::Sunken</enum>
 					</property>
 					<layout class="QHBoxLayout" name="topSendButtons">
+                        <property name="leftMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                            <number>20</number>
+                        </property>
 						<item>
 							<widget class="QPushButton" name="openURIButton">
 								<property name="toolTip">
@@ -117,39 +123,14 @@
 							<number>0</number>
 						</property>
 						<property name="bottomMargin">
-							<number>6</number>
+							<number>8</number>
 						</property>
 						<item>
 							<layout class="QVBoxLayout" name="verticalLayoutCoinControl" stretch="0,0,0,0,1">
 								<property name="spacing">
 									<number>0</number>
 								</property>
-								<property name="leftMargin">
-									<number>10</number>
-								</property>
-								<property name="topMargin">
-									<number>10</number>
-								</property>
-								<item>
-									<layout class="QHBoxLayout" name="horizontalLayoutCoinControl1">
-										<property name="bottomMargin">
-											<number>15</number>
-										</property>
-										<item>
-											<widget class="QLabel" name="labelCoinControlFeatures">
-												<property name="sizePolicy">
-													<sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-														<horstretch>0</horstretch>
-														<verstretch>0</verstretch>
-													</sizepolicy>
-												</property>
-												<property name="text">
-													<string>Coin Control Features</string>
-												</property>
-											</widget>
-										</item>
-									</layout>
-								</item>
+								
 								<item>
 									<layout class="QHBoxLayout" name="horizontalLayoutCoinControl2" stretch="0,0,0,0">
 										<property name="spacing">
@@ -212,6 +193,51 @@
 													</size>
 												</property>
 											</spacer>
+										</item>
+                                        	<item>
+											<widget class="QCheckBox" name="checkBoxCoinControlChange">
+												<property name="toolTip">
+													<string>If this is activated, but the change address is empty or invalid, change will be sent to a newly generated address.</string>
+												</property>
+												<property name="text">
+													<string>Custom change address</string>
+												</property>
+											</widget>
+										</item>
+										<item>
+											<widget class="QValidatedLineEdit" name="lineEditCoinControlChange">
+												<property name="enabled">
+													<bool>false</bool>
+												</property>
+												<property name="sizePolicy">
+													<sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+														<horstretch>0</horstretch>
+														<verstretch>0</verstretch>
+													</sizepolicy>
+												</property>
+											</widget>
+										</item>
+										<item>
+											<widget class="QLabel" name="labelCoinControlChangeLabel">
+												<property name="sizePolicy">
+													<sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+														<horstretch>0</horstretch>
+														<verstretch>0</verstretch>
+													</sizepolicy>
+												</property>
+												<property name="minimumSize">
+													<size>
+														<width>0</width>
+														<height>0</height>
+													</size>
+												</property>
+												<property name="text">
+													<string/>
+												</property>
+												<property name="margin">
+													<number>3</number>
+												</property>
+											</widget>
 										</item>
 									</layout>
 								</item>
@@ -569,51 +595,7 @@
 										<property name="rightMargin">
 											<number>5</number>
 										</property>
-										<item>
-											<widget class="QCheckBox" name="checkBoxCoinControlChange">
-												<property name="toolTip">
-													<string>If this is activated, but the change address is empty or invalid, change will be sent to a newly generated address.</string>
-												</property>
-												<property name="text">
-													<string>Custom change address</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QValidatedLineEdit" name="lineEditCoinControlChange">
-												<property name="enabled">
-													<bool>false</bool>
-												</property>
-												<property name="sizePolicy">
-													<sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-														<horstretch>0</horstretch>
-														<verstretch>0</verstretch>
-													</sizepolicy>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QLabel" name="labelCoinControlChangeLabel">
-												<property name="sizePolicy">
-													<sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-														<horstretch>0</horstretch>
-														<verstretch>0</verstretch>
-													</sizepolicy>
-												</property>
-												<property name="minimumSize">
-													<size>
-														<width>0</width>
-														<height>0</height>
-													</size>
-												</property>
-												<property name="text">
-													<string/>
-												</property>
-												<property name="margin">
-													<number>3</number>
-												</property>
-											</widget>
-										</item>
+									
 									</layout>
 								</item>
 								<item>
@@ -634,29 +616,6 @@
 					</layout>
 				</widget>
 			</item>
-            <item>
-                <widget class="QFrame" name="frameRecipientHeader">
-                    <property name="frameShape">
-                        <enum>QFrame::StyledPanel</enum>
-                    </property>
-                    <property name="frameShadow">
-                        <enum>QFrame::Raised</enum>
-                    </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_42">
-                        <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_42">
-                                <item>
-                                    <widget class="QLabel" name="labelRecipients">
-                                        <property name="text">
-                                            <string>Recipient(s)</string>
-                                        </property>
-                                    </widget>
-                                </item>
-                            </layout>
-                        </item>
-                    </layout>
-                </widget>
-            </item>
             <item>
                 <layout class="QHBoxLayout">
                     <item>
@@ -1343,6 +1302,18 @@
 			</item>
 			<item>
 				<layout class="QHBoxLayout" name="horizontalLayout">
+                    <property name="leftMargin">
+                        <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                        <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                        <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                        <number>0</number>
+                    </property>
 					<item>
 						<widget class="QPushButton" name="sendButton">
 							<property name="minimumSize">

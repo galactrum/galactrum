@@ -177,6 +177,7 @@
         <file alias="cancel">res/icons/light/cancel.png</file>
         <file alias="info">res/icons/light/info.png</file>
         <file alias="cloak">res/icons/light/cloak.png</file>
+        <file alias="inputs">res/icons/light/inputs.png</file>
         <file alias="hidden">res/icons/light/hidden.png</file>
         <file alias="alert">res/icons/light/alert.png</file>
         <file alias="reset">res/icons/light/reset.png</file>
@@ -294,6 +295,10 @@
         <file alias="static">res/images/light/static.png</file>
         <file alias="splash">res/images/light/splash.png</file>
         <file alias="splash_testnet">res/images/light/splash_testnet.png</file>
+        <file alias="radio_checked">res/images/light/radio_checked.png</file>
+        <file alias="radio_unchecked">res/images/light/radio_unchecked.png</file>
+        <file alias="radio_disabled_checked">res/images/light/radio_disabled_checked.png</file>
+        <file alias="radio_disabled_unchecked">res/images/light/radio_disabled_unchecked.png</file>
     </qresource>
     <qresource prefix="/images/trad">
         <file alias="about">res/images/trad/about.png</file>

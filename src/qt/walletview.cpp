@@ -53,6 +53,7 @@ WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
     if (platformStyle->getImagesOnButtons()) {
         QString theme = GUIUtil::getThemeName();
         exportButton->setIcon(QIcon(":/icons/" + theme + "/export"));
+        exportButton->setIconSize(QSize(32, 32));
     }
     hbox_buttons->addStretch();
 
@@ -112,6 +113,8 @@ WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
 
     // Pass through messages from transactionView
     connect(transactionView, SIGNAL(message(QString,QString,unsigned int)), this, SIGNAL(message(QString,QString,unsigned int)));
+
+    
 }
 
 WalletView::~WalletView()
@@ -136,6 +139,8 @@ void WalletView::setBitcoinGUI(BitcoinGUI *gui)
 
         // Connect HD enabled state signal
         connect(this, SIGNAL(hdEnabledStatusChanged(int)), gui, SLOT(setHDStatus(int)));
+        connect(toolsPage, SIGNAL(handleRestart(QStringList)), gui, SLOT(handleRestart(QStringList)));
+
     }
 }
 

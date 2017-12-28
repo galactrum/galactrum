@@ -14,9 +14,22 @@
 			<string>Settings</string>
 		</property>
         <layout class="QVBoxLayout" name="topLayout">
+            <property name="leftMargin">
+                <number>5</number>
+            </property>
+            <property name="topMargin">
+                <number>20</number>
+            </property>
+            <property name="rightMargin">
+                <number>5</number>
+            </property>
+            <property name="bottomMargin">
+                <number>0</number>
+            </property>
             <item>
                 <widget class="QFrame" name="frameNav">
                     <layout class="QVBoxLayout" name="navButtons">
+                        
                         <item>
                             <widget class="QFrame" name="frameNavMain">
                                 <layout class="QHBoxLayout">
@@ -234,6 +247,18 @@
                             <enum>QFrame::Raised</enum>
                         </property>
                         <layout class="QVBoxLayout">
+                            <property name="leftMargin">
+                                <number>77</number>
+                            </property>
+                            <property name="topMargin">
+                                <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                                <number>77</number>
+                            </property>
+                            <property name="bottomMargin">
+                                <number>0</number>
+                            </property>
                             <item>
                                 <widget class="QFrame" name="frameMain">
                                     <property name="frameShape">

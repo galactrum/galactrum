@@ -13,7 +13,6 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    //return HashX11(BEGIN(nVersion), END(nNonce));
     uint256 hash;
     lyra2re2_hash(BEGIN(nVersion), BEGIN(hash));
     return hash;

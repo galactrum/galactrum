@@ -55,6 +55,8 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *platformStyle, QWidget *pa
         ui->openURIButton->setIcon(QIcon(":/icons/" + theme + "/browse"));
         ui->buttonMinimizeFee->setIcon(QIcon(":/icons/light/hidden"));
         ui->buttonChooseFee->setIcon(QIcon(":/icons/light/fee"));
+        ui->pushButtonCoinControl->setIcon(QIcon(":/icons/light/inputs"));
+        ui->pushButtonCoinControl->setIconSize(QSize(32, 32));
         ui->sendButton->setIconSize(QSize(32, 32));
         ui->addButton->setIconSize(QSize(32, 32));
         ui->clearButton->setIconSize(QSize(32, 32));
