@@ -177,6 +177,7 @@
         <file alias="cancel">res/icons/light/cancel.png</file>
         <file alias="info">res/icons/light/info.png</file>
         <file alias="cloak">res/icons/light/cloak.png</file>
+        <file alias="inputs">res/icons/light/inputs.png</file>
         <file alias="hidden">res/icons/light/hidden.png</file>
         <file alias="alert">res/icons/light/alert.png</file>
         <file alias="reset">res/icons/light/reset.png</file>

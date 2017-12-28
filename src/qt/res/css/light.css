@@ -5,7 +5,7 @@ padding-top: 0px;
 padding-bottom: 20px;
 }
 #Intro {
-    background: #181818;
+    background: #282828;
 }
 #frameStatusBarLeft {
     height: 30px;
@@ -83,8 +83,7 @@ QPushButton#buttonOpen3
 #labelWalletBalance,
 #labelWalletSecurity,
 #labelPrivateSendHeader,
-#labelCoinControlFeatures,
-#labelRecipients,
+#labelRequestedPaymentsHistory,
 
 #labelSettingsStartup,
 #labelSettingsTray,
@@ -127,6 +126,8 @@ QWidget#ReceiveCoinsDialog .QFrame#frame .QLabel#label_6,  /* Requested Payments
 #labelSettingsNode
 {
     margin-bottom: 10px;
+    padding-left: 0px;
+    margin-left: 0px;
 }
 
 #labelSettingsTray,
@@ -140,38 +141,16 @@ QWidget#ReceiveCoinsDialog .QFrame#frame .QLabel#label_6,  /* Requested Payments
 #labelSettingsNode
 {
     padding-top: 35px;
-    padding-left: 0px;
     margin-left: 0px;
+}
+
+#labelRequestedPaymentsHistory {
+    margin-top: 20px;
 }
 
 .QFrame {
 background-color:transparent;
 border:0px solid #fff;
-}
-
-QMenuBar {
-background-color: #fff;
-}
-
-QMenuBar::item {
-background-color:#fff;
-}
-
-QMenuBar::item:selected {
-background-color:#f8f6f6;
-}
-
-QMenu {
-background-color:#f8f6f6;
-}
-
-QMenu::item {
-color:#333;
-}
-
-QMenu::item:selected {
-background-color:#f2f0f0;
-color:#333;
 }
 
 QToolBar {
@@ -188,15 +167,13 @@ font-size: 15px;
 min-height:2.5em;
 min-width: 5.5em;
 padding: 0em 0.5em;
-/*font-weight:bold;*/
 color:#ddd;
 }
 
 QToolBar > QToolButton:checked {
     background-color: #181818;
-
-color:#fff;
-font-weight:bold;
+    color:#ddd;
+    font-weight:bold;
 }
 
 QMessageBox {
@@ -244,17 +221,17 @@ font-size:12px;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color:#375a7f;
-border:0px solid#375a7f;
-border-radius:3px;
-color:#ddd;
-font-size: 16px;
-font-weight:normal;
-height: 26px;
-padding-left:10px;
-padding-right:10px;
-padding-top:8px;
-padding-bottom:8px;
+    background-color:#375a7f;
+    border:0px solid#375a7f;
+    border-radius:3px;
+    color:#ddd;
+    font-size: 16px;
+    font-weight:normal;
+    height: 26px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:8px;
+    padding-bottom:8px;
 }
 
 QPushButton:hover {
@@ -372,16 +349,16 @@ padding-left:1px;
 QComboBox QAbstractItemView::item { margin:4px; }
 
 QComboBox::item {
-color:#ddd;;
+    color:#ddd;
 }
 
 QComboBox::item:alternate {
-background:#fff;
+background:#282828;
 }
 
 QComboBox::item:selected {
 border:0px solid transparent;
-background:#f2f2f2;
+background:#282828;
 }
 
 QComboBox::indicator {
@@ -515,11 +492,11 @@ font-size: 13px;
 }
 
 QTableView::item { /* Table Item */
-    background-color: #111;
-    border-bottom:1px solid #444;
+    background-color: #121212;
+    /*border-bottom:1px solid #444;
     border-left: 1px solid #444;
-    border-top: 0px solid #000;
-    border-right: 0px solid #000;
+    /*border-top: 0px solid #000;
+    border-right: 0px solid #000;*/
     font-size: 13px;
     color: #ddd;
 }
@@ -621,7 +598,7 @@ background-image: url(':/images/light/drkblue_rightArrow_small');
 #tableWidgetMasternodes,
 #tableWidgetMyMasternodes 
 {
-    background: #000
+    background: #181818;
 }
 
 #promptIcon {
@@ -644,8 +621,8 @@ background-image: url(':/images/light/drkblue_rightArrow_small');
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
     border-left: 1px solid #222;
-    border-bottom: 1px solid #414141;
-    border-right: 1px solid #515151;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #383838;
 }
 QTabWidget::tab-bar
 {
@@ -715,7 +692,7 @@ color:#333;
 
 QDialog .QTabWidget .QWidget {
 background-color:transparent;
-color:#fff;
+color:#ddd;
 }
 
 QDialog .QTabWidget .QWidget QAbstractSpinBox {
@@ -902,18 +879,6 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 border:0;
 }
 
-/* About Galactrum Dialog */
-QDialog#AboutDialog {
-background-color:#F8F6F6;
-}
-
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Galactrum Contents */
-margin-left:10px;
-}
-
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Galactrum text */
-margin-right:10px;
-}
 
 /* Edit Address Dialog */
 QDialog#EditAddressDialog {
@@ -1093,7 +1058,7 @@ background-color:transparent;
 }
 
 QWidget#contentWidget { /* The actual content with the text/buttons/etc... */
-    background: #000;
+    background: #282828;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
@@ -1319,9 +1284,6 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlPriorityText { /* Coin Control
 padding-left:15px;
 }
 
-QDialog#CoinControlDialog .QLabel#labelCoinControlPriority { /* Coin Control Priority */
-}
-
 QDialog#CoinControlDialog .QLabel#labelCoinControlFeeText { /* Coin Control Fee Label */
 min-height:30px;
 padding-left:15px;
@@ -1333,9 +1295,6 @@ min-height:30px;
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutputText { /* Coin Control Low Output Label */
 padding-left:15px;
-}
-
-QDialog#CoinControlDialog .QLabel#labelCoinControlLowOutput { /* Coin Control Low Output */
 }
 
 QDialog#CoinControlDialog .QLabel#labelCoinControlAfterFeeText { /* Coin Control After Fee Label */
@@ -1351,10 +1310,6 @@ QDialog#CoinControlDialog .QLabel#labelCoinControlChangeText { /* Coin Control C
 padding-left:15px;
 }
 
-QDialog#CoinControlDialog .QLabel#labelCoinControlChange { /* Coin Control Change */
-
-}
-
 QDialog#CoinControlDialog .QFrame#frame .QPushButton#pushButtonSelectAll { /* (un)select all button */
 padding-left:10px;
 padding-right:10px;
@@ -1365,9 +1320,6 @@ QDialog#CoinControlDialog .QFrame#frame .QPushButton#pushButtonToggleLock { /* T
 padding-left:10px;
 padding-right:10px;
 min-height:25px;
-}
-
-QDialog#CoinControlDialog .QDialogButtonBox#buttonBox QPushButton { /* Coin Control 'OK' button */
 }
 
 QDialog#CoinControlDialog .QFrame#frame .QRadioButton#radioTreeMode { /* Coin Control Tree Mode Selector */
@@ -1386,46 +1338,22 @@ color:transparent;
 
 QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget { /* Coin Control Widget Container */
 outline:0;
-background-color:#000;
+background-color:#121212;
+alternate-background-color: #181818;
 border:0px solid #818181;
 }
 
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item {
-}
-/*
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:selected { /* Coin Control Item (selected) 
-background-color:#f7f7f7;
-color:#333;
+
+QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:selected { /* Coin Control Item (selected) */
+background-color:#282828;
+color:#ddd;
 }
 
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:checked { /* Coin Control Item (checked) 
-background-color:#f7f7f7;
-color:#333;
+QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::item:checked { /* Coin Control Item (checked) */
+background-color:#282828;
+color:#ddd;
 }
 
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::branch:selected { /* Coin Control Branch Icon 
-background-image: url(':/images/light/drkblue_qtreeview_selected');
-background-repeat:no-repeat;
-background-position:center;
-background-color:#f7f7f7;
-color:#333;
-}
-
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::branch:checked { /* Coin Control Branch Icon 
-background-image: url(':/images/light/drkblue_qtreeview_selected');
-background-repeat:no-repeat;
-background-position:center;
-background-color:#f7f7f7;
-color:#333;
-}*/
-
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::seperator {
-
-}
-
-QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::indicator { /* Coin Control Widget Checkbox */
-
-}
 
 /* RECEIVE COINS */
 
@@ -1434,8 +1362,6 @@ background-color:#F8F6F6;
 border: 1px solid #fff;
 min-width:102px;
 color:#333;
-/*font-weight:bold;
-font-size:11px;*/
 padding-right:5px;
 }
 
@@ -1444,8 +1370,6 @@ background-color:#999;
 border: 1px solid #fff;
 min-width:102px;
 color:#ffffff;
-/*font-weight:bold;
-font-size:11px;*/
 padding-right:5px;
 }
 
@@ -1454,14 +1378,11 @@ background-color:#F8F6F6;
 border: 1px solid #fff;
 min-width:102px;
 color:#333;
-/*font-weight:bold;
-font-size:11px;*/
 padding-right:5px;
 }
 
 
 /* RECEIVE COINS DIALOG */
-
 QDialog#ReceiveRequestDialog {
     background-image: url(":/images/light/static");
     background-color: #222;
@@ -1472,7 +1393,6 @@ border:1px solid #d7d7d7;
 }
 
 /* TRANSACTIONS PAGE */
-
 TransactionView QLineEdit { /* Filters */
 margin-bottom:2px;
 margin-right:1px;

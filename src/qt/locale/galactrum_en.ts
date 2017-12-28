@@ -3442,7 +3442,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
     <message>
         <location line="+20"/>
         <source>Inputs...</source>
-        <translation>Inputs...</translation>
+        <translation>ORE Inputs...</translation>
     </message>
     <message>
         <location line="+10"/>

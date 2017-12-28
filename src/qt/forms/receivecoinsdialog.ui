@@ -11,6 +11,9 @@
 			</rect>
 		</property>
 		<layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,1">
+            <property name="bottomMargin">
+                <number>0</number>
+            </property>
             <item>
                 <widget class="QFrame" name="frameSendTopButton">
 					<property name="sizePolicy">
@@ -32,6 +35,18 @@
 						<enum>QFrame::Sunken</enum>
 					</property>
 					<layout class="QHBoxLayout" name="topSendButtons">
+                         <property name="topMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                            <number>20</number>
+                        </property>
+                        <property name="leftMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                            <number>0</number>
+                        </property>
                         <item>
                             <spacer name="horizontalSpacerWalletSecruity">
                                 <property name="orientation">
@@ -207,64 +222,77 @@
 						<enum>QFrame::Sunken</enum>
 					</property>
 					<layout class="QVBoxLayout" name="verticalLayout_3_2">
+                        <property name="leftMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                            <number>0</number>
+                        </property>
                     	<item>
-							<layout class="QGridLayout" name="gridLayout">
-                                <item row="0" column="2">
-									<layout class="QHBoxLayout" name="horizontalLayout">
-										<item>
-											<widget class="QPushButton" name="receiveButton">
-												<property name="minimumSize">
-													<size>
-														<width>150</width>
-														<height>0</height>
-													</size>
-												</property>
-												<property name="text">
-													<string>&amp;Request payment</string>
-												</property>
-											</widget>
-										</item>
-                                        <item>
-											<spacer name="horizontalSpacer">
-												<property name="orientation">
-													<enum>Qt::Horizontal</enum>
-												</property>
-												<property name="sizeHint" stdset="0">
-													<size>
-														<width>40</width>
-														<height>20</height>
-													</size>
-												</property>
-											</spacer>
-										</item>
-										<item>
-											<widget class="QPushButton" name="clearButton">
-												<property name="sizePolicy">
-													<sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-														<horstretch>0</horstretch>
-														<verstretch>0</verstretch>
-													</sizepolicy>
-												</property>
-												<property name="toolTip">
-													<string>Clear all fields of the form.</string>
-												</property>
-												<property name="text">
-													<string>Clear</string>
-												</property>
-												<property name="autoDefault">
-													<bool>false</bool>
-												</property>
-											</widget>
-										</item>
-									</layout>
-								</item>
-								<item row="0" column="0">
-									<widget class="QLabel" name="label_7">
-										<property name="text">
-											<string/>
-										</property>
-									</widget>
-								</item>
+                            <layout class="QHBoxLayout" name="horizontalLayout">
+                                <property name="leftMargin">
+                                    <number>0</number>
+                                </property>
+                                <property name="topMargin">
+                                    <number>0</number>
+                                </property>
+                                <property name="rightMargin">
+                                    <number>0</number>
+                                </property>
+                                <property name="bottomMargin">
+                                    <number>0</number>
+                                </property>
+                                <item>
+                                    <widget class="QPushButton" name="receiveButton">
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>150</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Request payment</string>
+                                        </property>
+                                    </widget>
+                                </item>
+                                <item>
+                                    <spacer name="horizontalSpacer">
+                                        <property name="orientation">
+                                            <enum>Qt::Horizontal</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                            <size>
+                                                <width>40</width>
+                                                <height>20</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </item>
+                                <item>
+                                    <widget class="QPushButton" name="clearButton">
+                                        <property name="sizePolicy">
+                                            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="toolTip">
+                                            <string>Clear all fields of the form.</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>Clear</string>
+                                        </property>
+                                        <property name="autoDefault">
+                                            <bool>false</bool>
+                                        </property>
+                                    </widget>
+                                </item>
                             </layout>
                         </item>
                     </layout>
@@ -298,8 +326,17 @@
 						<enum>QFrame::Raised</enum>
 					</property>
 					<layout class="QVBoxLayout" name="verticalLayout_2">
+                        <property name="leftMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                            <number>0</number>
+                        </property>
 						<item>
-							<widget class="QLabel" name="label_6">
+							<widget class="QLabel" name="labelRequestedPaymentsHistory">
 								<property name="font">
 									<font>
 										<weight>75</weight>

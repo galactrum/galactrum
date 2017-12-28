@@ -134,6 +134,7 @@ ToolsPage::ToolsPage(const PlatformStyle *platformStyle, QWidget *parent) :
     QString theme = GUIUtil::getThemeName();
     if (platformStyle->getImagesOnButtons()) {
         ui->openDebugLogfileButton->setIcon(QIcon(":/icons/" + theme + "/export"));
+        ui->openDebugLogfileButton->setIconSize(QSize(32, 32));
     }
     // Needed on Mac also
     ui->clearButton->setIcon(QIcon(":/icons/" + theme + "/remove"));
