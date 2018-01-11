@@ -121,7 +121,7 @@ public:
         vAlertPubKey = ParseHex("04eed16de56e61f04c08215d0458d9d1da41532d4265c335f2c341c76787e2f7285556a7a670a15495e30d0c52190e1a6c27fb66701e7cb8b39a69f6d8c10144db");
 
         nDefaultPort = 6270;
-        nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
+        nMaxTipAge = 72 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
