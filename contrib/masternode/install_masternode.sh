@@ -118,19 +118,19 @@ if [[ ("$UFW" == "y" || "$UFW" == "Y" || "$UFW" == "") ]]; then
 fi
 
 # Download Galactrum
-echo && echo "Downloading Galactrum v1.1.3..."
+echo && echo "Downloading Galactrum v1.1.5..."
 sleep 3
-wget https://github.com/galactrum/galactrum/releases/download/v1.1.3/galactrum-1.1.3-ubuntu16.04-server.tar.gz
-tar -xvf galactrum-1.1.3-ubuntu16.04-server.tar.gz
-rm galactrum-1.1.3-ubuntu16.04-server.tar.gz
+wget https://github.com/galactrum/galactrum/releases/download/v1.1.5/galactrum-1.1.5-linux64.tar.gz
+tar -xvf galactrum-1.1.5-linux64.tar.gz
+rm galactrum-1.1.5-linux64.tar.gz
 
 # Install Galactrum
-echo && echo "Installing Galactrum v1.1.3..."
+echo && echo "Installing Galactrum v1.1.5..."
 sleep 3
-sudo mv galactrum{d,-cli} /usr/local/bin
+sudo mv galactrum-1.1.5/bin/galactrum{d,-cli} /usr/local/bin
 
 # Create config for Galactrum
-echo && echo "Configuring Galactrum v1.1.3..."
+echo && echo "Configuring Galactrum v1.1.5..."
 sleep 3
 rpcuser=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
 rpcpassword=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
