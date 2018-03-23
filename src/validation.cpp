@@ -1242,7 +1242,14 @@ CAmount GetBlockSubsidy(int nPrevHeight, const Consensus::Params& consensusParam
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
-    return blockValue / 2; // Half of reward goes to masternodes
+    if (nHeight < 90000) {
+        return blockValue / 2;
+    } else if (nHeight < 100000) {
+        return blockValue * 0.6;
+    } else if (nHeight < 110000) {
+        return blockValue * 0.7
+    }
+    return blockValue * 0.8;
 }
 
 
