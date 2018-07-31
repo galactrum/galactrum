@@ -185,6 +185,7 @@ pip install -r requirements.txt
 export EDITOR=nano
 (crontab -l -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -u masternode -
 sudo chown -R masternode:masternode /home/masternode/sentinel
+echo "galactrum_conf=/home/masternode/.galactrum/galactrum.conf" | tee -a /home/masternode/sentinel/test/test_sentinel.conf
 cd ~
 
 # Add alias to run galactrum-cli
