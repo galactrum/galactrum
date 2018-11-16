@@ -108,6 +108,28 @@ void WalletFrame::showOutOfSyncWarning(bool fShow)
         i.value()->showOutOfSyncWarning(fShow);
 }
 
+void WalletFrame::gotoSettingsPage()
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
+        i.value()->gotoSettingsPage();
+}
+
+void WalletFrame::gotoToolsPage()
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
+        i.value()->gotoToolsPage();
+}
+
+void WalletFrame::gotoToolsPageTab(enum ToolsPage::TabTypes page)
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
+        i.value()->gotoToolsPageTab(page);
+}
+
+
 void WalletFrame::gotoOverviewPage()
 {
     QMap<QString, WalletView*>::const_iterator i;

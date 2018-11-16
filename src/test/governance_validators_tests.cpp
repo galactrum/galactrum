@@ -6,7 +6,7 @@
 #include "data/proposals_valid.json.h"
 #include "data/proposals_invalid.json.h"
 
-#include "test/test_dash.h"
+#include "test/test_galactrum.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,7 +28,7 @@ std::string CreateEncodedProposalObject(const UniValue& objJSON)
 
     UniValue outerArray(UniValue::VARR);
     outerArray.push_back(innerArray);
-    
+
     std::string strData = outerArray.write();
     std::string strHex = HexStr(strData);
     return strHex;

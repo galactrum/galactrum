@@ -38,23 +38,23 @@ UniValue privatesend(const JSONRPCRequest& request)
 
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
-            "privatesend \"command\"\n"
+            "cloaking \"command\"\n"
             "\nArguments:\n"
             "1. \"command\"        (string or set of strings, required) The command to execute\n"
             "\nAvailable commands:\n"
-            "  start       - Start mixing\n"
-            "  stop        - Stop mixing\n"
-            "  reset       - Reset mixing\n"
+            "  start       - Start cloaking\n"
+            "  stop        - Stop cloaking\n"
+            "  reset       - Reset cloaking\n"
             );
 
     if(fMasternodeMode)
-        throw JSONRPCError(RPC_INTERNAL_ERROR, "Client-side mixing is not supported on masternodes");
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Client-side cloaking is not supported on masternodes");
 
     if(request.params[0].get_str() == "start") {
         {
             LOCK(pwalletMain->cs_wallet);
             if (pwalletMain->IsLocked(true))
-                throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please unlock wallet for mixing with walletpassphrase first.");
+                throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please unlock wallet for cloaking with walletpassphrase first.");
         }
 
         privateSendClient.fEnablePrivateSend = true;
@@ -72,7 +72,7 @@ UniValue privatesend(const JSONRPCRequest& request)
         return "Mixing was reset";
     }
 
-    return "Unknown command, please see \"help privatesend\"";
+    return "Unknown command, please see \"help cloaking\"";
 }
 #endif // ENABLE_WALLET
 
@@ -81,14 +81,14 @@ UniValue getpoolinfo(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() != 0)
         throw std::runtime_error(
             "getpoolinfo\n"
-            "Returns an object containing mixing pool related information.\n");
+            "Returns an object containing cloaking pool related information.\n");
 
 #ifdef ENABLE_WALLET
     CPrivateSendBase* pprivateSendBase = fMasternodeMode ? (CPrivateSendBase*)&privateSendServer : (CPrivateSendBase*)&privateSendClient;
 
     UniValue obj(UniValue::VOBJ);
     obj.push_back(Pair("state",             pprivateSendBase->GetStateString()));
-    obj.push_back(Pair("mixing_mode",       (!fMasternodeMode && privateSendClient.fPrivateSendMultiSession) ? "multi-session" : "normal"));
+    obj.push_back(Pair("cloaking_mode",       (!fMasternodeMode && privateSendClient.fPrivateSendMultiSession) ? "multi-session" : "normal"));
     obj.push_back(Pair("queue",             pprivateSendBase->GetQueueSize()));
     obj.push_back(Pair("entries",           pprivateSendBase->GetEntriesCount()));
     obj.push_back(Pair("status",            privateSendClient.GetStatus()));
@@ -514,7 +514,7 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 "  lastpaidblock  - Print the last block height a node was paid on the network\n"
                 "  lastpaidtime   - Print the last time a node was paid on the network\n"
                 "  lastseen       - Print timestamp of when a masternode was last seen on the network\n"
-                "  payee          - Print Dash address associated with a masternode (can be additionally filtered,\n"
+                "  payee          - Print Galactrum address associated with a masternode (can be additionally filtered,\n"
                 "                   partial match)\n"
                 "  protocol       - Print protocol of a masternode (can be additionally filtered, exact match)\n"
                 "  pubkey         - Print the masternode (not collateral) public key\n"
@@ -930,13 +930,13 @@ UniValue sentinelping(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    { "dash",               "masternode",             &masternode,             true,  {} },
-    { "dash",               "masternodelist",         &masternodelist,         true,  {} },
-    { "dash",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
-    { "dash",               "getpoolinfo",            &getpoolinfo,            true,  {} },
-    { "dash",               "sentinelping",           &sentinelping,           true,  {} },
+    { "galactrum",               "masternode",             &masternode,             true,  {} },
+    { "galactrum",               "masternodelist",         &masternodelist,         true,  {} },
+    { "galactrum",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
+    { "galactrum",               "getpoolinfo",            &getpoolinfo,            true,  {} },
+    { "galactrum",               "sentinelping",           &sentinelping,           true,  {} },
 #ifdef ENABLE_WALLET
-    { "dash",               "privatesend",            &privatesend,            false, {} },
+    { "galactrum",               "cloaking",            &privatesend,            false, {} },
 #endif // ENABLE_WALLET
 };
 

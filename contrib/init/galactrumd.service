@@ -1,0 +1,22 @@
+[Unit]
+Description=Galactrum's distributed currency daemon
+After=network.target
+
+[Service]
+User=galactrum
+Group=galactrum
+
+Type=forking
+PIDFile=/var/lib/galactrumd/galactrumd.pid
+ExecStart=/usr/bin/galactrumd -daemon -pid=/var/lib/galactrumd/galactrumd.pid \
+-conf=/etc/galactrum/galactrum.conf -datadir=/var/lib/galactrumd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

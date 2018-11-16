@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Galactrum
+Comment=Galactrum P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Galactrum peer-to-peer Netzwerk
+Comment[fr]=Galactrum, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Galactrum, eşten eşe kriptografik sanal para birimi
+Exec=galactrum-qt %u
+Terminal=false
+Type=Application
+Icon=galactrum128
+MimeType=x-scheme-handler/galactrum;
+Categories=Office;Finance;

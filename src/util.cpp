@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "util.h"
@@ -108,7 +108,7 @@ namespace boost {
 
 
 
-//Dash only features
+//Galactrum only features
 bool fMasternodeMode = false;
 bool fLiteMode = false;
 /**
@@ -120,8 +120,8 @@ bool fLiteMode = false;
 */
 int nWalletBackups = 10;
 
-const char * const BITCOIN_CONF_FILENAME = "dash.conf";
-const char * const BITCOIN_PID_FILENAME = "dashd.pid";
+const char * const BITCOIN_CONF_FILENAME = "galactrum.conf";
+const char * const BITCOIN_PID_FILENAME = "galactrumd.pid";
 
 CCriticalSection cs_args;
 std::map<std::string, std::string> mapArgs;
@@ -133,7 +133,6 @@ bool fPrintToDebugLog = true;
 bool fLimitDebugLogSize = true;
 bool fDaemon = false;
 bool fServer = false;
-string strMiscWarning;
 bool fLogTimestamps = DEFAULT_LOGTIMESTAMPS;
 bool fLogTimeMicros = DEFAULT_LOGTIMEMICROS;
 bool fLogThreadNames = DEFAULT_LOGTHREADNAMES;
@@ -242,7 +241,6 @@ void OpenDebugLog()
     boost::filesystem::path pathDebug = GetDebugLogPath();
     assert(debugLogFp == NULL);
     assert(vMsgsBeforeOpenLog);
-    boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
     debugLogFp = fopen(pathDebug.string().c_str(), "a");
     if (debugLogFp) {
         setbuf(debugLogFp, NULL); // unbuffered
@@ -285,9 +283,9 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "dash" is a composite category enabling all Dash-related debug output
-                if(ptrCategory->count(std::string("dash"))) {
-                    ptrCategory->insert(std::string("privatesend"));
+                // "galactrum" is a composite category enabling all Galactrum-related debug output
+                if(ptrCategory->count(std::string("galactrum"))) {
+                    ptrCategory->insert(std::string("cloaking"));
                     ptrCategory->insert(std::string("instantsend"));
                     ptrCategory->insert(std::string("masternode"));
                     ptrCategory->insert(std::string("spork"));
@@ -546,7 +544,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "dash";
+    const char* pszModule = "galactrum";
 #endif
     if (pex)
         return strprintf(
@@ -566,13 +564,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\DashCore
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\DashCore
-    // Mac: ~/Library/Application Support/DashCore
-    // Unix: ~/.dashcore
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Galactrum
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Galactrum
+    // Mac: ~/Library/Application Support/Galactrum
+    // Unix: ~/.galactrum
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "DashCore";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Galactrum";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -582,10 +580,10 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/DashCore";
+    return pathRet / "Library/Application Support/Galactrum";
 #else
     // Unix
-    return pathRet / ".dashcore";
+    return pathRet / ".galactrum";
 #endif
 #endif
 }
@@ -663,7 +661,7 @@ void ReadConfigFile(const std::string& confPath)
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good()){
-        // Create empty dash.conf if it does not excist
+        // Create empty galactrum.conf if it does not excist
         FILE* configFile = fopen(GetConfigFile(confPath).string().c_str(), "a");
         if (configFile != NULL)
             fclose(configFile);
@@ -677,7 +675,7 @@ void ReadConfigFile(const std::string& confPath)
 
         for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
         {
-            // Don't overwrite existing settings so command line settings override dash.conf
+            // Don't overwrite existing settings so command line settings override galactrum.conf
             std::string strKey = std::string("-") + it->string_key;
             std::string strValue = it->value[0];
             InterpretNegativeSetting(strKey, strValue);

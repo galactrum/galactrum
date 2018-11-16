@@ -3,29 +3,29 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += qt/dash-qt
-EXTRA_LIBRARIES += qt/libdashqt.a
+bin_PROGRAMS += qt/galactrum-qt
+EXTRA_LIBRARIES += qt/libgalactrumqt.a
 
-# dash qt core #
+# galactrum qt core #
 QT_TS = \
-  qt/locale/dash_bg.ts \
-  qt/locale/dash_de.ts \
-  qt/locale/dash_en.ts \
-  qt/locale/dash_es.ts \
-  qt/locale/dash_fi.ts \
-  qt/locale/dash_fr.ts \
-  qt/locale/dash_it.ts \
-  qt/locale/dash_ja.ts \
-  qt/locale/dash_nl.ts \
-  qt/locale/dash_pl.ts \
-  qt/locale/dash_pt.ts \
-  qt/locale/dash_pt_BR.ts \
-  qt/locale/dash_ru.ts \
-  qt/locale/dash_sk.ts \
-  qt/locale/dash_sv.ts \
-  qt/locale/dash_vi.ts \
-  qt/locale/dash_zh_CN.ts \
-  qt/locale/dash_zh_TW.ts
+  qt/locale/galactrum_bg.ts \
+  qt/locale/galactrum_de.ts \
+  qt/locale/galactrum_en.ts \
+  qt/locale/galactrum_es.ts \
+  qt/locale/galactrum_fi.ts \
+  qt/locale/galactrum_fr.ts \
+  qt/locale/galactrum_it.ts \
+  qt/locale/galactrum_ja.ts \
+  qt/locale/galactrum_nl.ts \
+  qt/locale/galactrum_pl.ts \
+  qt/locale/galactrum_pt.ts \
+  qt/locale/galactrum_pt_BR.ts \
+  qt/locale/galactrum_ru.ts \
+  qt/locale/galactrum_sk.ts \
+  qt/locale/galactrum_sv.ts \
+  qt/locale/galactrum_vi.ts \
+  qt/locale/galactrum_zh_CN.ts \
+  qt/locale/galactrum_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -47,7 +47,9 @@ QT_FORMS_UI = \
   qt/forms/sendcoinsdialog.ui \
   qt/forms/sendcoinsentry.ui \
   qt/forms/signverifymessagedialog.ui \
-  qt/forms/transactiondescdialog.ui
+  qt/forms/transactiondescdialog.ui \
+  qt/forms/settingspage.ui \
+  qt/forms/toolspage.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
@@ -97,23 +99,25 @@ QT_MOC_CPP = \
   qt/moc_utilitydialog.cpp \
   qt/moc_walletframe.cpp \
   qt/moc_walletmodel.cpp \
-  qt/moc_walletview.cpp
+  qt/moc_walletview.cpp \
+  qt/moc_toolspage.cpp \
+  qt/moc_settingspage.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/dash.moc \
+  qt/galactrum.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_dash.cpp
-QT_QRC = qt/dash.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_dash_locale.cpp
-QT_QRC_LOCALE = qt/dash_locale.qrc
+QT_QRC_CPP = qt/qrc_galactrum.cpp
+QT_QRC = qt/galactrum.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_galactrum_locale.cpp
+QT_QRC_LOCALE = qt/galactrum_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -175,7 +179,9 @@ BITCOIN_QT_H = \
   qt/walletmodel.h \
   qt/walletmodeltransaction.h \
   qt/walletview.h \
-  qt/winshutdownmonitor.h
+  qt/winshutdownmonitor.h \
+  qt/settingspage.h \
+  qt/toolspage.h
 
 RES_ICONS = \
   qt/res/icons/bitcoin.ico \
@@ -452,7 +458,76 @@ RES_ICONS = \
   qt/res/icons/trad/verify.png \
   qt/res/icons/trad/fontbigger.png \
   qt/res/icons/trad/fontsmaller.png \
-  qt/res/icons/trad/network_disabled.png
+  qt/res/icons/trad/network_disabled.png \
+  qt/res/icons/galactrum/add.png \
+  qt/res/icons/galactrum/address-book.png \
+  qt/res/icons/galactrum/browse.png \
+  qt/res/icons/galactrum/chevron-right.png \
+  qt/res/icons/galactrum/clock1.png \
+  qt/res/icons/galactrum/clock2.png \
+  qt/res/icons/galactrum/clock3.png \
+  qt/res/icons/galactrum/clock4.png \
+  qt/res/icons/galactrum/clock5.png \
+  qt/res/icons/galactrum/configure.png \
+  qt/res/icons/galactrum/connect0_16.png \
+  qt/res/icons/galactrum/connect1_16.png \
+  qt/res/icons/galactrum/connect2_16.png \
+  qt/res/icons/galactrum/connect3_16.png \
+  qt/res/icons/galactrum/connect4_16.png \
+  qt/res/icons/galactrum/debugwindow.png \
+  qt/res/icons/galactrum/drkblue_editpaste.png \
+  qt/res/icons/galactrum/drkblue_address-book.png \
+  qt/res/icons/galactrum/drkblue_editcopy.png \
+  qt/res/icons/galactrum/drkblue_remove.png \
+  qt/res/icons/galactrum/edit.png \
+  qt/res/icons/galactrum/editcopy.png \
+  qt/res/icons/galactrum/editpaste.png \
+  qt/res/icons/galactrum/export.png \
+  qt/res/icons/galactrum/eye.png \
+  qt/res/icons/galactrum/eye_minus.png \
+  qt/res/icons/galactrum/eye_plus.png \
+  qt/res/icons/galactrum/filesave.png \
+  qt/res/icons/galactrum/hd_disabled.png \
+  qt/res/icons/galactrum/hd_enabled.png \
+  qt/res/icons/galactrum/history.png \
+  qt/res/icons/galactrum/key.png \
+  qt/res/icons/galactrum/lock_closed.png \
+  qt/res/icons/galactrum/lock_open.png \
+  qt/res/icons/galactrum/masternodes.png \
+  qt/res/icons/galactrum/overview.png \
+  qt/res/icons/galactrum/quit.png \
+  qt/res/icons/galactrum/receive.png \
+  qt/res/icons/galactrum/remove.png \
+  qt/res/icons/galactrum/send.png \
+  qt/res/icons/galactrum/synced.png \
+  qt/res/icons/galactrum/transaction0.png \
+  qt/res/icons/galactrum/transaction2.png \
+  qt/res/icons/galactrum/transaction_conflicted.png \
+  qt/res/icons/galactrum/tx_inout.png \
+  qt/res/icons/galactrum/tx_input.png \
+  qt/res/icons/galactrum/tx_output.png \
+  qt/res/icons/galactrum/tx_mined.png \
+  qt/res/icons/galactrum/about.png \
+  qt/res/icons/galactrum/about_qt.png \
+  qt/res/icons/galactrum/verify.png \
+  qt/res/icons/galactrum/fontbigger.png \
+  qt/res/icons/galactrum/fontsmaller.png \
+  qt/res/icons/galactrum/transaction_abandoned.png \
+  qt/res/icons/galactrum/network_disabled.png \
+  qt/res/icons/galactrum/wrench.png \
+  qt/res/icons/galactrum/pw.png \
+  qt/res/icons/galactrum/cancel.png \
+  qt/res/icons/galactrum/info.png \
+  qt/res/icons/galactrum/cloak.png \
+  qt/res/icons/galactrum/inputs.png \
+  qt/res/icons/galactrum/reset.png \
+  qt/res/icons/galactrum/hidden.png \
+  qt/res/icons/galactrum/alert.png \
+  qt/res/icons/galactrum/fee.png \
+  qt/res/icons/galactrum/user-add.png \
+  qt/res/icons/galactrum/remove-disabled.png \
+  qt/res/icons/galactrum/edit-disabled.png \
+  qt/res/icons/galactrum/stop.png
 
 BITCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
@@ -510,7 +585,9 @@ BITCOIN_QT_WALLET_CPP = \
   qt/walletframe.cpp \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
-  qt/walletview.cpp
+  qt/walletview.cpp \
+  qt/settingspage.cpp \
+  qt/toolspage.cpp
 
 BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
 if TARGET_WINDOWS
@@ -583,7 +660,27 @@ RES_IMAGES = \
   qt/res/images/trad/drkblue_leftArrow_small.png \
   qt/res/images/trad/drkblue_rightArrow_small.png \
   qt/res/images/trad/drkblue_qtreeview_selected.png \
-  qt/res/images/trad/drkblue_walletFrame_bg.png
+  qt/res/images/trad/drkblue_walletFrame_bg.png \
+  qt/res/images/galactrum/about.png \
+  qt/res/images/galactrum/splash.png \
+  qt/res/images/galactrum/splash_testnet.png \
+  qt/res/images/galactrum/galactrum_logo_horizontal.png \
+  qt/res/images/galactrum/unchecked.png \
+  qt/res/images/galactrum/checked.png \
+  qt/res/images/galactrum/drkblue_downArrow.png \
+  qt/res/images/galactrum/drkblue_downArrow_small.png \
+  qt/res/images/galactrum/drkblue_upArrow_small.png \
+  qt/res/images/galactrum/drkblue_leftArrow_small.png \
+  qt/res/images/galactrum/drkblue_rightArrow_small.png \
+  qt/res/images/galactrum/drkblue_qtreeview_selected.png \
+  qt/res/images/galactrum/drkblue_walletFrame_bg.png \
+  qt/res/images/galactrum/orchid222.png \
+  qt/res/images/galactrum/static.png \
+  qt/res/images/galactrum/radio_checked.png \
+  qt/res/images/galactrum/radio_unchecked.png \
+  qt/res/images/galactrum/radio_disabled_unchecked.png \
+  qt/res/images/galactrum/radio_disabled_checked.png
+
 
 RES_CSS = \
   qt/res/css/drkblue.css \
@@ -592,23 +689,24 @@ RES_CSS = \
   qt/res/css/light-hires.css \
   qt/res/css/light-retro.css \
   qt/res/css/light-hires-retro.css \
-  qt/res/css/trad.css
+  qt/res/css/trad.css \
+  qt/res/css/galactrum.css
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/dash-qt-res.rc
+BITCOIN_RC = qt/res/galactrum-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
 
-qt_libdashqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_libgalactrumqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_libdashqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libgalactrumqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_libdashqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+qt_libgalactrumqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
   $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES)
 
-nodist_qt_libdashqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+nodist_qt_libgalactrumqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
   $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
 
 # forms/foo.h -> forms/ui_foo.h
@@ -617,71 +715,71 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libdashqt_a_OBJECTS) $(qt_dash_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libgalactrumqt_a_OBJECTS) $(qt_galactrum_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# dash-qt binary #
-qt_dash_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# galactrum-qt binary #
+qt_galactrum_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_dash_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_galactrum_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_dash_qt_SOURCES = qt/dash.cpp
+qt_galactrum_qt_SOURCES = qt/galactrum.cpp
 if TARGET_DARWIN
-  qt_dash_qt_SOURCES += $(BITCOIN_MM)
+  qt_galactrum_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_dash_qt_SOURCES += $(BITCOIN_RC)
+  qt_galactrum_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_dash_qt_LDADD = qt/libdashqt.a $(LIBBITCOIN_SERVER)
+qt_galactrum_qt_LDADD = qt/libgalactrumqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_dash_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_galactrum_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_dash_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_galactrum_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_dash_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_galactrum_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-qt_dash_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_dash_qt_LIBTOOLFLAGS = --tag CXX
+qt_galactrum_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_galactrum_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/dashstrings.cpp: $(libdash_server_a_SOURCES) $(libdash_wallet_a_SOURCES) $(libdash_common_a_SOURCES) $(libdash_zmq_a_SOURCES) $(libdash_consensus_a_SOURCES) $(libdash_util_a_SOURCES)
+$(srcdir)/qt/galactrumstrings.cpp: $(libgalactrum_server_a_SOURCES) $(libgalactrum_wallet_a_SOURCES) $(libgalactrum_common_a_SOURCES) $(libgalactrum_zmq_a_SOURCES) $(libgalactrum_consensus_a_SOURCES) $(libgalactrum_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" COPYRIGHT_HOLDERS="$(COPYRIGHT_HOLDERS)" COPYRIGHT_HOLDERS_SUBSTITUTION="$(COPYRIGHT_HOLDERS_SUBSTITUTION)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/dashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/dash.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: $(srcdir)/qt/galactrumstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/galactrum.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/dash_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/galactrum_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@cp -f $< $(@D)/temp_$(<F)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name dash_locale $(@D)/temp_$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name galactrum_locale $(@D)/temp_$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 	@rm $(@D)/temp_$(<F)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name dash $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) $(RCCFLAGS) -name galactrum $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libdashqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
+CLEAN_QT = $(nodist_qt_libgalactrumqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
-dash_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libdashqt_a_OBJECTS) $(qt_dash_qt_OBJECTS) qt/dash-qt$(EXEEXT) $(LIBBITCOINQT)
+galactrum_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libgalactrumqt_a_OBJECTS) $(qt_galactrum_qt_OBJECTS) qt/galactrum-qt$(EXEEXT) $(LIBBITCOINQT)
 
-dash_qt : qt/dash-qt$(EXEEXT)
+galactrum_qt : qt/galactrum-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

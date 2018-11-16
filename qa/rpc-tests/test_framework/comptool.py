@@ -8,7 +8,7 @@ from .blockstore import BlockStore, TxStore
 from .util import p2p_port
 
 '''
-This is a tool for comparing two or more dashds to each other
+This is a tool for comparing two or more galactrumds to each other
 using a script provided.
 
 To use, create a class that implements get_tests(), and pass it in
@@ -53,9 +53,9 @@ class TestNode(NodeConnCB):
         self.block_reject_map = {}
         self.tx_reject_map = {}
 
-        # When the pingmap is non-empty we're waiting for 
+        # When the pingmap is non-empty we're waiting for
         # a response
-        self.pingMap = {} 
+        self.pingMap = {}
         self.lastInv = []
         self.closed = False
 
@@ -150,7 +150,7 @@ class TestNode(NodeConnCB):
 #    nodes will be tested based on the outcome for the block.  If False,
 #    then inv's accumulate until all blocks are processed (or max inv size
 #    is reached) and then sent out in one inv message.  Then the final block
-#    will be synced across all connections, and the outcome of the final 
+#    will be synced across all connections, and the outcome of the final
 #    block will be tested.
 # sync_every_tx: analogous to behavior for sync_every_block, except if outcome
 #    on the final tx is None, then contents of entire mempool are compared

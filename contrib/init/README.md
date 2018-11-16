@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: dashd.service
-Upstart: dashd.conf
-OpenRC:  dashd.openrc
-         dashd.openrcconf
-CentOS:  dashd.init
-OS X:    org.dash.dashd.plist
+SystemD: galactrumd.service
+Upstart: galactrumd.conf
+OpenRC:  galactrumd.openrc
+         galactrumd.openrcconf
+CentOS:  galactrumd.init
+OS X:    org.galactrum.galactrumd.plist
 
 have been made available to assist packagers in creating node packages here.
 

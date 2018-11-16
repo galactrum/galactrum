@@ -93,11 +93,11 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
                                         TransactionFilterProxy::TYPE(TransactionRecord::RecvFromOther));
     typeWidget->addItem(tr("Sent to"), TransactionFilterProxy::TYPE(TransactionRecord::SendToAddress) |
                                   TransactionFilterProxy::TYPE(TransactionRecord::SendToOther));
-    typeWidget->addItem(tr("PrivateSend"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSend));
-    typeWidget->addItem(tr("PrivateSend Make Collateral Inputs"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendMakeCollaterals));
-    typeWidget->addItem(tr("PrivateSend Create Denominations"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendCreateDenominations));
-    typeWidget->addItem(tr("PrivateSend Denominate"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendDenominate));
-    typeWidget->addItem(tr("PrivateSend Collateral Payment"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendCollateralPayment));
+    typeWidget->addItem(tr("Cloaking"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSend));
+    typeWidget->addItem(tr("Cloaking Make Collateral Inputs"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendMakeCollaterals));
+    typeWidget->addItem(tr("Cloaking Create Denominations"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendCreateDenominations));
+    typeWidget->addItem(tr("Cloaking Denominate"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendDenominate));
+    typeWidget->addItem(tr("Cloaking Collateral Payment"), TransactionFilterProxy::TYPE(TransactionRecord::PrivateSendCollateralPayment));
     typeWidget->addItem(tr("To yourself"), TransactionFilterProxy::TYPE(TransactionRecord::SendToSelf));
     typeWidget->addItem(tr("Mined"), TransactionFilterProxy::TYPE(TransactionRecord::Generated));
     typeWidget->addItem(tr("Other"), TransactionFilterProxy::TYPE(TransactionRecord::Other));
@@ -120,7 +120,7 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
         amountWidget->setFixedWidth(118);
     } else {
         amountWidget->setFixedWidth(125);
-    }  
+    }
     amountWidget->setValidator(new QDoubleValidator(0, 1e20, 8, this));
     amountWidget->setObjectName("amountWidget");
     hlayout->addWidget(amountWidget);
@@ -257,7 +257,7 @@ void TransactionView::setModel(WalletModel *_model)
 
         // Watch-only signal
         connect(_model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyColumn(bool)));
-        
+
         // Update transaction list with persisted settings
         chooseType(settings.value("transactionType").toInt());
         chooseDate(settings.value("transactionDate").toInt());
@@ -268,7 +268,7 @@ void TransactionView::chooseDate(int idx)
 {
     if(!transactionProxyModel)
         return;
-    
+
     QSettings settings;
     QDate current = QDate::currentDate();
     dateRangeWidget->setVisible(false);
@@ -557,7 +557,7 @@ QWidget *TransactionView::createDateRangeWidget()
     QString defaultDateFrom = QDate::currentDate().toString(PERSISTENCE_DATE_FORMAT);
     QString defaultDateTo = QDate::currentDate().addDays(1).toString(PERSISTENCE_DATE_FORMAT);
     QSettings settings;
- 
+
     dateRangeWidget = new QFrame();
     dateRangeWidget->setFrameStyle(QFrame::Panel | QFrame::Raised);
     dateRangeWidget->setContentsMargins(1,1,1,1);
@@ -598,12 +598,12 @@ void TransactionView::dateRangeChanged()
 {
     if(!transactionProxyModel)
         return;
-    
+
     // Persist new date range
     QSettings settings;
     settings.setValue("transactionDateFrom", dateFrom->date().toString(PERSISTENCE_DATE_FORMAT));
     settings.setValue("transactionDateTo", dateTo->date().toString(PERSISTENCE_DATE_FORMAT));
-    
+
     transactionProxyModel->setDateRange(
             QDateTime(dateFrom->date()),
             QDateTime(dateTo->date()));

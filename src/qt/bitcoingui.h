@@ -6,7 +6,7 @@
 #define BITCOIN_QT_BITCOINGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "amount.h"
@@ -96,6 +96,8 @@ private:
     QMenuBar *appMenuBar;
     QAction *overviewAction;
     QAction *historyAction;
+    QAction *settingsAction;
+    QAction *toolsAction;
     QAction *masternodeAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -146,7 +148,7 @@ private:
     /** Create the menu bar and sub-menus. */
     void createMenuBar();
     /** Create the toolbars */
-    void createToolBars();
+    void createToolBars(QWidget *);
     /** Create system tray icon and notification */
     void createTrayIcon(const NetworkStyle *networkStyle);
     /** Create system tray menu (or setup the dock menu) */
@@ -223,6 +225,8 @@ private Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    void gotoSettingsPage();
+    void gotoToolsPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -246,7 +250,7 @@ private Q_SLOTS:
     void showPeers();
     void showRepair();
 
-    /** Open external (default) editor with dash.conf */
+    /** Open external (default) editor with galactrum.conf */
     void showConfEditor();
     /** Open external (default) editor with masternode.conf */
     void showMNConfEditor();
@@ -272,7 +276,7 @@ private Q_SLOTS:
 
     /** Show progress dialog e.g. for verifychain */
     void showProgress(const QString &title, int nProgress);
-    
+
     /** When hideTrayIcon setting is changed in OptionsModel hide or show the icon accordingly. */
     void setTrayIconVisible(bool);
 

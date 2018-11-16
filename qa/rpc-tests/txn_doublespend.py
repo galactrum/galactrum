@@ -26,12 +26,12 @@ class TxnMallTest(BitcoinTestFramework):
         return super(TxnMallTest, self).setup_network(True)
 
     def run_test(self):
-        # All nodes should start with 12,500 DASH:
+        # All nodes should start with 12,500 ORE:
         starting_balance = 12500
         for i in range(4):
             assert_equal(self.nodes[i].getbalance(), starting_balance)
             self.nodes[i].getnewaddress("")  # bug workaround, coins generated assigned to first getnewaddress!
-        
+
         # Assign coins to foo and bar accounts:
         node0_address_foo = self.nodes[0].getnewaddress("foo")
         fund_foo_txid = self.nodes[0].sendfrom("", node0_address_foo, 12190)
@@ -47,7 +47,7 @@ class TxnMallTest(BitcoinTestFramework):
         # Coins are sent to node1_address
         node1_address = self.nodes[1].getnewaddress("from0")
 
-        # First: use raw transaction API to send 12400 DASH to node1_address,
+        # First: use raw transaction API to send 12400 ORE to node1_address,
         # but don't broadcast:
         doublespend_fee = Decimal('-.02')
         rawtx_input_0 = {}
@@ -65,10 +65,10 @@ class TxnMallTest(BitcoinTestFramework):
         doublespend = self.nodes[0].signrawtransaction(rawtx)
         assert_equal(doublespend["complete"], True)
 
-        # Create two spends using 1 500 DASH coin each
+        # Create two spends using 1 500 ORE coin each
         txid1 = self.nodes[0].sendfrom("foo", node1_address, 400, 0)
         txid2 = self.nodes[0].sendfrom("bar", node1_address, 200, 0)
-        
+
         # Have node0 mine a block:
         if (self.options.mine_block):
             self.nodes[0].generate(1)
@@ -77,7 +77,7 @@ class TxnMallTest(BitcoinTestFramework):
         tx1 = self.nodes[0].gettransaction(txid1)
         tx2 = self.nodes[0].gettransaction(txid2)
 
-        # Node0's balance should be starting balance, plus 500DASH for another
+        # Node0's balance should be starting balance, plus 500ORE for another
         # matured block, minus 400, minus 200, and minus transaction fees:
         expected = starting_balance + fund_foo_tx["fee"] + fund_bar_tx["fee"]
         if self.options.mine_block: expected += 500
@@ -97,7 +97,7 @@ class TxnMallTest(BitcoinTestFramework):
         else:
             assert_equal(tx1["confirmations"], 0)
             assert_equal(tx2["confirmations"], 0)
-        
+
         # Now give doublespend and its parents to miner:
         self.nodes[2].sendrawtransaction(fund_foo_tx["hex"])
         self.nodes[2].sendrawtransaction(fund_bar_tx["hex"])
@@ -119,7 +119,7 @@ class TxnMallTest(BitcoinTestFramework):
         assert_equal(tx1["confirmations"], -2)
         assert_equal(tx2["confirmations"], -2)
 
-        # Node0's total balance should be starting balance, plus 1000DASH for
+        # Node0's total balance should be starting balance, plus 1000ORE for
         # two more matured blocks, minus 12400 for the double-spend, plus fees (which are
         # negative):
         expected = starting_balance + 1000 - 12400 + fund_foo_tx["fee"] + fund_bar_tx["fee"] + doublespend_fee

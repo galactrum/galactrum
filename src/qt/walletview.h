@@ -7,6 +7,7 @@
 
 #include "amount.h"
 #include "masternodelist.h"
+#include "toolspage.h"
 
 #include <QStackedWidget>
 
@@ -20,6 +21,8 @@ class SendCoinsRecipient;
 class TransactionView;
 class WalletModel;
 class AddressBookPage;
+class SettingsPage;
+class ToolsPage;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -55,6 +58,7 @@ public:
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 
     void showOutOfSyncWarning(bool fShow);
+    void gotoToolsPageTab(enum ToolsPage::TabTypes page);
 
 private:
     ClientModel *clientModel;
@@ -67,6 +71,8 @@ private:
     AddressBookPage *usedSendingAddressesPage;
     AddressBookPage *usedReceivingAddressesPage;
     MasternodeList *masternodeListPage;
+    SettingsPage *settingsPage;
+    ToolsPage *toolsPage;
 
     TransactionView *transactionView;
 
@@ -85,6 +91,8 @@ public Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    void gotoSettingsPage();
+    void gotoToolsPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -122,7 +130,7 @@ public Q_SLOTS:
     void requestedSyncWarningInfo();
 
 
-    /** Update selected DASH amount from transactionview */
+    /** Update selected ORE amount from transactionview */
     void trxAmount(QString amount);
 Q_SIGNALS:
     /** Signal that we want to show the main window */

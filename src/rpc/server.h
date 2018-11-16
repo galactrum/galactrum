@@ -143,7 +143,7 @@ public:
 };
 
 /**
- * Dash RPC command dispatcher.
+ * Galactrum RPC command dispatcher.
  */
 class CRPCTable
 {

@@ -34,7 +34,7 @@
 
 #define SEND_CONFIRM_DELAY   3
 
-SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *parent) :
+SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *parent, QWidget *walletview) :
     QDialog(parent),
     ui(new Ui::SendCoinsDialog),
     clientModel(0),
@@ -51,9 +51,22 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
         ui->clearButton->setIcon(QIcon());
         ui->sendButton->setIcon(QIcon());
     } else {
-        ui->addButton->setIcon(QIcon(":/icons/" + theme + "/add"));
+        ui->addButton->setIcon(QIcon(":/icons/" + theme + "/user-add"));
         ui->clearButton->setIcon(QIcon(":/icons/" + theme + "/remove"));
         ui->sendButton->setIcon(QIcon(":/icons/" + theme + "/send"));
+        ui->sendingAddressesButton->setIcon(QIcon(":/icons/" + theme + "/address-book"));
+        ui->openURIButton->setIcon(QIcon(":/icons/" + theme + "/browse"));
+        ui->buttonMinimizeFee->setIcon(QIcon(":/icons/galactrum/hidden"));
+        ui->buttonChooseFee->setIcon(QIcon(":/icons/galactrum/fee"));
+        ui->pushButtonCoinControl->setIcon(QIcon(":/icons/galactrum/inputs"));
+        ui->pushButtonCoinControl->setIconSize(QSize(32, 32));
+        ui->sendButton->setIconSize(QSize(32, 32));
+        ui->addButton->setIconSize(QSize(32, 32));
+        ui->clearButton->setIconSize(QSize(32, 32));
+        ui->sendingAddressesButton->setIconSize(QSize(32, 32));
+        ui->openURIButton->setIconSize(QSize(32, 32));
+        ui->buttonMinimizeFee->setIconSize(QSize(32, 32));
+        ui->buttonChooseFee->setIconSize(QSize(32, 32));
     }
 
     GUIUtil::setupAddressWidget(ui->lineEditCoinControlChange, this);
@@ -62,13 +75,15 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
 
     connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
     connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+    connect(ui->openURIButton, SIGNAL(clicked()), walletview->parentWidget()->parentWidget(), SLOT(openClicked()));
+    connect(ui->sendingAddressesButton, SIGNAL(clicked()), walletview,  SLOT(usedSendingAddresses()));
 
     // Coin Control
     connect(ui->pushButtonCoinControl, SIGNAL(clicked()), this, SLOT(coinControlButtonClicked()));
     connect(ui->checkBoxCoinControlChange, SIGNAL(stateChanged(int)), this, SLOT(coinControlChangeChecked(int)));
     connect(ui->lineEditCoinControlChange, SIGNAL(textEdited(const QString &)), this, SLOT(coinControlChangeEdited(const QString &)));
 
-    // Dash specific
+    // Galactrum specific
     QSettings settings;
     if (!settings.contains("bUseDarkSend"))
         settings.setValue("bUseDarkSend", false);
@@ -265,7 +280,7 @@ void SendCoinsDialog::on_sendButton_clicked()
             BitcoinUnits::formatWithUnit(
                 model->getOptionsModel()->getDisplayUnit(), CPrivateSend::GetSmallestDenomination()));
         strFee = QString(tr(
-            "(privatesend requires this amount to be rounded up to the nearest %1)."
+            "(cloaking requires this amount to be rounded up to the nearest %1)."
         ).arg(strNearestAmount));
     } else {
         recipients[0].inputType = ALL_COINS;
@@ -703,7 +718,7 @@ void SendCoinsDialog::updateFeeSectionControls()
     ui->labelFeeEstimation      ->setEnabled(ui->radioSmartFee->isChecked());
     ui->labelSmartFeeNormal     ->setEnabled(ui->radioSmartFee->isChecked());
     ui->labelSmartFeeFast       ->setEnabled(ui->radioSmartFee->isChecked());
-    ui->confirmationTargetLabel ->setEnabled(ui->radioSmartFee->isChecked());
+    //ui->confirmationTargetLabel ->setEnabled(ui->radioSmartFee->isChecked());
     ui->checkBoxMinimumFee      ->setEnabled(ui->radioCustomFee->isChecked());
     ui->labelMinFeeWarning      ->setEnabled(ui->radioCustomFee->isChecked());
     ui->radioCustomPerKilobyte  ->setEnabled(ui->radioCustomFee->isChecked() && !ui->checkBoxMinimumFee->isChecked());
@@ -722,7 +737,7 @@ void SendCoinsDialog::updateGlobalFeeVariables()
         CoinControlDialog::coinControl->nMinimumTotalFee = 0;
 
         // show the estimated required time for confirmation
-        ui->confirmationTargetLabel->setText(GUIUtil::formatDurationStr(nConfirmTarget * Params().GetConsensus().nPowTargetSpacing) + " / " + tr("%n block(s)", "", nConfirmTarget));
+        //ui->confirmationTargetLabel->setText(GUIUtil::formatDurationStr(nConfirmTarget * Params().GetConsensus().nPowTargetSpacing) + " / " + tr("%n block(s)", "", nConfirmTarget));
     }
     else
     {
@@ -769,11 +784,11 @@ void SendCoinsDialog::updateSmartFeeLabel()
                                                                 std::max(CWallet::fallbackFee.GetFeePerK(), CWallet::GetRequiredFee(1000))) + "/kB");
         ui->labelSmartFee2->show(); // (Smart fee not initialized yet. This usually takes a few blocks...)
         ui->labelFeeEstimation->setText("");
-        ui->fallbackFeeWarningLabel->setVisible(true);
-        int lightness = ui->fallbackFeeWarningLabel->palette().color(QPalette::WindowText).lightness();
-        QColor warning_colour(255 - (lightness / 5), 176 - (lightness / 3), 48 - (lightness / 14));
-        ui->fallbackFeeWarningLabel->setStyleSheet("QLabel { color: " + warning_colour.name() + "; }");
-        ui->fallbackFeeWarningLabel->setIndent(QFontMetrics(ui->fallbackFeeWarningLabel->font()).width("x"));
+        //ui->fallbackFeeWarningLabel->setVisible(true);
+        //int lightness = ui->fallbackFeeWarningLabel->palette().color(QPalette::WindowText).lightness();
+        //QColor warning_colour(255 - (lightness / 5), 176 - (lightness / 3), 48 - (lightness / 14));
+        //ui->fallbackFeeWarningLabel->setStyleSheet("QLabel { color: " + warning_colour.name() + "; }");
+        //ui->fallbackFeeWarningLabel->setIndent(QFontMetrics(ui->fallbackFeeWarningLabel->font()).width("x"));
     }
     else
     {
@@ -781,7 +796,7 @@ void SendCoinsDialog::updateSmartFeeLabel()
                                                                 std::max(feeRate.GetFeePerK(), CWallet::GetRequiredFee(1000))) + "/kB");
         ui->labelSmartFee2->hide();
         ui->labelFeeEstimation->setText(tr("Estimated to begin confirmation within %n block(s).", "", estimateFoundAtBlocks));
-        ui->fallbackFeeWarningLabel->setVisible(false);
+        //ui->fallbackFeeWarningLabel->setVisible(false);
     }
 
     updateFeeMinimizedLabel();
@@ -883,7 +898,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!addr.IsValid()) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Dash address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Galactrum address"));
         }
         else // Valid address
         {

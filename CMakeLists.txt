@@ -6,7 +6,7 @@
 # You'll also have to manually change the executable in the configuration to the correct path of the already built executable
 
 cmake_minimum_required(VERSION 3.7)
-project(dash)
+project(galactrum)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -62,4 +62,4 @@ file(GLOB SOURCE_FILES
         src/rpc/*.h
         )
 
-add_executable(dash ${SOURCE_FILES})
+add_executable(galactrum ${SOURCE_FILES})

@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>SettingsPage</class>
+	<widget class="QWidget" name="SettingsPage">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>480</width>
+				<height>585</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Settings</string>
+		</property>
+        <layout class="QVBoxLayout" name="topLayout">
+            <property name="leftMargin">
+                <number>5</number>
+            </property>
+            <property name="topMargin">
+                <number>20</number>
+            </property>
+            <property name="rightMargin">
+                <number>5</number>
+            </property>
+            <property name="bottomMargin">
+                <number>0</number>
+            </property>
+            <item>
+                <widget class="QFrame" name="frameNav">
+                    <layout class="QVBoxLayout" name="navButtons">
+
+                        <item>
+                            <widget class="QFrame" name="frameNavMain">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavMain">
+                                            <property name="text">
+                                                <string>Wallet Settings</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonChevron1"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QFrame" name="frameNavNetwork">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavNetwork">
+                                            <property name="text">
+                                                <string>Network Settings</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonChevron2"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QFrame" name="frameNavExpert">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavExpert">
+                                            <property name="text">
+                                                <string>Advanced Settings</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonChevron3"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+                        <item>
+                            <spacer name="verticalSpacer_Wallet">
+                                <property name="orientation">
+                                    <enum>Qt::Vertical</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                    <size>
+                                        <width>20</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </item>
+                        <item>
+                            <widget class="QFrame" name="frameNavOpenConf">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavOpenConf">
+                                            <property name="text">
+                                                <string>Open Wallet Configuration File</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonOpen1"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QFrame" name="frameNavOpenMNConf">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavOpenMNConf">
+                                            <property name="text">
+                                                <string>Open Masternode Configuration File</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonOpen2"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QFrame" name="frameNavOpenBackups">
+                                <layout class="QHBoxLayout">
+                                    <item>
+                                        <widget class="QLabel" name="labelNavOpenBackups">
+                                            <property name="text">
+                                                <string>Open Automatic Backups Folder</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
+                                        <widget class="QPushButton" name="buttonOpen3"></widget>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+
+                        <item>
+                            <spacer name="verticalSpacer_Wallet">
+                                <property name="orientation">
+                                    <enum>Qt::Vertical</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                    <size>
+                                        <width>20</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </item>
+                    </layout>
+                </widget>
+            </item>
+            <item>
+                <widget class="QScrollArea" name="scrollArea">
+                	<property name="widgetResizable">
+						<bool>true</bool>
+					</property>
+                    <widget class="QFrame" name="frameSettings">
+                        <property name="frameShape">
+                            <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QVBoxLayout">
+                            <property name="leftMargin">
+                                <number>77</number>
+                            </property>
+                            <property name="topMargin">
+                                <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                                <number>77</number>
+                            </property>
+                            <property name="bottomMargin">
+                                <number>0</number>
+                            </property>
+                            <item>
+                                <widget class="QFrame" name="frameMain">
+                                    <property name="frameShape">
+                                        <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QVBoxLayout">
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsStartup">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Startup</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QCheckBox" name="bitcoinAtStartup">
+                                                <property name="toolTip">
+                                                    <string>Automatically start Galactrum after logging in to the system.</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>&amp;Start Galactrum on system login</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsTray">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Tray Icon</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QCheckBox" name="hideTrayIcon">
+                                                <property name="toolTip">
+                                                    <string>&amp;Hide the icon from the system tray.</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Hide tray icon</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QCheckBox" name="minimizeToTray">
+                                                <property name="toolTip">
+                                                    <string>Show only a tray icon after minimizing the window.</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>&amp;Minimize to the tray instead of the taskbar</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QCheckBox" name="minimizeOnClose">
+                                                <property name="toolTip">
+                                                    <string>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</string>
+                                                </property>
+                                                <property name="text">
+                                                    <string>M&amp;inimize on close</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsLanguage">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Language</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_1_Display">
+                                                <item>
+                                                    <widget class="QLabel" name="langLabel">
+                                                        <property name="text">
+                                                            <string>User Interface &amp;language:</string>
+                                                        </property>
+                                                        <property name="textFormat">
+                                                            <enum>Qt::PlainText</enum>
+                                                        </property>
+                                                        <property name="buddy">
+                                                            <cstring>lang</cstring>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QValueComboBox" name="lang">
+                                                        <property name="toolTip">
+                                                            <string>The user interface language can be set here. This setting will take effect after restarting Galactrum.</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                         <item>
+                                            <widget class="QLabel" name="labelSettingsCurrency">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Currency</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_2_Display">
+                                                <item>
+                                                    <widget class="QLabel" name="unitLabel">
+                                                        <property name="text">
+                                                            <string>&amp;Unit to show amounts in:</string>
+                                                        </property>
+                                                        <property name="textFormat">
+                                                            <enum>Qt::PlainText</enum>
+                                                        </property>
+                                                        <property name="buddy">
+                                                            <cstring>unit</cstring>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QValueComboBox" name="unit">
+                                                        <property name="toolTip">
+                                                            <string>Choose the default subdivision unit to show in the interface and when sending coins.</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_5_Display">
+                                                <item>
+                                                    <widget class="QLabel" name="digitsLabel">
+                                                        <property name="text">
+                                                            <string>Decimal digits</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QValueComboBox" name="digits"/>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                         <item>
+                                            <spacer name="verticalSpacerBottom">
+                                                <property name="orientation">
+                                                    <enum>Qt::Vertical</enum>
+                                                </property>
+                                                <property name="sizeHint" stdset="0">
+                                                    <size>
+                                                        <width>20</width>
+                                                        <height>40</height>
+                                                    </size>
+                                                </property>
+                                            </spacer>
+                                        </item>
+                                    </layout>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QFrame" name="frameNetwork">
+                                    <layout class="QVBoxLayout" name="verticalLayout_Wallet">
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsUPnP">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>UPnP</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout" name="verticalLayout_Network">
+                                                <item>
+                                                    <widget class="QCheckBox" name="mapPortUpnp">
+                                                        <property name="toolTip">
+                                                            <string>Automatically open the Galactrum client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Map port using &amp;UPnP</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsListen">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Incoming Connections</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout">
+                                                <item>
+                                                    <widget class="QCheckBox" name="allowIncoming">
+                                                        <property name="toolTip">
+                                                            <string>Accept connections from outside</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Allow incoming connections</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsProxy">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Proxy</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout">
+                                                <item>
+                                                    <widget class="QCheckBox" name="connectSocks">
+                                                        <property name="toolTip">
+                                                            <string>Connect to the Galactrum network through a SOCKS5 proxy.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>&amp;Connect through SOCKS5 proxy (default proxy):</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <layout class="QHBoxLayout" name="horizontalLayout_1_Network">
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyIpLabel">
+                                                                <property name="text">
+                                                                    <string>Proxy &amp;IP:</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                                <property name="buddy">
+                                                                    <cstring>proxyIp</cstring>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QValidatedLineEdit" name="proxyIp">
+                                                                <property name="minimumSize">
+                                                                    <size>
+                                                                        <width>140</width>
+                                                                        <height>0</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="maximumSize">
+                                                                    <size>
+                                                                        <width>140</width>
+                                                                        <height>16777215</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</string>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyPortLabel">
+                                                                <property name="text">
+                                                                    <string>&amp;Port:</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                                <property name="buddy">
+                                                                    <cstring>proxyPort</cstring>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLineEdit" name="proxyPort">
+                                                                <property name="minimumSize">
+                                                                    <size>
+                                                                        <width>55</width>
+                                                                        <height>0</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="maximumSize">
+                                                                    <size>
+                                                                        <width>55</width>
+                                                                        <height>16777215</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>Port of the proxy (e.g. 9050)</string>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <spacer>
+                                                                <property name="orientation">
+                                                                    <enum>Qt::Horizontal</enum>
+                                                                </property>
+                                                                <property name="sizeHint" stdset="0">
+                                                                    <size>
+                                                                        <width>40</width>
+                                                                        <height>20</height>
+                                                                    </size>
+                                                                </property>
+                                                            </spacer>
+                                                        </item>
+                                                    </layout>
+                                                </item>
+                                                <item>
+                                                    <layout class="QHBoxLayout" name="horizontalLayout_2_Network">
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyActiveNets">
+                                                                <property name="text">
+                                                                    <string>Used for reaching peers via:</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QCheckBox" name="proxyReachIPv4">
+                                                                <property name="enabled">
+                                                                    <bool>false</bool>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</string>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string/>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyReachIPv4Label">
+                                                                <property name="text">
+                                                                    <string>IPv4</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QCheckBox" name="proxyReachIPv6">
+                                                                <property name="enabled">
+                                                                    <bool>false</bool>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</string>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string/>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyReachIPv6Label">
+                                                                <property name="text">
+                                                                    <string>IPv6</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QCheckBox" name="proxyReachTor">
+                                                                <property name="enabled">
+                                                                    <bool>false</bool>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</string>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string/>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyReachTorLabel">
+                                                                <property name="text">
+                                                                    <string>Tor</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <spacer name="horizontalSpacer_2_Network">
+                                                                <property name="orientation">
+                                                                    <enum>Qt::Horizontal</enum>
+                                                                </property>
+                                                                <property name="sizeHint" stdset="0">
+                                                                    <size>
+                                                                        <width>40</width>
+                                                                        <height>20</height>
+                                                                    </size>
+                                                                </property>
+                                                            </spacer>
+                                                        </item>
+                                                    </layout>
+                                                </item>
+                                                <item>
+                                                    <widget class="QLabel" name="labelSettingsHSProxy">
+                                                        <property name="font">
+                                                            <font>
+                                                                <weight>75</weight>
+                                                                <bold>true</bold>
+                                                            </font>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Hidden Services Proxy</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QCheckBox" name="connectSocksTor">
+                                                        <property name="toolTip">
+                                                            <string>Connect to the Galactrum network through a separate SOCKS5 proxy for Tor hidden services.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <layout class="QHBoxLayout" name="horizontalLayout_3_Network">
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyIpTorLabel">
+                                                                <property name="text">
+                                                                    <string>Proxy &amp;IP:</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                                <property name="buddy">
+                                                                    <cstring>proxyIpTor</cstring>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QValidatedLineEdit" name="proxyIpTor">
+                                                                <property name="minimumSize">
+                                                                    <size>
+                                                                        <width>140</width>
+                                                                        <height>0</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="maximumSize">
+                                                                    <size>
+                                                                        <width>140</width>
+                                                                        <height>16777215</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</string>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLabel" name="proxyPortTorLabel">
+                                                                <property name="text">
+                                                                    <string>&amp;Port:</string>
+                                                                </property>
+                                                                <property name="textFormat">
+                                                                    <enum>Qt::PlainText</enum>
+                                                                </property>
+                                                                <property name="buddy">
+                                                                    <cstring>proxyPortTor</cstring>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <widget class="QLineEdit" name="proxyPortTor">
+                                                                <property name="minimumSize">
+                                                                    <size>
+                                                                        <width>55</width>
+                                                                        <height>0</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="maximumSize">
+                                                                    <size>
+                                                                        <width>55</width>
+                                                                        <height>16777215</height>
+                                                                    </size>
+                                                                </property>
+                                                                <property name="toolTip">
+                                                                    <string>Port of the proxy (e.g. 9050)</string>
+                                                                </property>
+                                                            </widget>
+                                                        </item>
+                                                        <item>
+                                                            <spacer name="horizontalSpacer_4_Network">
+                                                                <property name="orientation">
+                                                                    <enum>Qt::Horizontal</enum>
+                                                                </property>
+                                                                <property name="sizeHint" stdset="0">
+                                                                    <size>
+                                                                        <width>40</width>
+                                                                        <height>20</height>
+                                                                    </size>
+                                                                </property>
+                                                            </spacer>
+                                                        </item>
+
+                                                    </layout>
+                                                </item>
+                                                 <item>
+                                                    <spacer name="verticalSpacerBottom">
+                                                        <property name="orientation">
+                                                            <enum>Qt::Vertical</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>20</width>
+                                                                <height>40</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                    </layout>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QFrame" name="frameExpert">
+                                    <layout class="QVBoxLayout" name="verticalLayout_Wallet">
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsSending">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Sending</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout" name="verticalLayout_2">
+                                                <item>
+                                                    <widget class="QCheckBox" name="coinControlFeatures">
+                                                        <property name="toolTip">
+                                                            <string>Whether to show coin control features or not.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Enable coin &amp;control features</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QCheckBox" name="spendZeroConfChange">
+                                                        <property name="toolTip">
+                                                            <string>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>&amp;Spend unconfirmed change</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsMasternodes">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Masternodes</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout" name="verticalLayout_2">
+                                                <item>
+                                                    <widget class="QCheckBox" name="showMasternodesTab">
+                                                        <property name="toolTip">
+                                                            <string>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Show Masternodes Tab</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsCloaking">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Cloaking</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QVBoxLayout" name="verticalLayout_2">
+                                                <item>
+                                                    <widget class="QCheckBox" name="showAdvancedPSUI">
+                                                        <property name="toolTip">
+                                                            <string>Show additional information and buttons for Cloaking on overview screen.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Enable advanced Cloaking interface</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QCheckBox" name="lowKeysWarning">
+                                                        <property name="toolTip">
+                                                            <string>Show warning dialog when Cloaking detects that wallet has very low number of keys left.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Warn if Cloaking is running out of keys</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QCheckBox" name="privateSendMultiSession">
+                                                        <property name="toolTip">
+                                                            <string>Whether to use experimental Cloaking mode with multiple cloaking sessions per block.&lt;br/&gt;Note: You must use this feature carefully.&lt;br/&gt;Make sure you always have recent wallet (auto)backup in a safe place!</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Enable Cloaking &amp;multi-session</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_4_Wallet">
+                                                <item>
+                                                    <widget class="QLabel" name="label">
+                                                        <property name="toolTip">
+                                                            <string>This setting determines the amount of individual masternodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</string>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Cloaking rounds to use</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QSpinBox" name="privateSendRounds">
+                                                        <property name="minimum">
+                                                            <number>2</number>
+                                                        </property>
+                                                        <property name="maximum">
+                                                            <number>8</number>
+                                                        </property>
+                                                        <property name="value">
+                                                            <number>4</number>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout">
+                                                <item>
+                                                    <widget class="QLabel" name="label_2">
+                                                        <property name="toolTip">
+                                                            <string>This amount acts as a threshold to turn off Cloaking once it's reached.</string>
+                                                        </property>
+                                                        <property name="statusTip">
+                                                            <string notr="true"/>
+                                                        </property>
+                                                        <property name="whatsThis">
+                                                            <string notr="true"/>
+                                                        </property>
+                                                        <property name="accessibleName">
+                                                            <string notr="true"/>
+                                                        </property>
+                                                        <property name="accessibleDescription">
+                                                            <string notr="true"/>
+                                                        </property>
+                                                        <property name="text">
+                                                            <string>Amount of ORE to keep anonymized</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QSpinBox" name="privateSendAmount">
+                                                        <property name="minimum">
+                                                            <number>2</number>
+                                                        </property>
+                                                        <property name="maximum">
+                                                            <number>2000</number>
+                                                        </property>
+                                                        <property name="singleStep">
+                                                            <number>10</number>
+                                                        </property>
+                                                        <property name="value">
+                                                            <number>1000</number>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="labelSettingsNode">
+                                                <property name="font">
+                                                    <font>
+                                                        <weight>75</weight>
+                                                        <bold>true</bold>
+                                                    </font>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Node</string>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
+                                                <item>
+                                                    <widget class="QLabel" name="databaseCacheLabel">
+                                                        <property name="text">
+                                                            <string>Size of &amp;database cache</string>
+                                                        </property>
+                                                        <property name="textFormat">
+                                                            <enum>Qt::PlainText</enum>
+                                                        </property>
+                                                        <property name="buddy">
+                                                            <cstring>databaseCache</cstring>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QSpinBox" name="databaseCache"/>
+                                                </item>
+                                                <item>
+                                                    <widget class="QLabel" name="databaseCacheUnitLabel">
+                                                        <property name="text">
+                                                            <string>MB</string>
+                                                        </property>
+                                                        <property name="textFormat">
+                                                            <enum>Qt::PlainText</enum>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_3_Main">
+                                                <item>
+                                                    <widget class="QLabel" name="threadsScriptVerifLabel">
+                                                        <property name="text">
+                                                            <string>Number of script &amp;verification threads</string>
+                                                        </property>
+                                                        <property name="textFormat">
+                                                            <enum>Qt::PlainText</enum>
+                                                        </property>
+                                                        <property name="buddy">
+                                                            <cstring>threadsScriptVerif</cstring>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <widget class="QSpinBox" name="threadsScriptVerif">
+                                                        <property name="toolTip">
+                                                            <string>(0 = auto, &lt;0 = leave that many cores free)</string>
+                                                        </property>
+                                                    </widget>
+                                                </item>
+                                                <item>
+                                                    <spacer name="horizontalSpacer_3_Main">
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                                <item>
+                                                    <spacer>
+                                                        <property name="orientation">
+                                                            <enum>Qt::Horizontal</enum>
+                                                        </property>
+                                                        <property name="sizeHint" stdset="0">
+                                                            <size>
+                                                                <width>40</width>
+                                                                <height>20</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </item>
+                                            </layout>
+                                        </item>
+                                        <item>
+                                            <spacer name="verticalSpacer_Wallet">
+                                                <property name="orientation">
+                                                    <enum>Qt::Vertical</enum>
+                                                </property>
+                                                <property name="sizeHint" stdset="0">
+                                                    <size>
+                                                        <width>20</width>
+                                                        <height>40</height>
+                                                    </size>
+                                                </property>
+                                            </spacer>
+                                        </item>
+                                    </layout>
+                                </widget>
+                            </item>
+                        </layout>
+                    </widget>
+                </widget>
+            </item>
+            <item>
+                <widget class="QFrame" name="frameControlButtons">
+                    <layout class="QHBoxLayout" name="layoutControlButtons">
+                        <item>
+                            <widget class="QPushButton" name="saveButton">
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>150</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip">
+                                    <string>Confirm the settings changes</string>
+                                </property>
+                                <property name="text">
+                                    <string>S&amp;ave</string>
+                                </property>
+                                <property name="autoDefault">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="default">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QLabel" name="statusLabel">
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="font">
+                                    <font>
+                                        <weight>75</weight>
+                                        <bold>true</bold>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string/>
+                                </property>
+                                <property name="textFormat">
+                                    <enum>Qt::PlainText</enum>
+                                </property>
+                                <property name="wordWrap">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <spacer name="horizontalSpacer">
+                                <property name="orientation">
+                                    <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                    <size>
+                                        <width>40</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="cancelButton">
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>150</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip">
+                                    <string>Cancel the settings changes</string>
+                                </property>
+                                <property name="text">
+                                    <string>Cancel</string>
+                                </property>
+                                <property name="autoDefault">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="default">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </widget>
+            </item>
+        </layout>
+	</widget>
+	<customwidgets>
+		<customwidget>
+			<class>QValidatedLineEdit</class>
+			<extends>QLineEdit</extends>
+			<header>qvalidatedlineedit.h</header>
+		</customwidget>
+		<customwidget>
+			<class>QValueComboBox</class>
+			<extends>QComboBox</extends>
+			<header>qvaluecombobox.h</header>
+		</customwidget>
+	</customwidgets>
+	<resources/>
+	<connections/>
+</ui>

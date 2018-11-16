@@ -12,10 +12,10 @@
 #include "script/sign.h"
 #include "util.h"
 #include "utilstrencodings.h"
-#include "test/test_dash.h"
+#include "test/test_galactrum.h"
 
 #if defined(HAVE_CONSENSUS_LIB)
-#include "script/dashconsensus.h"
+#include "script/galactrumconsensus.h"
 #endif
 
 #include <fstream>
@@ -154,9 +154,9 @@ void DoTest(const CScript& scriptPubKey, const CScript& scriptSig, int flags, co
 #if defined(HAVE_CONSENSUS_LIB)
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << tx2;
-    int libconsensus_flags = flags & dashconsensus_SCRIPT_FLAGS_VERIFY_ALL;
+    int libconsensus_flags = flags & galactrumconsensus_SCRIPT_FLAGS_VERIFY_ALL;
     if (libconsensus_flags == flags) {
-        BOOST_CHECK_MESSAGE(dashconsensus_verify_script(scriptPubKey.data(), scriptPubKey.size(), (const unsigned char*)&stream[0], stream.size(), 0, libconsensus_flags, NULL) == expect,message);
+        BOOST_CHECK_MESSAGE(galactrumconsensus_verify_script(scriptPubKey.data(), scriptPubKey.size(), (const unsigned char*)&stream[0], stream.size(), 0, libconsensus_flags, NULL) == expect,message);
     }
 #endif
 }
@@ -434,7 +434,7 @@ BOOST_AUTO_TEST_CASE(script_build)
     tests.push_back(TestBuilder(CScript() << ToByteVector(keys.pubkey0C) << OP_CHECKSIG,
                                 "P2SH(P2PK), bad redeemscript", SCRIPT_VERIFY_P2SH, true
                                ).PushSig(keys.key0).PushRedeem().DamagePush(10).ScriptError(SCRIPT_ERR_EVAL_FALSE));
-    
+
     tests.push_back(TestBuilder(CScript() << OP_DUP << OP_HASH160 << ToByteVector(keys.pubkey0.GetID()) << OP_EQUALVERIFY << OP_CHECKSIG,
                                 "P2SH(P2PKH)", SCRIPT_VERIFY_P2SH, true
                                ).PushSig(keys.key0).Push(keys.pubkey0).PushRedeem());

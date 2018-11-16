@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "splashscreen.h"
@@ -39,16 +39,16 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
 
     // set reference point, paddings
     int paddingLeft             = 14;
-    int paddingTop              = 470;
+    int paddingTop              = 315;
     int titleVersionVSpace      = 17;
-    int titleCopyrightVSpace    = 22;
+    int titleCopyrightVSpace    = 32;
 
     float fontFactor            = 1.0;
 
     // define text to place
-    QString titleText       = tr(PACKAGE_NAME);
+    QString titleText       = tr("");
     QString versionText     = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
-    QString copyrightText   = QString::fromUtf8(CopyrightHolders("\xc2\xA9", 2014, COPYRIGHT_YEAR).c_str());
+    QString copyrightText   = QChar(0xA9)+QString(" 2017-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Galactrum developers"));
     QString titleAddText    = networkStyle->getTitleAddText();
     // networkstyle.cpp can't (yet) read themes, so we do it here to get the correct Splash-screen
     QString splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash";
@@ -65,7 +65,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixmap = QPixmap(splashScreenPath);
 
     QPainter pixPaint(&pixmap);
-    pixPaint.setPen(QColor(100,100,100));
+    pixPaint.setPen(QColor(221,221,221));
 
     // check font size and drawing with
     pixPaint.setFont(QFont(font, 28*fontFactor));
@@ -84,13 +84,8 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixPaint.drawText(paddingLeft,paddingTop+titleVersionVSpace,versionText);
 
     // draw copyright stuff
-    {
-        pixPaint.setFont(QFont(font, 10*fontFactor));
-        const int x = paddingLeft;
-        const int y = paddingTop+titleCopyrightVSpace;
-        QRect copyrightRect(x, y, pixmap.width() - x, pixmap.height() - y);
-        pixPaint.drawText(copyrightRect, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, copyrightText);
-    }
+    pixPaint.setFont(QFont(font, 10*fontFactor));
+    pixPaint.drawText(paddingLeft,paddingTop+titleCopyrightVSpace,copyrightText);
 
     // draw additional text if special network
     if(!titleAddText.isEmpty()) {
@@ -147,7 +142,7 @@ static void InitMessage(SplashScreen *splash, const std::string &message)
         Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(message)),
         Q_ARG(int, Qt::AlignBottom|Qt::AlignHCenter),
-        Q_ARG(QColor, QColor(55,55,55)));
+        Q_ARG(QColor, QColor(221,221,221)));
 }
 
 static void ShowProgress(SplashScreen *splash, const std::string &title, int nProgress)

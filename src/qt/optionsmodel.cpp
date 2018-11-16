@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -64,7 +64,7 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("fHideTrayIcon", false);
     fHideTrayIcon = settings.value("fHideTrayIcon").toBool();
     Q_EMIT hideTrayIconChanged(fHideTrayIcon);
-    
+
     if (!settings.contains("fMinimizeToTray"))
         settings.setValue("fMinimizeToTray", false);
     fMinimizeToTray = settings.value("fMinimizeToTray").toBool() && !fHideTrayIcon;
@@ -75,7 +75,7 @@ void OptionsModel::Init(bool resetSettings)
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::DASH);
+        settings.setValue("nDisplayUnit", BitcoinUnits::ORE);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -134,8 +134,8 @@ void OptionsModel::Init(bool resetSettings)
     // PrivateSend
     if (!settings.contains("nPrivateSendRounds"))
         settings.setValue("nPrivateSendRounds", DEFAULT_PRIVATESEND_ROUNDS);
-    if (!SoftSetArg("-privatesendrounds", settings.value("nPrivateSendRounds").toString().toStdString()))
-        addOverriddenOption("-privatesendrounds");
+    if (!SoftSetArg("-cloakingrounds", settings.value("nPrivateSendRounds").toString().toStdString()))
+        addOverriddenOption("-cloakingrounds");
     privateSendClient.nPrivateSendRounds = settings.value("nPrivateSendRounds").toInt();
 
     if (!settings.contains("nPrivateSendAmount")) {
@@ -145,14 +145,14 @@ void OptionsModel::Init(bool resetSettings)
         else
             settings.setValue("nPrivateSendAmount", settings.value("nAnonymizeDashAmount").toInt());
     }
-    if (!SoftSetArg("-privatesendamount", settings.value("nPrivateSendAmount").toString().toStdString()))
-        addOverriddenOption("-privatesendamount");
+    if (!SoftSetArg("-cloakingamount", settings.value("nPrivateSendAmount").toString().toStdString()))
+        addOverriddenOption("-cloakingamount");
     privateSendClient.nPrivateSendAmount = settings.value("nPrivateSendAmount").toInt();
 
     if (!settings.contains("fPrivateSendMultiSession"))
         settings.setValue("fPrivateSendMultiSession", DEFAULT_PRIVATESEND_MULTISESSION);
-    if (!SoftSetBoolArg("-privatesendmultisession", settings.value("fPrivateSendMultiSession").toBool()))
-        addOverriddenOption("-privatesendmultisession");
+    if (!SoftSetBoolArg("-cloakingmultisession", settings.value("fPrivateSendMultiSession").toBool()))
+        addOverriddenOption("-cloakingmultisession");
     privateSendClient.fPrivateSendMultiSession = settings.value("fPrivateSendMultiSession").toBool();
 #endif
 
@@ -202,7 +202,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in dash.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in galactrum.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -465,14 +465,14 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
                 settings.setValue("digits", value);
                 setRestartRequired(true);
             }
-            break;            
+            break;
 #endif // ENABLE_WALLET
         case Theme:
             if (settings.value("theme") != value) {
                 settings.setValue("theme", value);
                 setRestartRequired(true);
             }
-            break;            
+            break;
         case Language:
             if (settings.value("language") != value) {
                 settings.setValue("language", value);

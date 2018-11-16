@@ -45,7 +45,7 @@
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
-# error "Dash Core cannot be compiled without assertions."
+# error "Galactrum cannot be compiled without assertions."
 #endif
 
 std::atomic<int64_t> nTimeBestReceived(0); // Used only to inform the wallet of when we last received a block
@@ -913,12 +913,12 @@ bool static AlreadyHave(const CInv& inv) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
     case MSG_BLOCK:
         return mapBlockIndex.count(inv.hash);
 
-    /* 
-        Dash Related Inventory Messages
+    /*
+        Galactrum Related Inventory Messages
 
         --
 
-        We shouldn't update the sync times for each of the messages when we already have it. 
+        We shouldn't update the sync times for each of the messages when we already have it.
         We're going to be asking many nodes upfront for the full inventory list, so we'll get duplicates of these.
         We want to only update the time on new hits, so that we can time out appropriately if needed.
     */
@@ -1955,26 +1955,26 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         } else if (strCommand == NetMsgType::DSTX) {
             uint256 hashTx = tx.GetHash();
             if(CPrivateSend::GetDSTX(hashTx)) {
-                LogPrint("privatesend", "DSTX -- Already have %s, skipping...\n", hashTx.ToString());
+                LogPrint("cloaking", "DSTX -- Already have %s, skipping...\n", hashTx.ToString());
                 return true; // not an error
             }
 
             CMasternode mn;
 
             if(!mnodeman.Get(dstx.masternodeOutpoint, mn)) {
-                LogPrint("privatesend", "DSTX -- Can't find masternode %s to verify %s\n", dstx.masternodeOutpoint.ToStringShort(), hashTx.ToString());
+                LogPrint("cloaking", "DSTX -- Can't find masternode %s to verify %s\n", dstx.masternodeOutpoint.ToStringShort(), hashTx.ToString());
                 return false;
             }
 
             if(!mn.fAllowMixingTx) {
-                LogPrint("privatesend", "DSTX -- Masternode %s is sending too many transactions %s\n", dstx.masternodeOutpoint.ToStringShort(), hashTx.ToString());
+                LogPrint("cloaking", "DSTX -- Masternode %s is sending too many transactions %s\n", dstx.masternodeOutpoint.ToStringShort(), hashTx.ToString());
                 return true;
                 // TODO: Not an error? Could it be that someone is relaying old DSTXes
                 // we have no idea about (e.g we were offline)? How to handle them?
             }
 
             if(!dstx.CheckSignature(mn.pubKeyMasternode)) {
-                LogPrint("privatesend", "DSTX -- CheckSignature() failed for %s\n", hashTx.ToString());
+                LogPrint("cloaking", "DSTX -- CheckSignature() failed for %s\n", hashTx.ToString());
                 return false;
             }
 

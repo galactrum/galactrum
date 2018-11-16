@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "timedata.h"
@@ -108,11 +108,11 @@ void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)
                 }
             }
         }
-        
+
         BOOST_FOREACH(int64_t n, vSorted)
             LogPrint("net", "%+d  ", n);
         LogPrint("net", "|  ");
-        
+
         LogPrint("net", "nTimeOffset = %+d  (%+d minutes)\n", nTimeOffset, nTimeOffset/60);
     }
 }

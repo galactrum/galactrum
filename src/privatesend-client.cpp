@@ -23,7 +23,7 @@ CPrivateSendClient privateSendClient;
 void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if(fMasternodeMode) return;
-    if(fLiteMode) return; // ignore all Dash related functionality
+    if(fLiteMode) return; // ignore all Galactrum related functionality
     if(!masternodeSync.IsBlockchainSynced()) return;
 
     if(strCommand == NetMsgType::DSQUEUE) {
@@ -31,7 +31,7 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
         if(!lockRecv) return;
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrint("privatesend", "DSQUEUE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
+            LogPrint("cloaking", "DSQUEUE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
             connman.PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
                                strprintf("Version must be %d or greater", MIN_PRIVATESEND_PEER_PROTO_VERSION)));
             return;
@@ -43,12 +43,12 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
         // process every dsq only once
         for (const auto& q : vecDarksendQueue) {
             if(q == dsq) {
-                // LogPrint("privatesend", "DSQUEUE -- %s seen\n", dsq.ToString());
+                // LogPrint("cloaking", "DSQUEUE -- %s seen\n", dsq.ToString());
                 return;
             }
         }
 
-        LogPrint("privatesend", "DSQUEUE -- %s new\n", dsq.ToString());
+        LogPrint("cloaking", "DSQUEUE -- %s new\n", dsq.ToString());
 
         if(dsq.IsExpired()) return;
         if(dsq.nInputCount < 0 || dsq.nInputCount > PRIVATESEND_ENTRY_MAX_SIZE) return;
@@ -71,29 +71,29 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
             }
 
             if(nState == POOL_STATE_QUEUE) {
-                LogPrint("privatesend", "DSQUEUE -- PrivateSend queue (%s) is ready on masternode %s\n", dsq.ToString(), infoMn.addr.ToString());
+                LogPrint("cloaking", "DSQUEUE -- PrivateSend queue (%s) is ready on masternode %s\n", dsq.ToString(), infoMn.addr.ToString());
                 SubmitDenominate(connman);
             }
         } else {
             for (const auto& q : vecDarksendQueue) {
                 if(q.masternodeOutpoint == dsq.masternodeOutpoint) {
                     // no way same mn can send another "not yet ready" dsq this soon
-                    LogPrint("privatesend", "DSQUEUE -- Masternode %s is sending WAY too many dsq messages\n", infoMn.addr.ToString());
+                    LogPrint("cloaking", "DSQUEUE -- Masternode %s is sending WAY too many dsq messages\n", infoMn.addr.ToString());
                     return;
                 }
             }
 
             int nThreshold = infoMn.nLastDsq + mnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5;
-            LogPrint("privatesend", "DSQUEUE -- nLastDsq: %d  threshold: %d  nDsqCount: %d\n", infoMn.nLastDsq, nThreshold, mnodeman.nDsqCount);
+            LogPrint("cloaking", "DSQUEUE -- nLastDsq: %d  threshold: %d  nDsqCount: %d\n", infoMn.nLastDsq, nThreshold, mnodeman.nDsqCount);
             //don't allow a few nodes to dominate the queuing process
             if(infoMn.nLastDsq != 0 && nThreshold > mnodeman.nDsqCount) {
-                LogPrint("privatesend", "DSQUEUE -- Masternode %s is sending too many dsq messages\n", infoMn.addr.ToString());
+                LogPrint("cloaking", "DSQUEUE -- Masternode %s is sending too many dsq messages\n", infoMn.addr.ToString());
                 return;
             }
 
             if(!mnodeman.AllowMixing(dsq.masternodeOutpoint)) return;
 
-            LogPrint("privatesend", "DSQUEUE -- new PrivateSend queue (%s) from masternode %s\n", dsq.ToString(), infoMn.addr.ToString());
+            LogPrint("cloaking", "DSQUEUE -- new PrivateSend queue (%s) from masternode %s\n", dsq.ToString(), infoMn.addr.ToString());
             if(infoMixingMasternode.fInfoValid && infoMixingMasternode.outpoint == dsq.masternodeOutpoint) {
                 dsq.fTried = true;
             }
@@ -104,7 +104,7 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
     } else if(strCommand == NetMsgType::DSSTATUSUPDATE) {
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrint("privatesend", "DSSTATUSUPDATE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
+            LogPrint("cloaking", "DSSTATUSUPDATE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
             connman.PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
                                strprintf("Version must be %d or greater", MIN_PRIVATESEND_PEER_PROTO_VERSION)));
             return;
@@ -124,31 +124,31 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
         vRecv >> nMsgSessionID >> nMsgState >> nMsgEntriesCount >> nMsgStatusUpdate >> nMsgMessageID;
 
         if(nMsgState < POOL_STATE_MIN || nMsgState > POOL_STATE_MAX) {
-            LogPrint("privatesend", "DSSTATUSUPDATE -- nMsgState is out of bounds: %d\n", nMsgState);
+            LogPrint("cloaking", "DSSTATUSUPDATE -- nMsgState is out of bounds: %d\n", nMsgState);
             return;
         }
 
         if(nMsgStatusUpdate < STATUS_REJECTED || nMsgStatusUpdate > STATUS_ACCEPTED) {
-            LogPrint("privatesend", "DSSTATUSUPDATE -- nMsgStatusUpdate is out of bounds: %d\n", nMsgStatusUpdate);
+            LogPrint("cloaking", "DSSTATUSUPDATE -- nMsgStatusUpdate is out of bounds: %d\n", nMsgStatusUpdate);
             return;
         }
 
         if(nMsgMessageID < MSG_POOL_MIN || nMsgMessageID > MSG_POOL_MAX) {
-            LogPrint("privatesend", "DSSTATUSUPDATE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
+            LogPrint("cloaking", "DSSTATUSUPDATE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
             return;
         }
 
-        LogPrint("privatesend", "DSSTATUSUPDATE -- nMsgSessionID %d  nMsgState: %d  nEntriesCount: %d  nMsgStatusUpdate: %d  nMsgMessageID %d (%s)\n",
+        LogPrint("cloaking", "DSSTATUSUPDATE -- nMsgSessionID %d  nMsgState: %d  nEntriesCount: %d  nMsgStatusUpdate: %d  nMsgMessageID %d (%s)\n",
                 nMsgSessionID, nMsgState, nEntriesCount, nMsgStatusUpdate, nMsgMessageID, CPrivateSend::GetMessageByID(PoolMessage(nMsgMessageID)));
 
         if(!CheckPoolStateUpdate(PoolState(nMsgState), nMsgEntriesCount, PoolStatusUpdate(nMsgStatusUpdate), PoolMessage(nMsgMessageID), nMsgSessionID)) {
-            LogPrint("privatesend", "DSSTATUSUPDATE -- CheckPoolStateUpdate failed\n");
+            LogPrint("cloaking", "DSSTATUSUPDATE -- CheckPoolStateUpdate failed\n");
         }
 
     } else if(strCommand == NetMsgType::DSFINALTX) {
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrint("privatesend", "DSFINALTX -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
+            LogPrint("cloaking", "DSFINALTX -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
             connman.PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
                                strprintf("Version must be %d or greater", MIN_PRIVATESEND_PEER_PROTO_VERSION)));
             return;
@@ -165,11 +165,11 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
         CTransaction txNew(deserialize, vRecv);
 
         if(nSessionID != nMsgSessionID) {
-            LogPrint("privatesend", "DSFINALTX -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
+            LogPrint("cloaking", "DSFINALTX -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
             return;
         }
 
-        LogPrint("privatesend", "DSFINALTX -- txNew %s", txNew.ToString());
+        LogPrint("cloaking", "DSFINALTX -- txNew %s", txNew.ToString());
 
         //check to see if input is spent already? (and probably not confirmed)
         SignFinalTransaction(txNew, pfrom, connman);
@@ -177,7 +177,7 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
     } else if(strCommand == NetMsgType::DSCOMPLETE) {
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrint("privatesend", "DSCOMPLETE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
+            LogPrint("cloaking", "DSCOMPLETE -- peer=%d using obsolete version %i\n", pfrom->id, pfrom->nVersion);
             connman.PushMessage(pfrom, CNetMsgMaker(pfrom->GetSendVersion()).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
                                strprintf("Version must be %d or greater", MIN_PRIVATESEND_PEER_PROTO_VERSION)));
             return;
@@ -185,7 +185,7 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
 
         if(!infoMixingMasternode.fInfoValid) return;
         if(infoMixingMasternode.addr != pfrom->addr) {
-            LogPrint("privatesend", "DSCOMPLETE -- message doesn't match current Masternode: infoMixingMasternode=%s  addr=%s\n", infoMixingMasternode.addr.ToString(), pfrom->addr.ToString());
+            LogPrint("cloaking", "DSCOMPLETE -- message doesn't match current Masternode: infoMixingMasternode=%s  addr=%s\n", infoMixingMasternode.addr.ToString(), pfrom->addr.ToString());
             return;
         }
 
@@ -194,16 +194,16 @@ void CPrivateSendClient::ProcessMessage(CNode* pfrom, const std::string& strComm
         vRecv >> nMsgSessionID >> nMsgMessageID;
 
         if(nMsgMessageID < MSG_POOL_MIN || nMsgMessageID > MSG_POOL_MAX) {
-            LogPrint("privatesend", "DSCOMPLETE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
+            LogPrint("cloaking", "DSCOMPLETE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
             return;
         }
 
         if(nSessionID != nMsgSessionID) {
-            LogPrint("privatesend", "DSCOMPLETE -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
+            LogPrint("cloaking", "DSCOMPLETE -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
             return;
         }
 
-        LogPrint("privatesend", "DSCOMPLETE -- nMsgSessionID %d  nMsgMessageID %d (%s)\n", nMsgSessionID, nMsgMessageID, CPrivateSend::GetMessageByID(PoolMessage(nMsgMessageID)));
+        LogPrint("cloaking", "DSCOMPLETE -- nMsgSessionID %d  nMsgMessageID %d (%s)\n", nMsgSessionID, nMsgMessageID, CPrivateSend::GetMessageByID(PoolMessage(nMsgMessageID)));
 
         CompletedTransaction(PoolMessage(nMsgMessageID));
     }
@@ -257,7 +257,7 @@ std::string CPrivateSendClient::GetStatus()
 
     switch(nState) {
         case POOL_STATE_IDLE:
-            return _("PrivateSend is idle.");
+            return _("Cloaking is idle.");
         case POOL_STATE_QUEUE:
             if(     nStatusMessageProgress % 70 <= 30) strSuffix = ".";
             else if(nStatusMessageProgress % 70 <= 50) strSuffix = "..";
@@ -272,7 +272,7 @@ std::string CPrivateSendClient::GetStatus()
                     fLastEntryAccepted = false;
                     nStatusMessageProgress = 0;
                 }
-                return _("PrivateSend request complete:") + " " + _("Your transaction was accepted into the pool!");
+                return _("Cloaking request complete:") + " " + _("Your transaction was accepted into the pool!");
             } else {
                 if(     nStatusMessageProgress % 70 <= 40) return strprintf(_("Submitted following entries to masternode: %u / %d"), nEntriesCount, CPrivateSend::GetMaxPoolTransactions());
                 else if(nStatusMessageProgress % 70 <= 50) strSuffix = ".";
@@ -287,9 +287,9 @@ std::string CPrivateSendClient::GetStatus()
             else if(nStatusMessageProgress % 70 <= 70) strSuffix = "...";
             return strprintf(_("Found enough users, signing ( waiting %s )"), strSuffix);
         case POOL_STATE_ERROR:
-            return _("PrivateSend request incomplete:") + " " + strLastMessage + " " + _("Will retry...");
+            return _("Cloaking request incomplete:") + " " + strLastMessage + " " + _("Will retry...");
         case POOL_STATE_SUCCESS:
-            return _("PrivateSend request complete:") + " " + strLastMessage;
+            return _("Cloaking request complete:") + " " + strLastMessage;
        default:
             return strprintf(_("Unknown state: id = %u"), nState);
     }
@@ -313,7 +313,7 @@ void CPrivateSendClient::CheckPool()
 {
     // reset if we're here for 10 seconds
     if((nState == POOL_STATE_ERROR || nState == POOL_STATE_SUCCESS) && GetTime() - nTimeLastSuccessfulStep >= 10) {
-        LogPrint("privatesend", "CPrivateSendClient::CheckPool -- timeout, RESETTING\n");
+        LogPrint("cloaking", "CPrivateSendClient::CheckPool -- timeout, RESETTING\n");
         UnlockCoins();
         if (nState == POOL_STATE_ERROR) {
             keyHolderStorage.ReturnAll();
@@ -338,11 +338,11 @@ void CPrivateSendClient::CheckTimeout()
     // catching hanging sessions
     switch(nState) {
         case POOL_STATE_ERROR:
-            LogPrint("privatesend", "CPrivateSendClient::CheckTimeout -- Pool error -- Running CheckPool\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckTimeout -- Pool error -- Running CheckPool\n");
             CheckPool();
             break;
         case POOL_STATE_SUCCESS:
-            LogPrint("privatesend", "CPrivateSendClient::CheckTimeout -- Pool success -- Running CheckPool\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckTimeout -- Pool success -- Running CheckPool\n");
             CheckPool();
             break;
         default:
@@ -354,7 +354,7 @@ void CPrivateSendClient::CheckTimeout()
     bool fTimeout = GetTime() - nTimeLastSuccessfulStep >= nTimeout + nLagTime;
 
     if(nState != POOL_STATE_IDLE && fTimeout) {
-        LogPrint("privatesend", "CPrivateSendClient::CheckTimeout -- %s timed out (%ds) -- resetting\n",
+        LogPrint("cloaking", "CPrivateSendClient::CheckTimeout -- %s timed out (%ds) -- resetting\n",
                 (nState == POOL_STATE_SIGNING) ? "Signing" : "Session", nTimeout);
         UnlockCoins();
         keyHolderStorage.ReturnAll();
@@ -416,12 +416,12 @@ bool CPrivateSendClient::SendDenominate(const std::vector<CTxDSIn>& vecTxDSIn, c
         CMutableTransaction tx;
 
         for (const auto& txdsin : vecTxDSIn) {
-            LogPrint("privatesend", "CPrivateSendClient::SendDenominate -- txdsin=%s\n", txdsin.ToString());
+            LogPrint("cloaking", "CPrivateSendClient::SendDenominate -- txdsin=%s\n", txdsin.ToString());
             tx.vin.push_back(txdsin);
         }
 
         for (const CTxOut& txout : vecTxOut) {
-            LogPrint("privatesend", "CPrivateSendClient::SendDenominate -- txout=%s\n", txout.ToString());
+            LogPrint("cloaking", "CPrivateSendClient::SendDenominate -- txout=%s\n", txout.ToString());
             tx.vout.push_back(txout);
         }
 
@@ -552,14 +552,14 @@ bool CPrivateSendClient::SignFinalTransaction(const CTransaction& finalTransacti
 
                 const CKeyStore& keystore = *pwalletMain;
 
-                LogPrint("privatesend", "CPrivateSendClient::SignFinalTransaction -- Signing my input %i\n", nMyInputIndex);
+                LogPrint("cloaking", "CPrivateSendClient::SignFinalTransaction -- Signing my input %i\n", nMyInputIndex);
                 if(!SignSignature(keystore, prevPubKey, finalMutableTransaction, nMyInputIndex, int(SIGHASH_ALL|SIGHASH_ANYONECANPAY))) { // changes scriptSig
-                    LogPrint("privatesend", "CPrivateSendClient::SignFinalTransaction -- Unable to sign my own transaction!\n");
+                    LogPrint("cloaking", "CPrivateSendClient::SignFinalTransaction -- Unable to sign my own transaction!\n");
                     // not sure what to do here, it will timeout...?
                 }
 
                 sigs.push_back(finalMutableTransaction.vin[nMyInputIndex]);
-                LogPrint("privatesend", "CPrivateSendClient::SignFinalTransaction -- nMyInputIndex: %d, sigs.size(): %d, scriptSig=%s\n", nMyInputIndex, (int)sigs.size(), ScriptToAsmStr(finalMutableTransaction.vin[nMyInputIndex].scriptSig));
+                LogPrint("cloaking", "CPrivateSendClient::SignFinalTransaction -- nMyInputIndex: %d, sigs.size(): %d, scriptSig=%s\n", nMyInputIndex, (int)sigs.size(), ScriptToAsmStr(finalMutableTransaction.vin[nMyInputIndex].scriptSig));
             }
         }
     }
@@ -621,7 +621,7 @@ bool CPrivateSendClient::CheckAutomaticBackup()
 {
     switch(nWalletBackups) {
         case 0:
-            LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- Automatic backups disabled, no mixing available.\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- Automatic backups disabled, no mixing available.\n");
             strAutoDenomResult = _("Automatic backups disabled") + ", " + _("no mixing available.");
             fEnablePrivateSend = false; // stop mixing
             pwalletMain->nKeysLeftSinceAutoBackup = 0; // no backup, no "keys since last backup"
@@ -630,32 +630,32 @@ bool CPrivateSendClient::CheckAutomaticBackup()
             // Automatic backup failed, nothing else we can do until user fixes the issue manually.
             // There is no way to bring user attention in daemon mode so we just update status and
             // keep spamming if debug is on.
-            LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- ERROR! Failed to create automatic backup.\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- ERROR! Failed to create automatic backup.\n");
             strAutoDenomResult = _("ERROR! Failed to create automatic backup") + ", " + _("see debug.log for details.");
             return false;
         case -2:
             // We were able to create automatic backup but keypool was not replenished because wallet is locked.
             // There is no way to bring user attention in daemon mode so we just update status and
             // keep spamming if debug is on.
-            LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- WARNING! Failed to create replenish keypool, please unlock your wallet to do so.\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- WARNING! Failed to create replenish keypool, please unlock your wallet to do so.\n");
             strAutoDenomResult = _("WARNING! Failed to replenish keypool, please unlock your wallet to do so.") + ", " + _("see debug.log for details.");
             return false;
     }
 
     if(pwalletMain->nKeysLeftSinceAutoBackup < PRIVATESEND_KEYS_THRESHOLD_STOP) {
         // We should never get here via mixing itself but probably smth else is still actively using keypool
-        LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- Very low number of keys left: %d, no mixing available.\n", pwalletMain->nKeysLeftSinceAutoBackup);
+        LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- Very low number of keys left: %d, no mixing available.\n", pwalletMain->nKeysLeftSinceAutoBackup);
         strAutoDenomResult = strprintf(_("Very low number of keys left: %d") + ", " + _("no mixing available."), pwalletMain->nKeysLeftSinceAutoBackup);
         // It's getting really dangerous, stop mixing
         fEnablePrivateSend = false;
         return false;
     } else if(pwalletMain->nKeysLeftSinceAutoBackup < PRIVATESEND_KEYS_THRESHOLD_WARNING) {
         // Low number of keys left but it's still more or less safe to continue
-        LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- Very low number of keys left: %d\n", pwalletMain->nKeysLeftSinceAutoBackup);
+        LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- Very low number of keys left: %d\n", pwalletMain->nKeysLeftSinceAutoBackup);
         strAutoDenomResult = strprintf(_("Very low number of keys left: %d"), pwalletMain->nKeysLeftSinceAutoBackup);
 
         if(fCreateAutoBackups) {
-            LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- Trying to create new backup.\n");
+            LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- Trying to create new backup.\n");
             std::string warningString;
             std::string errorString;
 
@@ -677,7 +677,7 @@ bool CPrivateSendClient::CheckAutomaticBackup()
         }
     }
 
-    LogPrint("privatesend", "CPrivateSendClient::CheckAutomaticBackup -- Keys left since latest backup: %d\n", pwalletMain->nKeysLeftSinceAutoBackup);
+    LogPrint("cloaking", "CPrivateSendClient::CheckAutomaticBackup -- Keys left since latest backup: %d\n", pwalletMain->nKeysLeftSinceAutoBackup);
 
     return true;
 }
@@ -723,7 +723,7 @@ bool CPrivateSendClient::DoAutomaticDenominating(CConnman& connman, bool fDryRun
     }
 
     if(mnodeman.size() == 0) {
-        LogPrint("privatesend", "CPrivateSendClient::DoAutomaticDenominating -- No Masternodes detected\n");
+        LogPrint("cloaking", "CPrivateSendClient::DoAutomaticDenominating -- No Masternodes detected\n");
         strAutoDenomResult = _("No Masternodes detected.");
         return false;
     }
@@ -753,7 +753,7 @@ bool CPrivateSendClient::DoAutomaticDenominating(CConnman& connman, bool fDryRun
     CAmount nBalanceDenominatedUnconf = pwalletMain->GetDenominatedBalance(true);
     CAmount nBalanceDenominated = nBalanceDenominatedConf + nBalanceDenominatedUnconf;
 
-    LogPrint("privatesend", "CPrivateSendClient::DoAutomaticDenominating -- nValueMin: %f, nBalanceNeedsAnonymized: %f, nBalanceAnonimizableNonDenom: %f, nBalanceDenominatedConf: %f, nBalanceDenominatedUnconf: %f, nBalanceDenominated: %f\n",
+    LogPrint("cloaking", "CPrivateSendClient::DoAutomaticDenominating -- nValueMin: %f, nBalanceNeedsAnonymized: %f, nBalanceAnonimizableNonDenom: %f, nBalanceDenominatedConf: %f, nBalanceDenominatedUnconf: %f, nBalanceDenominated: %f\n",
             (float)nValueMin/COIN,
             (float)nBalanceNeedsAnonymized/COIN,
             (float)nBalanceAnonimizableNonDenom/COIN,
@@ -813,11 +813,11 @@ bool CPrivateSendClient::DoAutomaticDenominating(CConnman& connman, bool fDryRun
     // If we've used 90% of the Masternode list then drop the oldest first ~30%
     int nThreshold_high = nMnCountEnabled * 0.9;
     int nThreshold_low = nThreshold_high * 0.7;
-    LogPrint("privatesend", "Checking vecMasternodesUsed: size: %d, threshold: %d\n", (int)vecMasternodesUsed.size(), nThreshold_high);
+    LogPrint("cloaking", "Checking vecMasternodesUsed: size: %d, threshold: %d\n", (int)vecMasternodesUsed.size(), nThreshold_high);
 
     if((int)vecMasternodesUsed.size() > nThreshold_high) {
         vecMasternodesUsed.erase(vecMasternodesUsed.begin(), vecMasternodesUsed.begin() + vecMasternodesUsed.size() - nThreshold_low);
-        LogPrint("privatesend", "  vecMasternodesUsed: new size: %d, threshold: %d\n", (int)vecMasternodesUsed.size(), nThreshold_high);
+        LogPrint("cloaking", "  vecMasternodesUsed: new size: %d, threshold: %d\n", (int)vecMasternodesUsed.size(), nThreshold_high);
     }
 
     bool fUseQueue = GetRandInt(100) > 33;
@@ -871,7 +871,7 @@ bool CPrivateSendClient::JoinExistingQueue(CAmount nBalanceNeedsAnonymized, CCon
         // in order for dsq to get into vecDarksendQueue, so we should be safe to mix already,
         // no need for additional verification here
 
-        LogPrint("privatesend", "CPrivateSendClient::JoinExistingQueue -- found valid queue: %s\n", dsq.ToString());
+        LogPrint("cloaking", "CPrivateSendClient::JoinExistingQueue -- found valid queue: %s\n", dsq.ToString());
 
         CAmount nValueInTmp = 0;
         std::vector<CTxDSIn> vecTxDSInTmp;
@@ -1016,7 +1016,7 @@ void CPrivateSendClient::ProcessPendingDsaRequest(CConnman& connman)
     if (!pendingDsaRequest) return;
 
     bool fDone = connman.ForNode(pendingDsaRequest.GetAddr(), [&](CNode* pnode) {
-        LogPrint("privatesend", "-- processing dsa queue for addr=%s\n", pnode->addr.ToString());
+        LogPrint("cloaking", "-- processing dsa queue for addr=%s\n", pnode->addr.ToString());
         nTimeLastSuccessfulStep = GetTime();
         // TODO: this vvvv should be here after new state POOL_STATE_CONNECTING is added and MIN_PRIVATESEND_PEER_PROTO_VERSION is bumped
         // SetState(POOL_STATE_QUEUE);
@@ -1029,7 +1029,7 @@ void CPrivateSendClient::ProcessPendingDsaRequest(CConnman& connman)
     if (fDone) {
         pendingDsaRequest = CPendingDsaRequest();
     } else if (pendingDsaRequest.IsExpired()) {
-        LogPrint("privatesend", "CPrivateSendClient::%s -- failed to connect to %s\n", __func__, pendingDsaRequest.GetAddr().ToString());
+        LogPrint("cloaking", "CPrivateSendClient::%s -- failed to connect to %s\n", __func__, pendingDsaRequest.GetAddr().ToString());
         SetNull();
     }
 }
@@ -1048,7 +1048,7 @@ bool CPrivateSendClient::SubmitDenominate(CConnman& connman)
                 LogPrintf("CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, success\n", i);
                 return SendDenominate(vecTxDSInRet, vecTxOutRet, connman);
             }
-            LogPrint("privatesend", "CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, error: %s\n", i, strError);
+            LogPrint("cloaking", "CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, error: %s\n", i, strError);
         }
     } else {
         // Try to use only inputs with the same number of rounds starting from the highest number of rounds possible
@@ -1057,7 +1057,7 @@ bool CPrivateSendClient::SubmitDenominate(CConnman& connman)
                 LogPrintf("CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, success\n", i);
                 return SendDenominate(vecTxDSInRet, vecTxOutRet, connman);
             }
-            LogPrint("privatesend", "CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, error: %s\n", i, strError);
+            LogPrint("cloaking", "CPrivateSendClient::SubmitDenominate -- Running PrivateSend denominate for %d rounds, error: %s\n", i, strError);
         }
     }
 
@@ -1200,7 +1200,7 @@ bool CPrivateSendClient::MakeCollateralAmounts(CConnman& connman)
 {
     std::vector<CompactTallyItem> vecTally;
     if(!pwalletMain->SelectCoinsGrouppedByAddresses(vecTally, false)) {
-        LogPrint("privatesend", "CPrivateSendClient::MakeCollateralAmounts -- SelectCoinsGrouppedByAddresses can't find any inputs!\n");
+        LogPrint("cloaking", "CPrivateSendClient::MakeCollateralAmounts -- SelectCoinsGrouppedByAddresses can't find any inputs!\n");
         return false;
     }
 
@@ -1300,7 +1300,7 @@ bool CPrivateSendClient::CreateDenominated(CConnman& connman)
 
     std::vector<CompactTallyItem> vecTally;
     if(!pwalletMain->SelectCoinsGrouppedByAddresses(vecTally)) {
-        LogPrint("privatesend", "CPrivateSendClient::CreateDenominated -- SelectCoinsGrouppedByAddresses can't find any inputs!\n");
+        LogPrint("cloaking", "CPrivateSendClient::CreateDenominated -- SelectCoinsGrouppedByAddresses can't find any inputs!\n");
         return false;
     }
 
@@ -1444,14 +1444,14 @@ void CPrivateSendClient::SetState(PoolState nStateNew)
 void CPrivateSendClient::UpdatedBlockTip(const CBlockIndex *pindex)
 {
     nCachedBlockHeight = pindex->nHeight;
-    LogPrint("privatesend", "CPrivateSendClient::UpdatedBlockTip -- nCachedBlockHeight: %d\n", nCachedBlockHeight);
+    LogPrint("cloaking", "CPrivateSendClient::UpdatedBlockTip -- nCachedBlockHeight: %d\n", nCachedBlockHeight);
 
 }
 
 //TODO: Rename/move to core
 void ThreadCheckPrivateSendClient(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Galactrum specific functionality
     if(fMasternodeMode) return; // no client-side mixing on masternodes
 
     static bool fOneThread;
@@ -1459,7 +1459,7 @@ void ThreadCheckPrivateSendClient(CConnman& connman)
     fOneThread = true;
 
     // Make this thread recognisable as the PrivateSend thread
-    RenameThread("dash-ps-client");
+    RenameThread("galactrum-ps-client");
 
     unsigned int nTick = 0;
     unsigned int nDoAutoNextRun = nTick + PRIVATESEND_AUTO_TIMEOUT_MIN;

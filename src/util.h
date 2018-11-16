@@ -12,7 +12,7 @@
 #define BITCOIN_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "compat.h"
@@ -35,14 +35,14 @@
 
 // Uncomment the following line to enable debugging messages
 // or enable on a per file basis prior to inclusion of util.h
-//#define ENABLE_DASH_DEBUG
-#ifdef ENABLE_DASH_DEBUG
+//#define ENABLE_GALACTRUM_DEBUG
+#ifdef ENABLE_GALACTRUM_DEBUG
 #define DBG( x ) x
 #else
-#define DBG( x ) 
+#define DBG( x )
 #endif
 
-//Dash only features
+//Galactrum only features
 
 extern bool fMasternodeMode;
 extern bool fLiteMode;
@@ -67,7 +67,6 @@ extern bool fPrintToConsole;
 extern bool fPrintToDebugLog;
 extern bool fLimitDebugLogSize;
 extern bool fServer;
-extern std::string strMiscWarning;
 extern bool fLogTimestamps;
 extern bool fLogTimeMicros;
 extern bool fLogThreadNames;
@@ -238,7 +237,7 @@ std::string GetThreadName();
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("dash-%s", name);
+    std::string s = strprintf("galactrum-%s", name);
     RenameThread(s.c_str());
     try
     {

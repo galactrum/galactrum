@@ -20,6 +20,9 @@
 #include "transactionview.h"
 #include "walletmodel.h"
 
+#include "settingspage.h"
+#include "toolspage.h"
+
 #include "ui_interface.h"
 
 #include <QAction>
@@ -39,7 +42,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     platformStyle(_platformStyle)
 {
     // Create tabs
-    overviewPage = new OverviewPage(platformStyle);
+    overviewPage = new OverviewPage(platformStyle, 0, this, parent);
 
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -51,6 +54,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     if (platformStyle->getImagesOnButtons()) {
         QString theme = GUIUtil::getThemeName();
         exportButton->setIcon(QIcon(":/icons/" + theme + "/export"));
+        exportButton->setIconSize(QSize(32, 32));
     }
     hbox_buttons->addStretch();
 
@@ -70,16 +74,21 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     vbox->addLayout(hbox_buttons);
     transactionsPage->setLayout(vbox);
 
-    receiveCoinsPage = new ReceiveCoinsDialog(platformStyle);
-    sendCoinsPage = new SendCoinsDialog(platformStyle);
+    receiveCoinsPage = new ReceiveCoinsDialog(platformStyle, 0, parent);
+    sendCoinsPage = new SendCoinsDialog(platformStyle, 0, parent);
 
     usedSendingAddressesPage = new AddressBookPage(platformStyle, AddressBookPage::ForEditing, AddressBookPage::SendingTab, this);
     usedReceivingAddressesPage = new AddressBookPage(platformStyle, AddressBookPage::ForEditing, AddressBookPage::ReceivingTab, this);
+
+    settingsPage = new SettingsPage(_platformStyle);
+    toolsPage = new ToolsPage(_platformStyle);
 
     addWidget(overviewPage);
     addWidget(transactionsPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
+    addWidget(settingsPage);
+    addWidget(toolsPage);
 
     QSettings settings;
     if (!fLiteMode && settings.value("fShowMasternodesTab").toBool()) {
@@ -129,6 +138,8 @@ void WalletView::setBitcoinGUI(BitcoinGUI *gui)
 
         // Connect HD enabled state signal
         connect(this, SIGNAL(hdEnabledStatusChanged(int)), gui, SLOT(setHDStatus(int)));
+
+        connect(toolsPage, SIGNAL(handleRestart(QStringList)), gui, SLOT(handleRestart(QStringList)));
     }
 }
 
@@ -138,6 +149,8 @@ void WalletView::setClientModel(ClientModel *_clientModel)
 
     overviewPage->setClientModel(_clientModel);
     sendCoinsPage->setClientModel(_clientModel);
+    settingsPage->setOptionsModel(clientModel->getOptionsModel());
+    toolsPage->setClientModel(clientModel);
     QSettings settings;
     if (!fLiteMode && settings.value("fShowMasternodesTab").toBool()) {
         masternodeListPage->setClientModel(_clientModel);
@@ -202,6 +215,22 @@ void WalletView::processNewTransaction(const QModelIndex& parent, int start, int
     QString label = ttm->data(index, TransactionTableModel::LabelRole).toString();
 
     Q_EMIT incomingTransaction(date, walletModel->getOptionsModel()->getDisplayUnit(), amount, type, address, label);
+}
+
+void WalletView::gotoSettingsPage()
+{
+    setCurrentWidget(settingsPage);
+}
+
+void WalletView::gotoToolsPage()
+{
+    setCurrentWidget(toolsPage);
+}
+
+void WalletView::gotoToolsPageTab(enum ToolsPage::TabTypes page)
+{
+    toolsPage->setTabFocus(page);
+    setCurrentWidget(toolsPage);
 }
 
 void WalletView::gotoOverviewPage()

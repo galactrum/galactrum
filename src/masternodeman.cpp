@@ -803,7 +803,7 @@ void CMasternodeMan::ProcessPendingMnbRequests(CConnman& connman)
 
 void CMasternodeMan::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Galactrum specific functionality
 
     if (strCommand == NetMsgType::MNANNOUNCE) { //Masternode Broadcast
 

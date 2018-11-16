@@ -38,7 +38,7 @@ enum NumConnections {
     CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
 };
 
-/** Model for Dash network client. */
+/** Model for Galactrum network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -61,7 +61,7 @@ public:
     long getMempoolSize() const;
     //! Return the dynamic memory usage of the mempool
     size_t getMempoolDynamicUsage() const;
-    
+
     quint64 getTotalBytesRecv() const;
     quint64 getTotalBytesSent() const;
 

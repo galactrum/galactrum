@@ -30,7 +30,7 @@ class OverviewPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit OverviewPage(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit OverviewPage(const PlatformStyle *platformStyle, QWidget *parent = 0, QWidget *walletview = 0, QWidget *walletframe = 0);
     ~OverviewPage();
 
     void setClientModel(ClientModel *clientModel);
@@ -41,6 +41,12 @@ public Q_SLOTS:
     void privateSendStatus();
     void setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance, const CAmount& anonymizedBalance,
                     const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance);
+#ifdef ENABLE_WALLET
+    void showPrivateSend();
+    void hidePrivateSend();
+    void setEncryptionStatus(int status);
+
+#endif
 
 Q_SIGNALS:
     void transactionClicked(const QModelIndex &index);
@@ -60,6 +66,7 @@ private:
     CAmount currentWatchImmatureBalance;
     int nDisplayUnit;
     bool fShowAdvancedPSUI;
+    bool fShowPrivateSend;
 
     TxViewDelegate *txdelegate;
     std::unique_ptr<TransactionFilterProxy> filter;

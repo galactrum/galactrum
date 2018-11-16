@@ -5,6 +5,7 @@
 #ifndef BITCOIN_QT_WALLETFRAME_H
 #define BITCOIN_QT_WALLETFRAME_H
 
+#include "toolspage.h"
 #include <QFrame>
 #include <QMap>
 
@@ -44,6 +45,10 @@ public:
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 
     void showOutOfSyncWarning(bool fShow);
+    WalletView getWalletView();
+    void gotoToolsPageTab(enum ToolsPage::TabTypes page);
+
+
 
 Q_SIGNALS:
     /** Notify that the user has requested more information about the out-of-sync warning */
@@ -88,6 +93,8 @@ public Q_SLOTS:
     void unlockWallet();
     /** Lock wallet */
     void lockWallet();
+    void gotoSettingsPage();
+    void gotoToolsPage();
 
     /** Show used sending addresses */
     void usedSendingAddresses();

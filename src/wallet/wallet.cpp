@@ -49,8 +49,8 @@ bool bBIP69Enabled = true;
 
 const char * DEFAULT_WALLET_DAT = "wallet.dat";
 
-/** 
- * Fees smaller than this (in duffs) are considered zero fee (for transaction creation)
+/**
+ * Fees smaller than this (in crag) are considered zero fee (for transaction creation)
  * Override with -mintxfee
  */
 CFeeRate CWallet::minTxFee = CFeeRate(DEFAULT_TRANSACTION_MINFEE);
@@ -633,21 +633,21 @@ bool CWallet::Verify()
         } catch (const boost::filesystem::filesystem_error&) {
             // failure is ok (well, not really, but it's not worse than what we started with)
         }
-        
+
         // try again
         if (!bitdb.Open(GetDataDir())) {
             // if it still fails, it probably means we can't even create the database env
             return InitError(strprintf(_("Error initializing wallet database environment %s!"), GetDataDir()));
         }
     }
-    
+
     if (GetBoolArg("-salvagewallet", false))
     {
         // Recover readable keypairs:
         if (!CWalletDB::Recover(bitdb, walletFile, true))
             return false;
     }
-    
+
     if (boost::filesystem::exists(GetDataDir() / walletFile))
     {
         CDBEnv::VerifyResult r = bitdb.Verify(walletFile, CWalletDB::Recover);
@@ -662,7 +662,7 @@ bool CWallet::Verify()
         if (r == CDBEnv::RECOVER_FAIL)
             return InitError(strprintf(_("%s corrupt, salvage failed"), walletFile));
     }
-    
+
     return true;
 }
 
@@ -1442,7 +1442,7 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
         std::map<uint256, CMutableTransaction>::const_iterator mdwi = mDenomWtxes.find(hash);
         if (mdwi == mDenomWtxes.end()) {
             // not known yet, let's add it
-            LogPrint("privatesend", "GetRealOutpointPrivateSendRounds INSERTING %s\n", hash.ToString());
+            LogPrint("cloaking", "GetRealOutpointPrivateSendRounds INSERTING %s\n", hash.ToString());
             mDenomWtxes[hash] = CMutableTransaction(*wtx);
         } else if(mDenomWtxes[hash].vout[nout].nRounds != -10) {
             // found and it's not an initial value, just return it
@@ -1453,20 +1453,20 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
         // bounds check
         if (nout >= wtx->tx->vout.size()) {
             // should never actually hit this
-            LogPrint("privatesend", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, -4);
+            LogPrint("cloaking", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, -4);
             return -4;
         }
 
         if (CPrivateSend::IsCollateralAmount(wtx->tx->vout[nout].nValue)) {
             mDenomWtxes[hash].vout[nout].nRounds = -3;
-            LogPrint("privatesend", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
+            LogPrint("cloaking", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
             return mDenomWtxes[hash].vout[nout].nRounds;
         }
 
         //make sure the final output is non-denominate
         if (!CPrivateSend::IsDenominatedAmount(wtx->tx->vout[nout].nValue)) { //NOT DENOM
             mDenomWtxes[hash].vout[nout].nRounds = -2;
-            LogPrint("privatesend", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
+            LogPrint("cloaking", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
             return mDenomWtxes[hash].vout[nout].nRounds;
         }
 
@@ -1478,7 +1478,7 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
         // this one is denominated but there is another non-denominated output found in the same tx
         if (!fAllDenoms) {
             mDenomWtxes[hash].vout[nout].nRounds = 0;
-            LogPrint("privatesend", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
+            LogPrint("cloaking", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
             return mDenomWtxes[hash].vout[nout].nRounds;
         }
 
@@ -1498,7 +1498,7 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
         mDenomWtxes[hash].vout[nout].nRounds = fDenomFound
                 ? (nShortest >= MAX_PRIVATESEND_ROUNDS - 1 ? MAX_PRIVATESEND_ROUNDS : nShortest + 1) // good, we a +1 to the shortest one but only MAX_PRIVATESEND_ROUNDS rounds max allowed
                 : 0;            // too bad, we are the fist one in that chain
-        LogPrint("privatesend", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
+        LogPrint("cloaking", "GetRealOutpointPrivateSendRounds UPDATED   %s %3d %3d\n", hash.ToString(), nout, mDenomWtxes[hash].vout[nout].nRounds);
         return mDenomWtxes[hash].vout[nout].nRounds;
     }
 
@@ -3006,10 +3006,10 @@ bool CWallet::SelectCoinsByDenominations(int nDenom, CAmount nValueMin, CAmount 
     std::random_shuffle(vCoins.rbegin(), vCoins.rend(), GetRandInt);
 
     // ( bit on if present )
-    // bit 0 - 100DASH+1
-    // bit 1 - 10DASH+1
-    // bit 2 - 1DASH+1
-    // bit 3 - .1DASH+1
+    // bit 0 - 100ORE+1
+    // bit 1 - 10ORE+1
+    // bit 2 - 1ORE+1
+    // bit 3 - .1ORE+1
 
     std::vector<int> vecBits;
     if (!CPrivateSend::GetDenominationsBits(nDenom, vecBits)) {
@@ -3316,7 +3316,7 @@ bool CWallet::CreateCollateralTransaction(CMutableTransaction& txCollateral, std
     CTxDSIn txdsinCollateral;
 
     if (!GetCollateralTxDSIn(txdsinCollateral, nValue)) {
-        strReason = "PrivateSend requires a collateral transaction and could not locate an acceptable input!";
+        strReason = "Cloaking requires a collateral transaction and could not locate an acceptable input!";
         return false;
     }
 
@@ -3540,7 +3540,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                     return false;
                 }
                 if (fUseInstantSend && nValueIn > sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)*COIN) {
-                    strFailReason += " " + strprintf(_("InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DASH."), sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE));
+                    strFailReason += " " + strprintf(_("InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ORE."), sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE));
                     return false;
                 }
 
@@ -3574,7 +3574,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
 
                         // Fill a vout to ourself
                         // TODO: pass in scriptChange instead of reservekey so
-                        // change transaction isn't always pay-to-dash-address
+                        // change transaction isn't always pay-to-galactrum-address
                         CScript scriptChange;
 
                         // coin control: send change to custom address
@@ -4085,7 +4085,7 @@ bool CWallet::SetDefaultKey(const CPubKey &vchPubKey)
 
 /**
  * Mark old keypool keys as used,
- * and generate all new keys 
+ * and generate all new keys
  */
 bool CWallet::NewKeyPool()
 {

@@ -52,7 +52,7 @@ private:
     Qt::SortOrder order;
 };
 
-/** Model for list of recently generated payment requests / dash: URIs.
+/** Model for list of recently generated payment requests / galactrum: URIs.
  * Part of wallet model.
  */
 class RecentRequestsTableModel: public QAbstractTableModel
@@ -87,6 +87,7 @@ public:
     void addNewRequest(const SendCoinsRecipient &recipient);
     void addNewRequest(const std::string &recipient);
     void addNewRequest(RecentRequestEntry &recipient);
+    int count();
 
 public Q_SLOTS:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);

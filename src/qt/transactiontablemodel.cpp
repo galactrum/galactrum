@@ -374,7 +374,7 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
     case TransactionRecord::RecvFromOther:
         return tr("Received from");
     case TransactionRecord::RecvWithPrivateSend:
-        return tr("Received via PrivateSend");
+        return tr("Received via Cloaking");
     case TransactionRecord::SendToAddress:
     case TransactionRecord::SendToOther:
         return tr("Sent to");
@@ -384,15 +384,15 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
         return tr("Mined");
 
     case TransactionRecord::PrivateSendDenominate:
-        return tr("PrivateSend Denominate");
+        return tr("Cloaking Denominate");
     case TransactionRecord::PrivateSendCollateralPayment:
-        return tr("PrivateSend Collateral Payment");
+        return tr("Claoking Collateral Payment");
     case TransactionRecord::PrivateSendMakeCollaterals:
-        return tr("PrivateSend Make Collateral Inputs");
+        return tr("Cloaking Make Collateral Inputs");
     case TransactionRecord::PrivateSendCreateDenominations:
-        return tr("PrivateSend Create Denominations");
+        return tr("Cloaking Create Denominations");
     case TransactionRecord::PrivateSend:
-        return tr("PrivateSend");
+        return tr("Cloaking");
 
     default:
         return QString();

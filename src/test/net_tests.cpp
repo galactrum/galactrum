@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "addrman.h"
-#include "test/test_dash.h"
+#include "test/test_galactrum.h"
 #include <string>
 #include <boost/test/unit_test.hpp>
 #include "hash.h"
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE(cnode_simple_test)
 
     in_addr ipv4Addr;
     ipv4Addr.s_addr = 0xa0b0c001;
-    
+
     CAddress addr = CAddress(CService(ipv4Addr, 7777), NODE_NETWORK);
     std::string pszDest = "";
     bool fInboundIn = false;

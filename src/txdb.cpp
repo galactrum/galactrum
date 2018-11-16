@@ -471,7 +471,7 @@ bool CCoinsViewDB::Upgrade() {
             if (count++ % 256 == 0) {
                 uint32_t high = 0x100 * *key.second.begin() + *(key.second.begin() + 1);
                 int percentageDone = (int)(high * 100.0 / 65536.0 + 0.5);
-                uiInterface.ShowProgress(_("Upgrading UTXO database") + "\n"+ _("(press q to shutdown and continue later)") + "\n", percentageDone);
+                uiInterface.ShowProgress(_("Upgrading UTXO database") + " "+ _("(press q to shutdown and continue later)") + " ", percentageDone);
                 if (reportDone < percentageDone/10) {
                     // report max. every 10% step
                     LogPrintf("[%d%%]...", percentageDone);

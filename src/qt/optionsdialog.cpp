@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/galactrum-config.h"
 #endif
 
 #include "optionsdialog.h"
@@ -83,23 +83,23 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
 
     /* Display elements init */
-    
+
     /* Number of displayed decimal digits selector */
     QString digits;
     for(int index = 2; index <=8; index++){
         digits.setNum(index);
         ui->digits->addItem(digits, digits);
     }
-    
+
     /* Theme selector */
-    ui->theme->addItem(QString("DASH-light"), QVariant("light"));
-    ui->theme->addItem(QString("DASH-light-hires"), QVariant("light-hires"));
-    ui->theme->addItem(QString("DASH-light-retro"), QVariant("light-retro"));
-    ui->theme->addItem(QString("DASH-light-hires-retro"), QVariant("light-hires-retro"));
-    ui->theme->addItem(QString("DASH-blue"), QVariant("drkblue"));
-    ui->theme->addItem(QString("DASH-Crownium"), QVariant("crownium"));
-    ui->theme->addItem(QString("DASH-traditional"), QVariant("trad"));
-    
+    ui->theme->addItem(QString("ORE-light"), QVariant("light"));
+    ui->theme->addItem(QString("ORE-light-hires"), QVariant("light-hires"));
+    ui->theme->addItem(QString("ORE-light-retro"), QVariant("light-retro"));
+    ui->theme->addItem(QString("ORE-light-hires-retro"), QVariant("light-hires-retro"));
+    ui->theme->addItem(QString("ORE-blue"), QVariant("drkblue"));
+    ui->theme->addItem(QString("ORE-Crownium"), QVariant("crownium"));
+    ui->theme->addItem(QString("ORE-traditional"), QVariant("trad"));
+
     /* Language selector */
     QDir translations(":translations");
 
