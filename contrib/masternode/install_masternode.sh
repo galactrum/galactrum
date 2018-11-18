@@ -3,7 +3,7 @@
 clear
 cd ~
 echo "**********************************************************************"
-echo "* Ubuntu 16.04 is the recommended opearting system for this install. *"
+echo "* Ubuntu 18.04 is the recommended opearting system for this install. *"
 echo "*                                                                    *"
 echo "* This script will install and configure your Galactrum masternode.  *"
 echo "**********************************************************************"
@@ -17,7 +17,7 @@ echo && echo && echo
 sleep 3
 
 # Check for systemd
-systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you using Ubuntu 16.04?"  >&2; exit 1; }
+systemctl --version >/dev/null 2>&1 || { echo "systemd is required. Are you using Ubuntu 18.04?"  >&2; exit 1; }
 
 # Gather input from user
 read -e -p "Masternode Private Key (e.g. 7edfjLCUzGczZi3JQw8GHp434R9kNY33eFyMGeKRymkB56G4324h) : " key
@@ -120,14 +120,14 @@ fi
 # Download Galactrum
 echo && echo "Downloading Galactrum v1.2.0..."
 sleep 3
-wget https://github.com/galactrum/galactrum/releases/download/v1.1.6/galactrum-1.1.6-linux64.tar.gz
-tar -xvf galactrum-1.1.6-linux64.tar.gz
-rm galactrum-1.1.6-linux64.tar.gz
+wget https://github.com/galactrum/galactrum/releases/download/v1.2.0/galactrum-1.2.0-linux64.tar.gz
+tar -xvf galactrum-1.2.0-linux64.tar.gz
+rm galactrum-1.2.0-linux64.tar.gz
 
 # Install Galactrum
 echo && echo "Installing Galactrum v1.2.0..."
 sleep 3
-sudo mv galactrum-1.1.6/bin/galactrum{d,-cli} /usr/local/bin
+sudo mv galactrum-1.2.0/bin/galactrum{d,-cli} /usr/local/bin
 
 # Create config for Galactrum
 echo && echo "Configuring Galactrum v1.2.0..."
