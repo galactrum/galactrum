@@ -10,14 +10,15 @@
 #include <utilstrencodings.h>
 #include <crypto/common.h>
 
+
 uint256 CBlockHeader::GetHash() const
 {
-    return HashX11(BEGIN(nVersion), END(nNonce));
+    return lyra2re2_hash(BEGIN(nVersion), END(nNonce));
 }
 
 uint256 CBlock::GetTPoSHash()
 {
-    return HashX11(BEGIN(nVersion), END(hashTPoSContractTx));
+    return lyra2re2_hash(BEGIN(nVersion), END(hashTPoSContractTx));
 }
 
 bool CBlock::IsProofOfStake() const

@@ -43,7 +43,7 @@ config file):
 
 	HiddenServiceDir /var/lib/tor/xsn-service/
 	HiddenServicePort 8333 127.0.0.1:8333
-	HiddenServicePort 18333 127.0.0.1:18333
+	HiddenServicePort 16270 127.0.0.1:16270
 
 The directory can be different of course, but (both) port numbers should be equal to
 your xsnd's P2P listen port (8333 by default).
@@ -96,7 +96,7 @@ API, to create and destroy 'ephemeral' hidden services programmatically.
 XSN Core has been updated to make use of this.
 
 This means that if Tor is running (and proper authentication has been configured),
-XSN Core automatically creates a hidden service to listen on. This will positively 
+XSN Core automatically creates a hidden service to listen on. This will positively
 affect the number of available .onion nodes.
 
 This new feature is enabled by default if XSN Core is listening (`-listen`), and
@@ -104,15 +104,15 @@ requires a Tor connection to work. It can be explicitly disabled with `-listenon
 and, if not disabled, configured using the `-torcontrol` and `-torpassword` settings.
 To show verbose debugging information, pass `-debug=tor`.
 
-Connecting to Tor's control socket API requires one of two authentication methods to be 
-configured. For cookie authentication the user running xsnd must have write access 
-to the `CookieAuthFile` specified in Tor configuration. In some cases this is 
-preconfigured and the creation of a hidden service is automatic. If permission problems 
-are seen with `-debug=tor` they can be resolved by adding both the user running tor and 
-the user running xsnd to the same group and setting permissions appropriately. On 
-Debian-based systems the user running xsnd can be added to the debian-tor group, 
-which has the appropriate permissions. An alternative authentication method is the use 
-of the `-torpassword` flag and a `hash-password` which can be enabled and specified in 
+Connecting to Tor's control socket API requires one of two authentication methods to be
+configured. For cookie authentication the user running xsnd must have write access
+to the `CookieAuthFile` specified in Tor configuration. In some cases this is
+preconfigured and the creation of a hidden service is automatic. If permission problems
+are seen with `-debug=tor` they can be resolved by adding both the user running tor and
+the user running xsnd to the same group and setting permissions appropriately. On
+Debian-based systems the user running xsnd can be added to the debian-tor group,
+which has the appropriate permissions. An alternative authentication method is the use
+of the `-torpassword` flag and a `hash-password` which can be enabled and specified in
 Tor configuration.
 
 4. Privacy recommendations

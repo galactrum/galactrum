@@ -1141,35 +1141,30 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
 
 CAmount GetBlockSubsidy(int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    if(nPrevHeight == 1) {
-        return 76500000 * COIN;
+    if (!nPrevHeight) {
+        return 0.972 * CENT * COIN;
     }
-
-    if(nPrevHeight < consensusParams.nFirstBlocksEmpty)
+    int halvings = (nPrevHeight + 1) / (30 * 24 * 365 * 5);
+    if (halvings >= 64) {
         return 0;
-
-    CAmount nSubsidy = 50;
-
-    for (int i = consensusParams.nSubsidyHalvingInterval + consensusParams.nFirstBlocksEmpty; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= 5;
-        if(nSubsidy <= 20) {
-            break;
-        }
     }
-
-    nSubsidy = std::max<CAmount>(nSubsidy, 20) * COIN;
-
-    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy / 10 : 0;
-
-    return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
+    // Block reward starts at 10 and declines 50% every 5 years, totally exactly 26.28 million ORE
+    CAmount nSubsidy = 10 * COIN;
+    nSubsidy >>= halvings;
+    CAmount treasuryPortion = (nPrevHeight + 1 >= consensusParams.nSuperblockStartBlock) ? nSubsidy/10 : 0;
+    return fSuperblockPartOnly ? treasuryPortion : nSubsidy - treasuryPortion;
 }
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
-    (void)nHeight;
-
-    // half of the block for now
-    return blockValue / 2;
+    if (nHeight < 90000) {
+        return blockValue / 2;
+    } else if (nHeight < 100000) {
+        return blockValue * 0.6;
+    } else if (nHeight < 110000) {
+        return blockValue * 0.7;
+    }
+    return blockValue * 0.8;
 }
 
 bool IsInitialBlockDownload()
@@ -3371,6 +3366,26 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
     return commitment;
 }
 
+double ConvertBitsToDouble(unsigned int nBits)
+{
+    int nShift = (nBits >> 24) & 0xff;
+
+    double dDiff = (double)0x0000ffff / (double)(nBits & 0x00ffffff);
+
+    while (nShift < 29)
+    {
+        dDiff *= 256.0;
+        nShift++;
+    }
+    while (nShift > 29)
+    {
+        dDiff /= 256.0;
+        nShift--;
+    }
+
+    return dDiff;
+}
+
 /** Context-dependent validity checks.
  *  By "context", we mean only the previous block headers, but not the UTXO
  *  set; UTXO-related validity checks are done in ConnectBlock().
@@ -3387,8 +3402,19 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
 
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+    if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
+        // architecture issues with DGW v1 and v2)
+        unsigned int nBitsNext = GetNextWorkRequired(pindexPrev, &block, consensusParams);
+        double n1 = ConvertBitsToDouble(block.nBits);
+        double n2 = ConvertBitsToDouble(nBitsNext);
+
+        if (abs(n1-n2) > n1*0.5)
+            return state.DoS(100, error("%s : incorrect proof of work (DGW pre-fork) - %f %f %f at %d", __func__, abs(n1-n2), n1, n2, nHeight),
+                            REJECT_INVALID, "bad-diffbits");
+    } else {
+        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+            return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, strprintf("incorrect proof of work at %d", nHeight));
+    }
 
     // Check against checkpoints
     if (fCheckpointsEnabled) {
@@ -3424,7 +3450,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
  * We will hack here in order to get correct hash without commitment.
  */
 static uint256 WitnessComittmentForPoSBlock(const CBlock &block, int commitpos, bool &malleated)
-{   
+{
 //    if(!block.IsProofOfStake())
         return BlockWitnessMerkleRoot(block, &malleated);
 

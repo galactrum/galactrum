@@ -349,8 +349,13 @@ crypto_libxsn_crypto_a_SOURCES = \
   crypto/sha512.cpp \
   crypto/sha512.h
 
+
 # x11
 crypto_libxsn_crypto_a_SOURCES += \
+  crypto/Lyra2RE/Sponge.c \
+  crypto/Lyra2RE/Sponge.h \
+  crypto/Lyra2RE/Lyra2.c \
+  crypto/Lyra2RE/Lyra2.h \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/cubehash.c \

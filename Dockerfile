@@ -57,7 +57,7 @@ RUN mkdir /home/xsn/.xsncore && \
 
 VOLUME [ "/home/xsn/.xsncore" ]
 
-EXPOSE 62583
+EXPOSE 6270
 EXPOSE 8332
 EXPOSE 18332
 
