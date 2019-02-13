@@ -2,17 +2,17 @@
 # Copyright (c) 2014-2017 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test running xsnd with -reindex and -reindex-chainstate options.
+"""Test running galactrumd with -reindex and -reindex-chainstate options.
 
 - Start a single node and generate 3 blocks.
 - Stop the node and restart it with -reindex. Verify that the node has reindexed up to block 3.
 - Stop the node and restart it with -reindex-chainstate. Verify that the node has reindexed up to block 3.
 """
 
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import wait_until
 
-class ReindexTest(XSNTestFramework):
+class ReindexTest(GalactrumTestFramework):
 
     def set_test_params(self):
         self.setup_clean_chain = True

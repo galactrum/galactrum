@@ -525,7 +525,7 @@ public:
     int FindAndDelete(const CScript& b) const;
 
     /**
-     * Pre-version-0.6, XSN always counted CHECKMULTISIGs
+     * Pre-version-0.6, Galactrum always counted CHECKMULTISIGs
      * as 20 sigops. With pay-to-script-hash, that changed:
      * CHECKMULTISIGs serialized in scriptSigs are
      * counted more accurately, assuming they are of the form

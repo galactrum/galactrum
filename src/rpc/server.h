@@ -138,7 +138,7 @@ public:
 };
 
 /**
- * XSN RPC command dispatcher.
+ * Galactrum RPC command dispatcher.
  */
 class CRPCTable
 {

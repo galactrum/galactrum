@@ -14,7 +14,7 @@
 #include <util.h>
 #include <validation.h>
 
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <stdint.h>
 

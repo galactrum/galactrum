@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2015-2017 The Bitcoin Core developers
-# Distributed under the MIT software license, see the accompanying 
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 import sys
@@ -29,6 +29,6 @@ password = base64.urlsafe_b64encode(os.urandom(32)).decode("utf-8")
 m = hmac.new(bytearray(salt, 'utf-8'), bytearray(password, 'utf-8'), "SHA256")
 result = m.hexdigest()
 
-print("String to be appended to xsn.conf:")
+print("String to be appended to galactrum.conf:")
 print("rpcauth="+username+":"+salt+"$"+result)
 print("Your password:\n"+password)

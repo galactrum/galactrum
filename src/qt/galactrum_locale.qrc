@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/galactrum_bg.qm</file>
+        <file alias="de">locale/galactrum_de.qm</file>
+        <file alias="en">locale/galactrum_en.qm</file>
+        <file alias="es">locale/galactrum_es.qm</file>
+        <file alias="fi">locale/galactrum_fi.qm</file>
+        <file alias="fr">locale/galactrum_fr.qm</file>
+        <file alias="it">locale/galactrum_it.qm</file>
+        <file alias="ja">locale/galactrum_ja.qm</file>
+        <file alias="pl">locale/galactrum_pl.qm</file>
+        <file alias="pt">locale/galactrum_pt.qm</file>
+        <file alias="ru">locale/galactrum_ru.qm</file>
+        <file alias="sk">locale/galactrum_sk.qm</file>
+        <file alias="sv">locale/galactrum_sv.qm</file>
+        <file alias="vi">locale/galactrum_vi.qm</file>
+        <file alias="zh_CN">locale/galactrum_zh_CN.qm</file>
+        <file alias="zh_TW">locale/galactrum_zh_TW.qm</file>
+    </qresource>
+</RCC>

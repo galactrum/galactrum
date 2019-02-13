@@ -1,1 +1,1 @@
-The list of assets used in the xsn source and their attribution can now be found in [contrib/debian/copyright](../contrib/debian/copyright).
+The list of assets used in the galactrum source and their attribution can now be found in [contrib/debian/copyright](../contrib/debian/copyright).

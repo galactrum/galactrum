@@ -1,41 +1,41 @@
-XSN Core
+Galactrum
 =============
 
 Setup
 ---------------------
-XSN Core is the original XSN client and it builds the backbone of the network. It downloads and, by default, stores the entire history of XSN transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+Galactrum is the original Galactrum client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Galactrum transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download XSN Core, visit [xsncore.org](https://xsncore.org/en/releases/).
+To download Galactrum, visit [galactrum.org](https://galactrumcore.org/en/releases/).
 
 Running
 ---------------------
-The following are some helpful notes on how to run XSN on your native platform.
+The following are some helpful notes on how to run Galactrum on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/xsn-qt` (GUI) or
-- `bin/xsnd` (headless)
+- `bin/galactrum-qt` (GUI) or
+- `bin/galactrumd` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run xsn-qt.exe.
+Unpack the files into a directory, and then run galactrum-qt.exe.
 
 ### OS X
 
-Drag XSN-Core to your applications folder, and then run XSN-Core.
+Drag Galactrum to your applications folder, and then run Galactrum.
 
 ### Need Help?
 
-* See the documentation at the [XSN Wiki](https://en.xsn.it/wiki/Main_Page)
+* See the documentation at the [Galactrum Wiki](https://en.galactrum.it/wiki/Main_Page)
 for help and more information.
-* Ask for help on [#xsn](http://webchat.freenode.net?channels=xsn) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=xsn).
-* Ask for help on the [XSNTalk](https://xsntalk.org/) forums, in the [Technical Support board](https://xsntalk.org/index.php?board=4.0).
+* Ask for help on [#galactrum](http://webchat.freenode.net?channels=galactrum) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=galactrum).
+* Ask for help on the [GalactrumTalk](https://galactrumtalk.org/) forums, in the [Technical Support board](https://galactrumtalk.org/index.php?board=4.0).
 
 Building
 ---------------------
-The following are developer notes on how to build XSN on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Galactrum on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [Dependencies](dependencies.md)
 - [OS X Build Notes](build-osx.md)
@@ -47,12 +47,12 @@ The following are developer notes on how to build XSN on your native platform. T
 
 Development
 ---------------------
-The XSN repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Galactrum repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://dev.visucore.com/xsn/doxygen/)
+- [Source Code Documentation (External Link)](https://dev.visucore.com/galactrum/doxygen/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Travis CI](travis-ci.md)
@@ -63,9 +63,9 @@ The XSN repo's [root README](/README.md) contains relevant information on the de
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [XSNTalk](https://xsntalk.org/) forums, in the [Development & Technical Discussion board](https://xsntalk.org/index.php?board=6.0).
-* Discuss project-specific development on #xsn-core-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=xsn-core-dev).
-* Discuss general XSN development on #xsn-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=xsn-dev).
+* Discuss on the [GalactrumTalk](https://galactrumtalk.org/) forums, in the [Development & Technical Discussion board](https://galactrumtalk.org/index.php?board=6.0).
+* Discuss project-specific development on #galactrum-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=galactrum-dev).
+* Discuss general Galactrum development on #galactrum-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=galactrum-dev).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

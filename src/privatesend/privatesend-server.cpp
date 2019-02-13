@@ -30,7 +30,7 @@ static bool GetUTXOCoin(const COutPoint& outpoint, Coin& coin)
 void CPrivateSendServer::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
     if(!fMasterNode) return;
-    if(fLiteMode) return; // ignore all XSN related functionality
+    if(fLiteMode) return; // ignore all Galactrum related functionality
     if(!masternodeSync.IsBlockchainSynced()) return;
 
     if(strCommand == NetMsgType::DSACCEPT) {
@@ -477,7 +477,7 @@ void CPrivateSendServer::ChargeFees(CConnman& connman)
 
     Being that mixing has "no fees" we need to have some kind of cost associated
     with using it to stop abuse. Otherwise it could serve as an attack vector and
-    allow endless transaction that would bloat XSN and make it unusable. To
+    allow endless transaction that would bloat Galactrum and make it unusable. To
     stop these kinds of attacks 1 in 10 successful transactions are charged. This
     adds up to a cost of 0.001DRK per transaction on average.
 */
@@ -889,14 +889,14 @@ void CPrivateSendServer::SetState(PoolState nStateNew)
 //TODO: Rename/move to core
 void ThreadCheckPrivateSendServer(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all XSN specific functionality
+    if(fLiteMode) return; // disable all Galactrum specific functionality
 
     static bool fOneThread;
     if(fOneThread) return;
     fOneThread = true;
 
     // Make this thread recognisable as the PrivateSend thread
-    RenameThread("xsn-ps-server");
+    RenameThread("galactrum-ps-server");
 
     unsigned int nTick = 0;
 

@@ -53,7 +53,7 @@ Test that the nodes generate the correct change address type:
 from decimal import Decimal
 import itertools
 
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -63,7 +63,7 @@ from test_framework.util import (
     sync_mempools,
 )
 
-class AddressTypeTest(XSNTestFramework):
+class AddressTypeTest(GalactrumTestFramework):
     def set_test_params(self):
         self.num_nodes = 6
         self.extra_args = [

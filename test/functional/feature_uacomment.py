@@ -6,12 +6,12 @@
 
 import re
 
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.test_node import ErrorMatch
 from test_framework.util import assert_equal
 
 
-class UacommentTest(XSNTestFramework):
+class UacommentTest(GalactrumTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True

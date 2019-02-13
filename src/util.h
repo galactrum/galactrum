@@ -11,7 +11,7 @@
 #define BITCOIN_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include <config/xsn-config.h>
+#include <config/galactrum-config.h>
 #endif
 
 #include <compat.h>
@@ -332,7 +332,7 @@ void RenameThread(const char* name);
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("xsn-%s", name);
+    std::string s = strprintf("galactrum-%s", name);
     RenameThread(s.c_str());
     try
     {

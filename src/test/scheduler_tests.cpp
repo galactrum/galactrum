@@ -5,7 +5,7 @@
 #include <random.h>
 #include <scheduler.h>
 
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>

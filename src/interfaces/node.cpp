@@ -31,7 +31,7 @@
 #include <tpos/merchantnodeman.h>
 
 #if defined(HAVE_CONFIG_H)
-#include <config/xsn-config.h>
+#include <config/galactrum-config.h>
 #endif
 #ifdef ENABLE_WALLET
 #include <wallet/fees.h>

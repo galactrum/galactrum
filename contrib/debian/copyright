@@ -1,13 +1,13 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: XSN
+Upstream-Name: Galactrum
 Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
- irc://#xsn@freenode.net
-Source: https://github.com/xsn/xsn
+ irc://#galactrum@freenode.net
+Source: https://github.com/galactrum/galactrum
 
 Files: *
-Copyright: 2009-2018, XSN Core Developers
+Copyright: 2009-2018, Galactrum Developers
 License: Expat
-Comment: The XSN Core Developers encompasses the current developers listed on xsn.org,
+Comment: The Galactrum Developers encompasses the current developers listed on galactrum.org,
          as well as the numerous contributors to the project.
 
 Files: debian/*
@@ -86,12 +86,12 @@ License: Expat
 Comment: Modifications of Stephan Hutchings Typicons
 
 Files: src/qt/res/icons/about.png
-       src/qt/res/icons/xsn.*
-       share/pixmaps/xsn*
-       src/qt/res/src/xsn.svg
+       src/qt/res/icons/galactrum.*
+       share/pixmaps/galactrum*
+       src/qt/res/src/galactrum.svg
 Copyright: Bitboy, Jonas Schnelli
 License: public-domain
-Comment: Site: https://xsntalk.org/?topic=1756.0
+Comment: Site: https://galactrumtalk.org/?topic=1756.0
 
 
 License: Expat

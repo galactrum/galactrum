@@ -346,7 +346,7 @@
                      <enum>Qt::ActionsContextMenu</enum>
                     </property>
                     <property name="text">
-                     <string notr="true">0.00 XSN</string>
+                     <string notr="true">0.00 ORE</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -426,7 +426,7 @@
                      <enum>Qt::ActionsContextMenu</enum>
                     </property>
                     <property name="text">
-                     <string notr="true">0.00 XSN</string>
+                     <string notr="true">0.00 ORE</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -506,7 +506,7 @@
                      <enum>Qt::ActionsContextMenu</enum>
                     </property>
                     <property name="text">
-                     <string notr="true">0.00 XSN</string>
+                     <string notr="true">0.00 ORE</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -535,7 +535,7 @@
                      <enum>Qt::ActionsContextMenu</enum>
                     </property>
                     <property name="text">
-                     <string notr="true">0.00 XSN</string>
+                     <string notr="true">0.00 ORE</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -622,7 +622,7 @@
              <item>
               <widget class="QLabel" name="labelBlockSize">
                <property name="text">
-                <string>0 XSN</string>
+                <string>0 ORE</string>
                </property>
               </widget>
              </item>
@@ -943,7 +943,7 @@
                     <item>
                      <widget class="QRadioButton" name="radioCustomPerKilobyte">
                       <property name="toolTip">
-                       <string>If the custom fee is set to 1000 uXSNs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uPIVs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uPIVs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
+                       <string>If the custom fee is set to 1000 uOREs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uPIVs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uPIVs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
                       </property>
                       <property name="text">
                        <string>per kilobyte</string>
@@ -956,7 +956,7 @@
                     <item>
                      <widget class="QRadioButton" name="radioCustomAtLeast">
                       <property name="toolTip">
-                       <string>If the custom fee is set to 1000 uXSNs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uPIVs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uPIVs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
+                       <string>If the custom fee is set to 1000 uOREs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uPIVs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uPIVs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
                       </property>
                       <property name="text">
                        <string>total at least</string>
@@ -986,7 +986,7 @@
                     <item>
                      <widget class="QCheckBox" name="checkBoxMinimumFee">
                       <property name="toolTip">
-                       <string>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for XSN transactions than the network can process.</string>
+                       <string>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ORE transactions than the network can process.</string>
                       </property>
                       <property name="text">
                        <string/>
@@ -999,7 +999,7 @@
                        <bool>true</bool>
                       </property>
                       <property name="toolTip">
-                       <string>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for XSN transactions than the network can process.</string>
+                       <string>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ORE transactions than the network can process.</string>
                       </property>
                       <property name="text">
                        <string>(read the tooltip)</string>
@@ -1337,14 +1337,14 @@
             <item>
              <widget class="QLabel" name="labelBalance">
               <property name="text">
-               <string>123.456 XSN</string>
+               <string>123.456 ORE</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="sendButton">
               <property name="text">
-               <string>Send XSN</string>
+               <string>Send ORE</string>
               </property>
              </widget>
             </item>

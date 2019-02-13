@@ -24,7 +24,7 @@ from test_framework.mininode import (
     network_thread_join,
     network_thread_start,
 )
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import (
     assert_equal,
     connect_nodes,
@@ -66,11 +66,11 @@ def custom_function():
 
     If this function is more generally useful for other tests, consider
     moving it to a module in test_framework."""
-    # self.log.info("running custom_function")  # Oops! Can't run self.log outside the XSNTestFramework
+    # self.log.info("running custom_function")  # Oops! Can't run self.log outside the GalactrumTestFramework
     pass
 
-class ExampleTest(XSNTestFramework):
-    # Each functional test is a subclass of the XSNTestFramework class.
+class ExampleTest(GalactrumTestFramework):
+    # Each functional test is a subclass of the GalactrumTestFramework class.
 
     # Override the set_test_params(), add_options(), setup_chain(), setup_network()
     # and setup_nodes() methods to customize the test setup as required.
@@ -125,7 +125,7 @@ class ExampleTest(XSNTestFramework):
 
         Define it in a method here because you're going to use it repeatedly.
         If you think it's useful in general, consider moving it to the base
-        XSNTestFramework class so other tests can use it."""
+        GalactrumTestFramework class so other tests can use it."""
 
         self.log.info("Running custom_method")
 

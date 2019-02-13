@@ -9,7 +9,7 @@
 #include <uint256.h>
 #include <util.h>
 #include <utilstrencodings.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <string>
 #include <vector>

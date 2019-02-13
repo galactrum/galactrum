@@ -4,7 +4,7 @@
 
 #include <test/scriptnum10.h>
 #include <script/script.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <boost/test/unit_test.hpp>
 #include <limits.h>

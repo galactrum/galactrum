@@ -4,10 +4,10 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test gettxoutproof and verifytxoutproof RPCs."""
 
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import *
 
-class MerkleBlockTest(XSNTestFramework):
+class MerkleBlockTest(GalactrumTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
         self.setup_clean_chain = True

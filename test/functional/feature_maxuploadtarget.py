@@ -14,7 +14,7 @@ from collections import defaultdict
 import time
 
 from test_framework.mininode import *
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import *
 
 class TestP2PConn(P2PInterface):
@@ -29,7 +29,7 @@ class TestP2PConn(P2PInterface):
         message.block.calc_sha256()
         self.block_receive_map[message.block.sha256] += 1
 
-class MaxUploadTest(XSNTestFramework):
+class MaxUploadTest(GalactrumTestFramework):
 
     def set_test_params(self):
         self.setup_clean_chain = True
@@ -100,7 +100,7 @@ class MaxUploadTest(XSNTestFramework):
             assert_equal(p2p_conns[0].block_receive_map[big_old_block], i+1)
 
         assert_equal(len(self.nodes[0].getpeerinfo()), 3)
-        # At most a couple more tries should succeed (depending on how long 
+        # At most a couple more tries should succeed (depending on how long
         # the test has been running so far).
         for i in range(3):
             p2p_conns[0].send_message(getdata_request)

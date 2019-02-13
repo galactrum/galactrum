@@ -811,16 +811,16 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 border:0;
 }
 
-/* About Xsn Dialog */
+/* About Galactrum Dialog */
 QDialog#AboutDialog {
 background-color:#F8F6F6;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Xsn Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Galactrum Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Xsn text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Galactrum text */
 margin-right:10px;
 }
 
@@ -844,8 +844,8 @@ padding-right:5px;
 	font-size: 16pt;
 }
 
-#OverviewPage #labelTotalText, 
-#OverviewPage #labelWalletStatus { 
+#OverviewPage #labelTotalText,
+#OverviewPage #labelWalletStatus {
 	font-size: 18pt;
 }
 
@@ -1187,7 +1187,7 @@ QWidget .QFrame#frame_2 { /* Transactions Widget */
 min-width:410px;
 margin-left:0;
 margin-top:15px;
-/*background-image: url(':/images/light/xsn_logo_horizontal');*/
+/*background-image: url(':/images/light/galactrum_logo_horizontal');*/
 background-repeat:none;
 }
 
@@ -1213,7 +1213,7 @@ min-height:16px;
 
 /**************************** SEND DIALOG ***********************************************/
 
-#SendCoinsDialog #addButton, 
+#SendCoinsDialog #addButton,
 #SendCoinsDialog #clearButton {
     background-color: rgb(218, 217, 213);
     color: rgb(63, 68, 71);
@@ -1337,8 +1337,8 @@ color: rgb(63, 68, 71);
 	background-color: transparent;
 }
 
-#SendCoinsEntry #deleteButton, 
-#SendCoinsEntry #pasteButton, 
+#SendCoinsEntry #deleteButton,
+#SendCoinsEntry #pasteButton,
 #SendCoinsEntry #addressBookButton {
     background-color: rgb(218, 217, 213);
     color: rgb(63, 68, 71);
@@ -1523,7 +1523,7 @@ QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::indicator { /* Coin
 	font-size: 16px;
 }
 
-#ReceiveCoinsDialog #showRequestButton, 
+#ReceiveCoinsDialog #showRequestButton,
 #ReceiveCoinsDialog #removeRequestButton {
 	background-color: rgb(218, 217, 213);
 	color: rgb(63, 68, 71);
@@ -1553,7 +1553,7 @@ QLabel#transactionSumLabel { /* Example of setObjectName for widgets without nam
 color:#333333;
 font-weight:bold;
 }
- 
+
 QLabel#transactionSum { /* Example of setObjectName for widgets without name */
 color:#333333;
 }
@@ -1649,14 +1649,14 @@ color:#818181;
 	color: rgb(63, 68, 71);
 }
 
-#StealthModePage #obfuscationEnabled, 
+#StealthModePage #obfuscationEnabled,
 #StealthModePage #statusLabel,
 #StealthModePage #spacerLabel,
 #StealthModePage #roundsLabel,
 #StealthModePage #labelAmountRounds,
 #StealthModePage #spacerLabel_2 {
 	background-color: rgb(107, 107, 107);
-} 
+}
 
 #StealthModePage #ObfuscationFrame #completionLabel,
 #StealthModePage #ObfuscationFrame #statusLabel,
@@ -1666,7 +1666,7 @@ color:#818181;
 }
 
 #StealthModePage #bottomContainer #label_2,
-#StealthModePage #bottomContainer #widget 
+#StealthModePage #bottomContainer #widget
 {
 	background-color: rgb(218, 217, 213);
 	color: rgb(63, 68, 71);
@@ -1691,7 +1691,7 @@ color:#818181;
    margin-left: 9px;
 }
 
-#TPoSPage #clearButton, 
+#TPoSPage #clearButton,
 #TPoSPage #showRequestButton,
 #TPoSPage #removeRequestButton {
     background-color: rgb(218, 217, 213);

@@ -1,23 +1,23 @@
 # It is not recommended to modify this file in-place, because it will
 # be overwritten during package upgrades. If you want to add further
 # options or overwrite existing ones then use
-# $ systemctl edit xsnd.service
+# $ systemctl edit galactrumd.service
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/xsn/xsn.conf
+# /etc/galactrum/galactrum.conf
 
 [Unit]
-Description=XSN daemon
+Description=Galactrum daemon
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/xsnd -daemon -conf=/etc/xsn/xsn.conf -pid=/run/xsnd/xsnd.pid
-# Creates /run/xsnd owned by xsn
-RuntimeDirectory=xsnd
-User=xsn
+ExecStart=/usr/bin/galactrumd -daemon -conf=/etc/galactrum/galactrum.conf -pid=/run/galactrumd/galactrumd.pid
+# Creates /run/galactrumd owned by galactrum
+RuntimeDirectory=galactrumd
+User=galactrum
 Type=forking
-PIDFile=/run/xsnd/xsnd.pid
+PIDFile=/run/galactrumd/galactrumd.pid
 Restart=on-failure
 
 # Hardening measures

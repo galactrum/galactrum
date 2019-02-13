@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include <config/xsn-config.h>
+#include <config/galactrum-config.h>
 #endif
 
 #include <qt/utilitydialog.h>
@@ -33,7 +33,7 @@
 
 static const QString DisclaimerInfo()
 {
-    static const QString result(QObject::tr("This software is experimental, use at your own risk. XSN-core, contributing developers, and any affiliates take no responsibility for the technical functionalities or the lack thereof"));
+    static const QString result(QObject::tr("This software is experimental, use at your own risk. Galactrum, contributing developers, and any affiliates take no responsibility for the technical functionalities or the lack thereof"));
     return result;
 }
 
@@ -77,7 +77,7 @@ HelpMessageDialog::HelpMessageDialog(interfaces::Node& node, QWidget *parent, bo
     } else {
         setWindowTitle(tr("Command-line options"));
         QString header = "Usage:\n"
-            "  xsn-qt [command-line options]                     \n";
+            "  galactrum-qt [command-line options]                     \n";
         QTextCursor cursor(ui->helpMessage->document());
         cursor.insertText(version);
         cursor.insertBlock();

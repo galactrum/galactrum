@@ -241,7 +241,7 @@ public:
 
     bool IsValidForPayment() const;
 
-    /// Is the input associated with collateral public key? (and there is 1000 XSN - checking if valid masternode)
+    /// Is the input associated with collateral public key? (and there is 1000 ORE - checking if valid masternode)
     bool IsInputAssociatedWithPubkey() const;
 
     bool IsValidNetAddr() const;

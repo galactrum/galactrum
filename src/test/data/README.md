@@ -1,7 +1,7 @@
 Description
 ------------
 
-This directory contains data-driven tests for various aspects of XSN.
+This directory contains data-driven tests for various aspects of Galactrum.
 
 License
 --------

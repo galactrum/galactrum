@@ -56,9 +56,9 @@ public:
      */
     enum Unit
     {
-        XSN,
-        mXSN,
-        uXSN,
+        ORE,
+        mORE,
+        uORE,
         duffs
     };
 

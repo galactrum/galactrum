@@ -193,7 +193,7 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("XSN Core") + " - ";
+    QString windowTitle = tr("Galactrum") + " - ";
 #ifdef ENABLE_WALLET
     enableWallet = WalletModel::isWalletEnabled();
 #endif // ENABLE_WALLET
@@ -371,7 +371,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/" + theme + "/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a XSN address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a Galactrum address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -386,7 +386,7 @@ void BitcoinGUI::createActions()
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(QIcon(":/icons/" + theme + "/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and xsn: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and Galactrum: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -448,15 +448,15 @@ void BitcoinGUI::createActions()
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About XSN Core"), this);
-    aboutAction->setStatusTip(tr("Show information about XSN Core"));
+    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About Galactrum"), this);
+    aboutAction->setStatusTip(tr("Show information about Galactrum"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutAction->setEnabled(false);
     aboutQtAction = new QAction(QIcon(":/icons/" + theme + "/about_qt"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/" + theme + "/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for XSN Core"));
+    optionsAction->setStatusTip(tr("Modify configuration options for Galactrum"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     optionsAction->setEnabled(false);
     toggleHideAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&Show / Hide"), this);
@@ -473,9 +473,9 @@ void BitcoinGUI::createActions()
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
     lockWalletAction = new QAction(tr("&Lock Wallet"), this);
     signMessageAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your XSN addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your Galactrum addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/" + theme + "/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified XSN addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Galactrum addresses"));
 
     openInfoAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Information"), this);
     openInfoAction->setStatusTip(tr("Show diagnostic information"));
@@ -506,11 +506,11 @@ void BitcoinGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a xsn: URI or payment request"));
+    openAction->setStatusTip(tr("Open a Galactrum: URI or payment request"));
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the XSN Core help message to get a list with possible XSN Core command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the Galactrum help message to get a list with possible Galactrum command-line options"));
 
     showPrivateSendHelpAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&PrivateSend information"), this);
     showPrivateSendHelpAction->setMenuRole(QAction::NoRole);
@@ -645,11 +645,11 @@ void BitcoinGUI::createToolBarWidgets(QToolBar *toolbar)
 
     shortcut = CreateShortcut(Qt::Key_3);
 
-    std::tie(label, sendCoinsAction) = CreateWidgetHelper("send", tr("Send coins to a XSN address"));
+    std::tie(label, sendCoinsAction) = CreateWidgetHelper("send", tr("Send coins to a Galactrum address"));
 
     shortcut = CreateShortcut(Qt::Key_4);
 
-    std::tie(label, receiveCoinsAction) = CreateWidgetHelper("receive", tr("Request payments (generates QR codes and xsn: URIs)"));
+    std::tie(label, receiveCoinsAction) = CreateWidgetHelper("receive", tr("Request payments (generates QR codes and Galactrum: URIs)"));
 
     shortcut = CreateShortcut(Qt::Key_5);
 
@@ -805,7 +805,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
         }
 #endif // ENABLE_WALLET
         unitDisplayControl->setOptionsModel(clientModel->getOptionsModel());
-        
+
         OptionsModel* optionsModel = clientModel->getOptionsModel();
         if(optionsModel)
         {
@@ -901,7 +901,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
 void BitcoinGUI::createTrayIcon(const NetworkStyle *networkStyle)
 {
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("XSN Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("Galactrum client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getTrayAndWindowIcon());
     trayIcon->hide();
@@ -1114,7 +1114,7 @@ void BitcoinGUI::updateNetworkState()
     }
 
     if (m_node.getNetworkActive()) {
-        labelConnectionsIcon->setToolTip(tr("%n active connection(s) to XSN network", "", count));
+        labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Galactrum network", "", count));
     } else {
         labelConnectionsIcon->setToolTip(tr("Network activity disabled"));
         icon = ":/icons/" + theme + "/network_disabled";
@@ -1316,7 +1316,7 @@ void BitcoinGUI::setAdditionalDataSyncProgress(double nSyncProgress)
 
 void BitcoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("XSN Core"); // default title
+    QString strTitle = tr("Galactrum"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1342,7 +1342,7 @@ void BitcoinGUI::message(const QString &title, const QString &message, unsigned 
             break;
         }
     }
-    // Append title to "XSN Core - "
+    // Append title to "Galactrum - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 

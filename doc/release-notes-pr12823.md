@@ -5,8 +5,8 @@ It is now possible for a single configuration file to set different
 options for different networks. This is done by using sections or by
 prefixing the option with the network, such as:
 
-    main.uacomment=xsn
-    test.uacomment=xsn-testnet
+    main.uacomment=galactrum
+    test.uacomment=galactrum-testnet
     regtest.uacomment=regtest
     [main]
     mempoolsize=300

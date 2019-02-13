@@ -23,7 +23,7 @@ don't have test cases for.
 - Avoid wildcard imports where possible
 - Use a module-level docstring to describe what the test is testing, and how it
   is testing it.
-- When subclassing the XSNTestFramwork, place overrides for the
+- When subclassing the GalactrumTestFramwork, place overrides for the
   `set_test_params()`, `add_options()` and `setup_xxxx()` methods at the top of
   the subclass, then locally-defined helper methods, then the `run_test()` method.
 
@@ -74,12 +74,12 @@ over the network (`CBlock`, `CTransaction`, etc, along with the network-level
 wrappers for them, `msg_block`, `msg_tx`, etc).
 
 - P2P tests have two threads. One thread handles all network communication
-with the xsnd(s) being tested (using python's asyncore package); the other
+with the galactrumd(s) being tested (using python's asyncore package); the other
 implements the test logic.
 
-- `P2PConnection` is the class used to connect to a xsnd.  `P2PInterface`
+- `P2PConnection` is the class used to connect to a galactrumd.  `P2PInterface`
 contains the higher level logic for processing P2P payloads and connecting to
-the XSN Core node application logic. For custom behaviour, subclass the
+the Galactrum node application logic. For custom behaviour, subclass the
 P2PInterface object and override the callback methods.
 
 - Call `network_thread_start()` after all `P2PInterface` objects are created to
@@ -92,7 +92,7 @@ Examples tests are `p2p_unrequested_blocks.py`, `p2p_compactblocks.py`.
 ### test-framework modules
 
 #### [test_framework/authproxy.py](test_framework/authproxy.py)
-Taken from the [python-xsnrpc repository](https://github.com/jgarzik/python-xsnrpc).
+Taken from the [python-galactrumrpc repository](https://github.com/jgarzik/python-galactrumrpc).
 
 #### [test_framework/test_framework.py](test_framework/test_framework.py)
 Base class for functional tests.
@@ -101,13 +101,13 @@ Base class for functional tests.
 Generally useful functions.
 
 #### [test_framework/mininode.py](test_framework/mininode.py)
-Basic code to support P2P connectivity to a xsnd.
+Basic code to support P2P connectivity to a galactrumd.
 
 #### [test_framework/script.py](test_framework/script.py)
-Utilities for manipulating transaction scripts (originally from python-xsnlib)
+Utilities for manipulating transaction scripts (originally from python-galactrumlib)
 
 #### [test_framework/key.py](test_framework/key.py)
-Wrapper around OpenSSL EC_Key (originally from python-xsnlib)
+Wrapper around OpenSSL EC_Key (originally from python-galactrumlib)
 
 #### [test_framework/bignum.py](test_framework/bignum.py)
 Helpers for script.py

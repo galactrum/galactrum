@@ -119,7 +119,7 @@ void TPoSPage::SendToAddress(const CTxDestination &address, CAmount nValue, int 
     if (!g_connman)
         std::runtime_error("Error: Peer-to-peer functionality missing or disabled");
 
-    // Parse XSN address
+    // Parse Galactrum address
     CScript scriptPubKey = GetScriptForDestination(address);
 
     // Create and send the transaction

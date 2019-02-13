@@ -4,7 +4,7 @@
 
 #include <chain.h>
 #include <util.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <vector>
 

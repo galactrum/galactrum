@@ -4,7 +4,7 @@
 
 #include <merkleblock.h>
 #include <uint256.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <boost/test/unit_test.hpp>
 

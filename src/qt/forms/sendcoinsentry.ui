@@ -74,7 +74,7 @@
     <item row="6" column="1">
      <widget class="QLabel" name="messageTextLabel">
       <property name="toolTip">
-       <string>A message that was attached to the XSN: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the XSN network.</string>
+       <string>A message that was attached to the Galactrum: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Galactrum network.</string>
       </property>
       <property name="textFormat">
        <enum>Qt::PlainText</enum>
@@ -146,7 +146,7 @@
     <item row="0" column="1">
      <widget class="QValidatedLineEdit" name="payTo">
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The XSN address to send the payment to&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Galactrum address to send the payment to&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>

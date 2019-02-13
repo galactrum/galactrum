@@ -5,7 +5,7 @@
 """Test processing of feefilter messages."""
 
 from test_framework.mininode import *
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 from test_framework.util import *
 import time
 
@@ -36,7 +36,7 @@ class TestP2PConn(P2PInterface):
         with mininode_lock:
             self.txinvs = []
 
-class FeeFilterTest(XSNTestFramework):
+class FeeFilterTest(GalactrumTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
 
@@ -69,7 +69,7 @@ class FeeFilterTest(XSNTestFramework):
         # Change tx fee rate to 10 sat/byte and test they are no longer received
         node1.settxfee(Decimal("0.00010000"))
         [node1.sendtoaddress(node1.getnewaddress(), 1) for x in range(3)]
-        sync_mempools(self.nodes) # must be sure node 0 has received all txs 
+        sync_mempools(self.nodes) # must be sure node 0 has received all txs
 
         # Send one transaction from node0 that should be received, so that we
         # we can sync the test on receipt (if node1's txs were relayed, they'd

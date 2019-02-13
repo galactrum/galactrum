@@ -9,7 +9,7 @@
 #include <sync.h>
 #include <utilstrencodings.h>
 #include <utilmoneystr.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <stdint.h>
 #include <vector>

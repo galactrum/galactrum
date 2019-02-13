@@ -575,13 +575,13 @@ static bool ProcessBlockFound(const std::shared_ptr<const CBlock> &pblock, const
     return true;
 }
 
-// ***TODO*** that part changed in xsn, we are using a mix with old one here for now
-void static XSNMiner(const CChainParams& chainparams, CConnman& connman,
+// ***TODO*** that part changed in galactrum, we are using a mix with old one here for now
+void static GalactrumMiner(const CChainParams& chainparams, CConnman& connman,
                      CWallet* pwallet, bool fProofOfStake)
 {
-    LogPrintf("XsnMiner -- started\n");
+    LogPrintf("GalactrumMiner -- started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("xsn-miner");
+    RenameThread("galactrum-miner");
 
     unsigned int nExtraNonce = 0;
 
@@ -669,14 +669,14 @@ void static XSNMiner(const CChainParams& chainparams, CConnman& connman,
             auto pblocktemplate = assemlber.CreateNewBlock(pwallet, coinbaseScript->reserveScript, fProofOfStake, contract, true);
             if (!pblocktemplate.get())
             {
-                LogPrintf("XsnMiner -- Failed to find a coinstake\n");
+                LogPrintf("GalactrumMiner -- Failed to find a coinstake\n");
                 MilliSleep(5000);
                 continue;
             }
             auto pblock = std::make_shared<CBlock>(pblocktemplate->block);
             IncrementExtraNonce(pblock.get(), pindexPrev, nExtraNonce);
 
-            LogPrintf("XsnMiner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            LogPrintf("GalactrumMiner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                       ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
             //Sign block
@@ -687,7 +687,7 @@ void static XSNMiner(const CChainParams& chainparams, CConnman& connman,
                 CBlockSigner signer(*pblock, pwallet, contract);
 
                 if (!signer.SignBlock()) {
-                    LogPrintf("XSNMiner(): Signing new block failed \n");
+                    LogPrintf("GalactrumMiner(): Signing new block failed \n");
                     throw std::runtime_error(strprintf("%s: SignBlock failed", __func__));
                 }
 
@@ -726,7 +726,7 @@ void static XSNMiner(const CChainParams& chainparams, CConnman& connman,
                     {
                         // Found a solution
                         SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("XsnMiner:\n  proof-of-work found\n  hash: %s\n  target: %s\n", hash.GetHex(), hashTarget.GetHex());
+                        LogPrintf("GalactrumMiner:\n  proof-of-work found\n  hash: %s\n  target: %s\n", hash.GetHex(), hashTarget.GetHex());
                         ProcessBlockFound(pblock, chainparams);
                         SetThreadPriority(THREAD_PRIORITY_LOWEST);
                         coinbaseScript->KeepScript();
@@ -770,18 +770,18 @@ void static XSNMiner(const CChainParams& chainparams, CConnman& connman,
         }
         catch (const boost::thread_interrupted&)
         {
-            LogPrintf("XsnMiner -- terminated\n");
+            LogPrintf("GalactrumMiner -- terminated\n");
             throw;
         }
         catch (const std::runtime_error &e)
         {
-            LogPrintf("XsnMiner -- runtime error: %s\n", e.what());
+            LogPrintf("GalactrumMiner -- runtime error: %s\n", e.what());
             //            return;
         }
     }
 }
 
-void GenerateXSNs(bool fGenerate,
+void GenerateOREs(bool fGenerate,
                   int nThreads,
                   const CChainParams& chainparams,
                   CConnman &connman)
@@ -803,7 +803,7 @@ void GenerateXSNs(bool fGenerate,
 
     minerThreads = new boost::thread_group();
     for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&XSNMiner, boost::cref(chainparams), boost::ref(connman), GetWallets().front(), false));
+        minerThreads->create_thread(boost::bind(&GalactrumMiner, boost::cref(chainparams), boost::ref(connman), GetWallets().front(), false));
 }
 
 void ThreadStakeMinter(const CChainParams &chainparams, CConnman &connman, CWallet *pwallet)
@@ -811,7 +811,7 @@ void ThreadStakeMinter(const CChainParams &chainparams, CConnman &connman, CWall
     boost::this_thread::interruption_point();
     LogPrintf("ThreadStakeMinter started\n");
     try {
-        XSNMiner(chainparams, connman, pwallet, true);
+        GalactrumMiner(chainparams, connman, pwallet, true);
         boost::this_thread::interruption_point();
     } catch (std::exception& e) {
         LogPrintf("ThreadStakeMinter() exception %s\n", e.what());

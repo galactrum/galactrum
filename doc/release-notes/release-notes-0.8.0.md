@@ -1,11 +1,11 @@
-XSN-Qt version 0.8.0 is now available from:
-  http://sourceforge.net/projects/xsn/files/XSN/xsn-0.8.0/
+Galactrum-Qt version 0.8.0 is now available from:
+  http://sourceforge.net/projects/galactrum/files/Galactrum/galactrum-0.8.0/
 
 This is a major release designed to improve performance and handle the
 increasing volume of transactions on the network.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/xsn/xsn/issues
+  https://github.com/galactrum/galactrum/issues
 
 How to Upgrade
 --------------
@@ -13,7 +13,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait
 until it has completely shut down (which might take a few minutes for older
 versions), then run the installer (on Windows) or just copy over
-/Applications/XSN-Qt (on Mac) or xsnd/xsn-qt (on Linux).
+/Applications/Galactrum-Qt (on Mac) or galactrumd/galactrum-qt (on Linux).
 
 The first time you run after the upgrade a re-indexing process will be
 started that will take anywhere from 30 minutes to several hours,
@@ -31,7 +31,7 @@ details).
 Improvements
 ------------
 
-Mac and Windows binaries are signed with certificates owned by the XSN
+Mac and Windows binaries are signed with certificates owned by the Galactrum
 Foundation, to be compatible with the new security features in OSX 10.8 and
 Windows 8.
 
@@ -61,7 +61,7 @@ contrib/spendfrom is a python-language command-line utility that demonstrates
 how to use the "raw transactions" JSON-RPC api to send coins received from particular
 addresses (also known as "coin control").
 
-New/changed settings (command-line or xsn.conf file)
+New/changed settings (command-line or galactrum.conf file)
 --------------------------------------------------------
 
 dbcache : controls LevelDB memory usage.
@@ -90,7 +90,7 @@ Important Bug Fixes
 
 Privacy leak: the position of the "change" output in most transactions was not being
 properly randomized, making network analysis of the transaction graph to identify
-users' wallets easier. 
+users' wallets easier.
 
 Zero-confirmation transaction vulnerability: accepting zero-confirmation transactions
 (transactions that have not yet been included in a block) from somebody you do not

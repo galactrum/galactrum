@@ -48,7 +48,7 @@ namespace GUIUtil
     // Set up widget for address
     void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent);
 
-    // Parse "xsn:" URI into recipient object, return true on successful parsing
+    // Parse "galactrum:" URI into recipient object, return true on successful parsing
     bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out);
     bool parseBitcoinURI(QString uri, SendCoinsRecipient *out);
     QString formatBitcoinURI(const SendCoinsRecipient &info);
@@ -120,7 +120,7 @@ namespace GUIUtil
     // Open the config file
     bool openBitcoinConf();
 
-    // Open xsn.conf
+    // Open galactrum.conf
     void openConfigfile();
 
     // Open masternode.conf
@@ -244,11 +244,11 @@ namespace GUIUtil
     protected:
         void mouseReleaseEvent(QMouseEvent *event);
     };
-    
+
     class ClickableProgressBar : public QProgressBar
     {
         Q_OBJECT
-        
+
     Q_SIGNALS:
         /** Emitted when the progressbar is clicked. The relative mouse coordinates of the click are
          * passed to the signal.

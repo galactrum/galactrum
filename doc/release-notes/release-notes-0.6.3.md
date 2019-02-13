@@ -1,29 +1,29 @@
-XSN version 0.6.3 is now available for download at:
-  http://sourceforge.net/projects/xsn/files/XSN/xsn-0.6.3/
+Galactrum version 0.6.3 is now available for download at:
+  http://sourceforge.net/projects/galactrum/files/Galactrum/galactrum-0.6.3/
 
 This is a bug-fix release, with no new features.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/xsn/xsn/issues
+  https://github.com/galactrum/galactrum/issues
 
 CHANGE SUMMARY
 
 Fixed a serious denial-of-service attack that could cause the
-xsn process to become unresponsive. Thanks to Sergio Lerner
+galactrum process to become unresponsive. Thanks to Sergio Lerner
 for finding and responsibly reporting the problem. (CVE-2012-3789)
 
 Optimized the process of checking transaction signatures, to
 speed up processing of new block messages and make propagating
 blocks across the network faster.
 
-Fixed an obscure bug that could cause the xsn process to get
+Fixed an obscure bug that could cause the galactrum process to get
 stuck on an invalid block-chain, if the invalid chain was
 hundreds of blocks long.
 
-XSN-Qt no longer automatically selects the first address
+Galactrum-Qt no longer automatically selects the first address
 in the address book (Issue #1384).
 
-Fixed minimize-to-dock behavior of XSN-Qt on the Mac.
+Fixed minimize-to-dock behavior of Galactrum-Qt on the Mac.
 
 Added a block checkpoint at block 185,333 to speed up initial
 blockchain download.

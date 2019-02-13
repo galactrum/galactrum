@@ -4,7 +4,7 @@
 #ifndef GOVERNANCE_CLASSES_H
 #define GOVERNANCE_CLASSES_H
 
-//#define ENABLE_XSN_DEBUG
+//#define ENABLE_GALACTRUM_DEBUG
 
 #include <key_io.h>
 #include <governance/governance.h>

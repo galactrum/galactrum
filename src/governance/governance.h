@@ -5,7 +5,7 @@
 #ifndef GOVERNANCE_H
 #define GOVERNANCE_H
 
-//#define ENABLE_XSN_DEBUG
+//#define ENABLE_GALACTRUM_DEBUG
 
 #include <bloom.h>
 #include <cachemap.h>

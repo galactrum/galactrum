@@ -1,11 +1,11 @@
-XSN-Qt version 0.8.2 is now available from:
-  http://sourceforge.net/projects/xsn/files/XSN/xsn-0.8.2/
+Galactrum-Qt version 0.8.2 is now available from:
+  http://sourceforge.net/projects/galactrum/files/Galactrum/galactrum-0.8.2/
 
 This is a maintenance release that fixes many bugs and includes
 a few small new features.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/xsn/xsn/issues
+  https://github.com/galactrum/galactrum/issues
 
 
 How to Upgrade
@@ -13,7 +13,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait
 until it has completely shut down (which might take a few minutes for older
 versions), then run the installer (on Windows) or just copy over
-/Applications/XSN-Qt (on Mac) or xsnd/xsn-qt (on Linux).
+/Applications/Galactrum-Qt (on Mac) or galactrumd/galactrum-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you
 run 0.8.2 your blockchain files will be re-indexed, which will take
@@ -24,7 +24,7 @@ your machine.
 
 Fee Policy changes
 
-The default fee for low-priority transactions is lowered from 0.0005 BTC 
+The default fee for low-priority transactions is lowered from 0.0005 BTC
 (for each 1,000 bytes in the transaction; an average transaction is
 about 500 bytes) to 0.0001 BTC.
 
@@ -43,7 +43,7 @@ with code that automatically calculates and suggests appropriate fees in the
 0.9 release and note that if you set a fee policy significantly different from
 the rest of the network your transactions may never confirm.
 
-XSN-Qt changes
+Galactrum-Qt changes
 
 * New icon and splash screen
 * Improve reporting of synchronization process
@@ -58,7 +58,7 @@ XSN-Qt changes
   to current translations
 
 MacOSX:
-* OSX support for click-to-pay (xsn:) links
+* OSX support for click-to-pay (galactrum:) links
 * Fix GUI disappearing problem on MacOSX (issue #1522)
 
 Linux/Unix:
@@ -97,8 +97,8 @@ Wallet compatibility/rescuing
 
 Known Bugs
 
-* Entering the 'getblocktemplate' or 'getwork' RPC commands into the XSN-Qt debug
-console will cause XSN-Qt to crash. Run XSN-Qt with the -server command-line
+* Entering the 'getblocktemplate' or 'getwork' RPC commands into the Galactrum-Qt debug
+console will cause Galactrum-Qt to crash. Run Galactrum-Qt with the -server command-line
 option to workaround.
 
 Thanks to everybody who contributed to the 0.8.2 release!

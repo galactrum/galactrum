@@ -2764,8 +2764,8 @@ std::map<CTxDestination, std::vector<COutput>> CWallet::ListCoins() const
     // CWalletTx objects, callers to this function really should acquire the
     // cs_wallet lock before calling it. However, the current caller doesn't
     // acquire this lock yet. There was an attempt to add the missing lock in
-    // https://github.com/xsn/xsn/pull/10340, but that change has been
-    // postponed until after https://github.com/xsn/xsn/pull/10244 to
+    // https://github.com/galactrum/galactrum/pull/10340, but that change has been
+    // postponed until after https://github.com/galactrum/galactrum/pull/10244 to
     // avoid adding some extra complexity to the Qt code.
 
     std::map<CTxDestination, std::vector<COutput>> result;
@@ -3365,7 +3365,7 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CTransac
 
             // Create change script that will be used if we need change
             // TODO: pass in scriptChange instead of reservekey so
-            // change transaction isn't always pay-to-xsn-address
+            // change transaction isn't always pay-to-galactrum-address
             CScript scriptChange;
 
             // coin control: send change to custom address
@@ -4649,8 +4649,8 @@ void CWallet::GetKeyBirthTimes(std::map<CTxDestination, int64_t> &mapKeyBirth) c
  *   the block time.
  *
  * For more information see CWalletTx::nTimeSmart,
- * https://xsntalk.org/?topic=54527, or
- * https://github.com/xsn/xsn/pull/1393.
+ * https://galactrumtalk.org/?topic=54527, or
+ * https://github.com/galactrum/galactrum/pull/1393.
  */
 unsigned int CWallet::ComputeTimeSmart(const CWalletTx& wtx) const
 {

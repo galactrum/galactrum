@@ -5,7 +5,7 @@
 #ifndef GOVERNANCE_OBJECT_H
 #define GOVERNANCE_OBJECT_H
 
-//#define ENABLE_XSN_DEBUG
+//#define ENABLE_GALACTRUM_DEBUG
 
 #include <cachemultimap.h>
 #include <governance/governance-exceptions.h>

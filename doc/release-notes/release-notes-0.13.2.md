@@ -1,28 +1,28 @@
-XSN Core version 0.13.2 is now available from:
+Galactrum version 0.13.2 is now available from:
 
-  <https://xsn.org/bin/xsn-core-0.13.2/>
+  <https://galactrum.org/bin/galactrum-core-0.13.2/>
 
 This is a new minor version release, including various bugfixes and
 performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/xsn/xsn/issues>
+  <https://github.com/galactrum/galactrum/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://xsncore.org/en/list/announcements/join/>
+  <https://galactrumcore.org/en/list/announcements/join/>
 
 Compatibility
 ==============
 
 Microsoft ended support for Windows XP on [April 8th, 2014](https://www.microsoft.com/en-us/WindowsForBusiness/end-of-xp-support),
 an OS initially released in 2001. This means that not even critical security
-updates will be released anymore. Without security updates, using a xsn
+updates will be released anymore. Without security updates, using a galactrum
 wallet on a XP machine is irresponsible at least.
 
-In addition to that, with 0.12.x there have been varied reports of XSN Core
-randomly crashing on Windows XP. It is [not clear](https://github.com/xsn/xsn/issues/7681#issuecomment-217439891)
+In addition to that, with 0.12.x there have been varied reports of Galactrum
+randomly crashing on Windows XP. It is [not clear](https://github.com/galactrum/galactrum/issues/7681#issuecomment-217439891)
 what the source of these crashes is, but it is likely that upstream
 libraries such as Qt are no longer being tested on XP.
 
@@ -35,8 +35,8 @@ No attempt is made to prevent installing or running the software on Windows XP,
 you can still do so at your own risk, but do not expect it to work: do not
 report issues about Windows XP to the issue tracker.
 
-From 0.13.1 onwards OS X 10.7 is no longer supported. 0.13.0 was intended to work on 10.7+, 
-but severe issues with the libc++ version on 10.7.x keep it from running reliably. 
+From 0.13.1 onwards OS X 10.7 is no longer supported. 0.13.0 was intended to work on 10.7+,
+but severe issues with the libc++ version on 10.7.x keep it from running reliably.
 0.13.1 now requires 10.8+, and will communicate that to 10.7 users, rather than crashing unexpectedly.
 
 Notable changes
@@ -111,7 +111,7 @@ git merge commit are mentioned.
 - #8972 `6f86b53` Make warnings label selectable (jonasschnelli) (MarcoFalke)
 - #9185 `6d70a73` Fix coincontrol sort issue (jonasschnelli)
 - #9094 `5f3a12c` Use correct conversion function for boost::path datadir (laanwj)
-- #8908 `4a974b2` Update xsn-qt.desktop (s-matthew-english)
+- #8908 `4a974b2` Update galactrum-qt.desktop (s-matthew-english)
 - #9190 `dc46b10` Plug many memory leaks (laanwj)
 
 ### Wallet
@@ -134,7 +134,7 @@ git merge commit are mentioned.
 - #8838 `094848b` Calculate size and weight of block correctly in CreateNewBlock() (jnewbery)
 - #8920 `40169dc` Set minimum required Boost to 1.47.0 (fanquake)
 - #9251 `a710a43` Improvement of documentation of command line parameter 'whitelist' (wodry)
-- #8932 `106da69` Allow xsn-tx to create v2 transactions (xsndrak)
+- #8932 `106da69` Allow galactrum-tx to create v2 transactions (galactrumdrak)
 - #8929 `12428b4` add software-properties-common (sigwo)
 - #9120 `08d1c90` bug: Missed one "return false" in recent refactoring in #9067 (UdjinM6)
 - #9067 `f85ee01` Fix exit codes (UdjinM6)
@@ -175,4 +175,4 @@ Thanks to everyone who directly contributed to this release:
 - Wladimir J. van der Laan
 - wodry
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/xsn/).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/galactrum/).

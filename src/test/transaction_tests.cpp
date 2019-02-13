@@ -4,7 +4,7 @@
 
 #include <test/data/tx_invalid.json.h>
 #include <test/data/tx_valid.json.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <clientversion.h>
 #include <checkqueue.h>

@@ -1,11 +1,11 @@
-XSN-Qt version 0.8.3 is now available from:
-  http://sourceforge.net/projects/xsn/files/XSN/xsn-0.8.3/
+Galactrum-Qt version 0.8.3 is now available from:
+  http://sourceforge.net/projects/galactrum/files/Galactrum/galactrum-0.8.3/
 
 This is a maintenance release to fix a denial-of-service attack that
 can cause nodes to crash.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/xsn/xsn/issues
+  https://github.com/galactrum/galactrum/issues
 
 0.8.3 Release notes
 

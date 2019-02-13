@@ -1,8 +1,8 @@
-/usr/bin/xsn-cli		--	gen_context(system_u:object_r:xsn_exec_t,s0)
-/usr/sbin/xsnd		--	gen_context(system_u:object_r:xsn_exec_t,s0)
-/usr/lib(64)?/xsn/xsnd		--	gen_context(system_u:object_r:xsn_exec_t,s0)
+/usr/bin/galactrum-cli		--	gen_context(system_u:object_r:galactrum_exec_t,s0)
+/usr/sbin/galactrumd		--	gen_context(system_u:object_r:galactrum_exec_t,s0)
+/usr/lib(64)?/galactrum/galactrumd		--	gen_context(system_u:object_r:galactrum_exec_t,s0)
 
-/etc/xsn(/.*)?		gen_context(system_u:object_r:xsn_conf_t,s0)
-/var/lib/xsn(/.*)?		gen_context(system_u:object_r:xsn_var_lib_t,s0)
+/etc/galactrum(/.*)?		gen_context(system_u:object_r:galactrum_conf_t,s0)
+/var/lib/galactrum(/.*)?		gen_context(system_u:object_r:galactrum_var_lib_t,s0)
 
-(/var)?/run/xsnd(/.*)?   gen_context(system_u:object_r:xsn_var_run_t,s0)
+(/var)?/run/galactrumd(/.*)?   gen_context(system_u:object_r:galactrum_var_run_t,s0)

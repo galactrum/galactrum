@@ -12,7 +12,7 @@
 #include <crypto/hmac_sha512.h>
 #include <random.h>
 #include <utilstrencodings.h>
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <vector>
 

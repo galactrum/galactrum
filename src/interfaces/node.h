@@ -46,7 +46,7 @@ struct MasternodeMerchantnodeCountInfo
     }
 };
 
-//! Top-level interface for a xsn node (xsnd process).
+//! Top-level interface for a galactrum node (galactrumd process).
 class Node
 {
 public:

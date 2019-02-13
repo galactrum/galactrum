@@ -9,7 +9,7 @@
 #include <key_io.h>
 #include <netbase.h>
 
-#include <test/test_xsn.h>
+#include <test/test_galactrum.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/test/unit_test.hpp>

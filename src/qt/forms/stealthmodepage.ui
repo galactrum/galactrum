@@ -23,7 +23,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../xsn.qrc">:/images/res/images/pages/ghostcoins/stealth-header.png</pixmap>
+      <pixmap resource="../galactrum.qrc">:/images/res/images/pages/ghostcoins/stealth-header.png</pixmap>
      </property>
     </widget>
    </item>
@@ -92,7 +92,7 @@
       <item row="1" column="4">
        <widget class="QLabel" name="labelAmountRounds">
         <property name="text">
-         <string>0 XSN / 0 Rounds</string>
+         <string>0 ORE / 0 Rounds</string>
         </property>
        </widget>
       </item>
@@ -102,7 +102,7 @@
          <font/>
         </property>
         <property name="text">
-         <string notr="true">0 XSN</string>
+         <string notr="true">0 ORE</string>
         </property>
        </widget>
       </item>
@@ -149,7 +149,7 @@
       <item row="0" column="1">
        <widget class="QLabel" name="labelObfuscationSyncStatus">
         <property name="toolTip">
-         <string>The displayed information may be out of date. Your wallet automatically synchronizes with the XSN network after a connection is established, but this process has not completed yet.</string>
+         <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Galactrum network after a connection is established, but this process has not completed yet.</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel { color: red; }</string>
@@ -232,7 +232,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../xsn.qrc">:/images/res/images/pages/stealthmode/exchange.png</pixmap>
+            <pixmap resource="../galactrum.qrc">:/images/res/images/pages/stealthmode/exchange.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>false</bool>
@@ -382,7 +382,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../xsn.qrc"/>
+  <include location="../galactrum.qrc"/>
  </resources>
  <connections/>
 </ui>

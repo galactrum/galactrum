@@ -29,12 +29,12 @@
 #include <util.h>
 #include <utilmoneystr.h>
 #include <utilstrencodings.h>
-#include <net_processing_xsn.h>
+#include <net_processing_galactrum.h>
 
 #include <memory>
 
 #if defined(NDEBUG)
-# error "XSN cannot be compiled without assertions."
+# error "Galactrum cannot be compiled without assertions."
 #endif
 
 std::atomic<int64_t> nTimeBestReceived(0); // Used only to inform the wallet of when we last received a block
@@ -1027,7 +1027,7 @@ bool static AlreadyHave(const CInv& inv) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
 
 
     // process one of the extensions
-    return net_processing_xsn::AlreadyHave(inv);
+    return net_processing_galactrum::AlreadyHave(inv);
 }
 
 static void RelayTransaction(const CTransaction& tx, CConnman* connman)
@@ -1238,7 +1238,7 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
             CInv &inv = *it;
             it++;
 
-            net_processing_xsn::TransformInvForLegacyVersion(inv, pfrom, false);
+            net_processing_galactrum::TransformInvForLegacyVersion(inv, pfrom, false);
 
             // Send stream from relay memory
             bool push = false;
@@ -1265,7 +1265,7 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
             }
             else
             {
-                push = net_processing_xsn::ProcessGetData(pfrom, consensusParams, connman, inv);
+                push = net_processing_galactrum::ProcessGetData(pfrom, consensusParams, connman, inv);
             }
 
             if (!push) {
@@ -1930,7 +1930,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             if (interruptMsgProc)
                 return true;
 
-            net_processing_xsn::TransformInvForLegacyVersion(inv, pfrom, false);
+            net_processing_galactrum::TransformInvForLegacyVersion(inv, pfrom, false);
 
             bool fAlreadyHave = AlreadyHave(inv);
             LogPrint(BCLog::NET, "got inv: %s  %s peer=%d\n", inv.ToString(), fAlreadyHave ? "have" : "new", pfrom->GetId());
@@ -2257,7 +2257,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                         if (!orphanTx.HasWitness() && !stateDummy.CorruptionPossible()) {
                             // Do not use rejection cache for witness transactions or
                             // witness-stripped transactions, as they can have been malleated.
-                            // See https://github.com/xsn/xsn/issues/8279 for details.
+                            // See https://github.com/galactrum/galactrum/issues/8279 for details.
                             assert(recentRejects);
                             recentRejects->insert(orphanHash);
                         }
@@ -2303,7 +2303,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             if (!tx.HasWitness() && !state.CorruptionPossible()) {
                 // Do not use rejection cache for witness transactions or
                 // witness-stripped transactions, as they can have been malleated.
-                // See https://github.com/xsn/xsn/issues/8279 for details.
+                // See https://github.com/galactrum/galactrum/issues/8279 for details.
                 assert(recentRejects);
                 recentRejects->insert(tx.GetHash());
                 if (RecursiveDynamicUsage(*ptx) < 100000) {
@@ -2946,7 +2946,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         const auto &allMessages = getAllNetMessageTypes();
         if(std::find(std::begin(allMessages), std::end(allMessages), strCommand) != std::end(allMessages))
         {
-            net_processing_xsn::ProcessExtension(pfrom, strCommand, vRecv, connman);
+            net_processing_galactrum::ProcessExtension(pfrom, strCommand, vRecv, connman);
         }
         else
         {
@@ -3646,7 +3646,7 @@ bool PeerLogicValidation::SendMessages(CNode* pto, std::atomic<bool>& interruptM
 
             for(auto &&inv : pto->vInventoryToSend)
             {
-                net_processing_xsn::TransformInvForLegacyVersion(inv, pto, true);
+                net_processing_galactrum::TransformInvForLegacyVersion(inv, pto, true);
                 vInv.push_back(inv);
                 if (vInv.size() == MAX_INV_SZ)
                 {
@@ -3756,7 +3756,7 @@ bool PeerLogicValidation::SendMessages(CNode* pto, std::atomic<bool>& interruptM
                          pto->GetSendVersion(),
                          pto->GetRecvVersion());
 
-                net_processing_xsn::TransformInvForLegacyVersion(inv, pto, true);
+                net_processing_galactrum::TransformInvForLegacyVersion(inv, pto, true);
 
                 vGetData.push_back(inv);
                 if (vGetData.size() >= 1000)

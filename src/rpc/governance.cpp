@@ -2,7 +2,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-//#define ENABLE_XSN_DEBUG
+//#define ENABLE_GALACTRUM_DEBUG
 
 #include <activemasternode.h>
 #include <governance/governance.h>
@@ -62,7 +62,7 @@ UniValue gobject(const JSONRPCRequest& request)
                 "  list               - List governance objects (can be filtered by signal and/or object type)\n"
                 "  diff               - List differences since last diff\n"
                 "  vote-alias         - Vote on a governance object by masternode alias (using masternode.conf setup)\n"
-                "  vote-conf          - Vote on a governance object by masternode configured in xsn.conf\n"
+                "  vote-conf          - Vote on a governance object by masternode configured in galactrum.conf\n"
                 "  vote-many          - Vote on a governance object by all masternodes (using masternode.conf setup)\n"
                 );
 
@@ -352,7 +352,7 @@ UniValue gobject(const JSONRPCRequest& request)
             nFailed++;
             statusObj.push_back(Pair("result", "failed"));
             statusObj.push_back(Pair("errorMessage", "Can't find masternode by collateral output"));
-            resultsObj.push_back(Pair("xsn.conf", statusObj));
+            resultsObj.push_back(Pair("galactrum.conf", statusObj));
             returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
             returnObj.push_back(Pair("detail", resultsObj));
             return returnObj;
@@ -363,7 +363,7 @@ UniValue gobject(const JSONRPCRequest& request)
             nFailed++;
             statusObj.push_back(Pair("result", "failed"));
             statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-            resultsObj.push_back(Pair("xsn.conf", statusObj));
+            resultsObj.push_back(Pair("galactrum.conf", statusObj));
             returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
             returnObj.push_back(Pair("detail", resultsObj));
             return returnObj;
@@ -380,7 +380,7 @@ UniValue gobject(const JSONRPCRequest& request)
             statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
         }
 
-        resultsObj.push_back(Pair("xsn.conf", statusObj));
+        resultsObj.push_back(Pair("galactrum.conf", statusObj));
 
         returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
         returnObj.push_back(Pair("detail", resultsObj));

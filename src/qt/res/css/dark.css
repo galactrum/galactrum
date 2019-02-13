@@ -210,8 +210,8 @@ background-color:transparent;
   padding:3px;
 }
 
-WalletFrame .QValidatedLineEdit, 
-WalletFrame .QLineEdit, 
+WalletFrame .QValidatedLineEdit,
+WalletFrame .QLineEdit,
 WalletFrame .AmountSpinBox,
 WalletFrame .QValueComboBox,
 WalletFrame .QSpinBox,
@@ -823,16 +823,16 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 border:0;
 }
 
-/* About Xsn Dialog */
+/* About Galactrum Dialog */
 QDialog#AboutDialog {
 background-color:#F8F6F6;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Xsn Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Galactrum Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Xsn text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Galactrum text */
 margin-right:10px;
 }
 
@@ -856,8 +856,8 @@ padding-right:5px;
   font-size: 16pt;
 }
 
-#OverviewPage #labelTotalText, 
-#OverviewPage #labelWalletStatus { 
+#OverviewPage #labelTotalText,
+#OverviewPage #labelWalletStatus {
   font-size: 18pt;
 }
 
@@ -1200,7 +1200,7 @@ QWidget .QFrame#frame_2 { /* Transactions Widget */
 min-width:410px;
 margin-left:0;
 margin-top:0;
-/*background-image: url(':/images/drkblue/xsn_logo_horizontal');*/
+/*background-image: url(':/images/drkblue/galactrum_logo_horizontal');*/
 background-repeat:none;
 }
 
@@ -1699,7 +1699,7 @@ color:#333;
    margin-left: 9px;
 }
 
-#TPoSPage #clearButton, 
+#TPoSPage #clearButton,
 #TPoSPage #showRequestButton,
 #TPoSPage #removeRequestButton {
     background-color: rgb(44, 48, 52);

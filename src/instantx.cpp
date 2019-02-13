@@ -71,7 +71,7 @@ static int GetUTXOHeight(const COutPoint& outpoint)
 
 void CInstantSend::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all XSN specific functionality
+    if(fLiteMode) return; // disable all Galactrum specific functionality
     if(!sporkManager.IsSporkActive(Spork::SPORK_2_INSTANTSEND_ENABLED)) return;
 
     // NOTE: NetMsgType::TXLOCKREQUEST is handled via ProcessMessage() in main.cpp

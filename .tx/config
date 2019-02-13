@@ -1,7 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[xsn.qt-translation-016x]
-file_filter = src/qt/locale/xsn_<lang>.ts
-source_file = src/qt/locale/xsn_en.ts
-source_lang = en

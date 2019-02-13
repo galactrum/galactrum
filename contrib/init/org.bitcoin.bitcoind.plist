@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.xsn.xsnd</string>
+	<string>org.galactrum.galactrumd</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/xsnd</string>
+		<string>/usr/local/bin/galactrumd</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>

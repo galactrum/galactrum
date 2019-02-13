@@ -1,13 +1,13 @@
 *.tar.gz
 
 *.exe
-src/xsn
-src/xsnd
-src/xsn-cli
-src/xsn-tx
-src/test/test_xsn
-src/test/test_xsn_fuzzy
-src/qt/test/test_xsn-qt
+src/galactrum
+src/galactrumd
+src/galactrum-cli
+src/galactrum-tx
+src/test/test_galactrum
+src/test/test_galactrum_fuzzy
+src/qt/test/test_galactrum-qt
 
 # autoreconf
 Makefile.in
@@ -30,8 +30,8 @@ config.log
 config.status
 configure
 libtool
-src/config/xsn-config.h
-src/config/xsn-config.h.in
+src/config/galactrum-config.h
+src/config/galactrum-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -44,11 +44,11 @@ src/qt/forms/ui_*.h
 
 src/qt/test/moc*.cpp
 
-src/qt/xsn-qt.config
-src/qt/xsn-qt.creator
-src/qt/xsn-qt.creator.user
-src/qt/xsn-qt.files
-src/qt/xsn-qt.includes
+src/qt/galactrum-qt.config
+src/qt/galactrum-qt.creator
+src/qt/galactrum-qt.creator.user
+src/qt/galactrum-qt.files
+src/qt/galactrum-qt.includes
 
 .deps
 .dirstamp
@@ -80,13 +80,13 @@ src/qt/xsn-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-xsn-qt
-XSN-Qt.app
+galactrum-qt
+Galactrum-Qt.app
 background.tiff*
 
 # Unit-tests
 Makefile.test
-xsn-qt_test
+galactrum-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -99,7 +99,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_xsn.coverage/
+test_galactrum.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -114,10 +114,11 @@ test/cache/*
 
 /doc/doxygen/
 
-libxsnconsensus.pc
+libgalactrumconsensus.pc
 contrib/devtools/split-debug.sh
 *creator*
 src/core
 
 # IDE files
 .idea/
+.vscode/

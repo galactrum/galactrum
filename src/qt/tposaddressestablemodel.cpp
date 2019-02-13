@@ -185,7 +185,7 @@ TPoSAddressesTableModel::Entry TPoSAddressesTableModel::GetAmountForAddress(CBit
 {
     Entry result = { 0, 0, 0 };
 
-    // xsn address
+    // Galactrum address
     if (!address.IsValid())
         return result;
 

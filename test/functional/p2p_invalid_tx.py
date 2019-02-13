@@ -8,9 +8,9 @@ In this test we connect to one node over p2p, and test tx requests."""
 from test_framework.blocktools import create_block, create_coinbase, create_transaction
 from test_framework.messages import COIN
 from test_framework.mininode import network_thread_start, P2PDataStore
-from test_framework.test_framework import XSNTestFramework
+from test_framework.test_framework import GalactrumTestFramework
 
-class InvalidTxRequestTest(XSNTestFramework):
+class InvalidTxRequestTest(GalactrumTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1

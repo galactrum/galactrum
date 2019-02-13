@@ -1,31 +1,31 @@
-# /etc/conf.d/xsnd: config file for /etc/init.d/xsnd
+# /etc/conf.d/galactrumd: config file for /etc/init.d/galactrumd
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/xsn/xsn.conf"
+#BITCOIND_CONFIGFILE="/etc/galactrum/galactrum.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
-#BITCOIND_PIDDIR="/var/run/xsnd"
+#BITCOIND_PIDDIR="/var/run/galactrumd"
 
 # What filename to give the pidfile
-#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/xsnd.pid"
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/galactrumd.pid"
 
-# Where to write xsnd data (be mindful that the blockchain is large)
-#BITCOIND_DATADIR="/var/lib/xsnd"
+# Where to write galactrumd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/galactrumd"
 
-# User and group to own xsnd process
-#BITCOIND_USER="xsn"
-#BITCOIND_GROUP="xsn"
+# User and group to own galactrumd process
+#BITCOIND_USER="galactrum"
+#BITCOIND_GROUP="galactrum"
 
-# Path to xsnd executable
-#BITCOIND_BIN="/usr/bin/xsnd"
+# Path to galactrumd executable
+#BITCOIND_BIN="/usr/bin/galactrumd"
 
-# Nice value to run xsnd under
+# Nice value to run galactrumd under
 #BITCOIND_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)
 #BITCOIND_OPTS=""
 
-# The timeout in seconds OpenRC will wait for xsnd to terminate
+# The timeout in seconds OpenRC will wait for galactrumd to terminate
 # after a SIGTERM has been raised.
 # Note that this will be mapped as argument to start-stop-daemon's
 # '--retry' option, which means you can specify a retry schedule

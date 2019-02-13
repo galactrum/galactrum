@@ -1,10 +1,10 @@
 
-## <summary>policy for xsn</summary>
+## <summary>policy for galactrum</summary>
 
 
 ########################################
 ## <summary>
-##	Transition to xsn.
+##	Transition to galactrum.
 ## </summary>
 ## <param name="domain">
 ## <summary>
@@ -12,19 +12,19 @@
 ## </summary>
 ## </param>
 #
-interface(`xsn_domtrans',`
+interface(`galactrum_domtrans',`
 	gen_require(`
-		type xsn_t, xsn_exec_t;
+		type galactrum_t, galactrum_exec_t;
 	')
 
 	corecmd_search_bin($1)
-	domtrans_pattern($1, xsn_exec_t, xsn_t)
+	domtrans_pattern($1, galactrum_exec_t, galactrum_t)
 ')
 
 
 ########################################
 ## <summary>
-##	Execute xsn server in the xsn domain.
+##	Execute galactrum server in the galactrum domain.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -32,18 +32,18 @@ interface(`xsn_domtrans',`
 ##	</summary>
 ## </param>
 #
-interface(`xsn_initrc_domtrans',`
+interface(`galactrum_initrc_domtrans',`
 	gen_require(`
-		type xsn_initrc_exec_t;
+		type galactrum_initrc_exec_t;
 	')
 
-	init_labeled_script_domtrans($1, xsn_initrc_exec_t)
+	init_labeled_script_domtrans($1, galactrum_initrc_exec_t)
 ')
 
 
 ########################################
 ## <summary>
-##	Search xsn lib directories.
+##	Search galactrum lib directories.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -51,18 +51,18 @@ interface(`xsn_initrc_domtrans',`
 ##	</summary>
 ## </param>
 #
-interface(`xsn_search_lib',`
+interface(`galactrum_search_lib',`
 	gen_require(`
-		type xsn_var_lib_t;
+		type galactrum_var_lib_t;
 	')
 
-	allow $1 xsn_var_lib_t:dir search_dir_perms;
+	allow $1 galactrum_var_lib_t:dir search_dir_perms;
 	files_search_var_lib($1)
 ')
 
 ########################################
 ## <summary>
-##	Read xsn lib files.
+##	Read galactrum lib files.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -70,18 +70,18 @@ interface(`xsn_search_lib',`
 ##	</summary>
 ## </param>
 #
-interface(`xsn_read_lib_files',`
+interface(`galactrum_read_lib_files',`
 	gen_require(`
-		type xsn_var_lib_t;
+		type galactrum_var_lib_t;
 	')
 
 	files_search_var_lib($1)
-	read_files_pattern($1, xsn_var_lib_t, xsn_var_lib_t)
+	read_files_pattern($1, galactrum_var_lib_t, galactrum_var_lib_t)
 ')
 
 ########################################
 ## <summary>
-##	Manage xsn lib files.
+##	Manage galactrum lib files.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -89,18 +89,18 @@ interface(`xsn_read_lib_files',`
 ##	</summary>
 ## </param>
 #
-interface(`xsn_manage_lib_files',`
+interface(`galactrum_manage_lib_files',`
 	gen_require(`
-		type xsn_var_lib_t;
+		type galactrum_var_lib_t;
 	')
 
 	files_search_var_lib($1)
-	manage_files_pattern($1, xsn_var_lib_t, xsn_var_lib_t)
+	manage_files_pattern($1, galactrum_var_lib_t, galactrum_var_lib_t)
 ')
 
 ########################################
 ## <summary>
-##	Manage xsn lib directories.
+##	Manage galactrum lib directories.
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -108,20 +108,20 @@ interface(`xsn_manage_lib_files',`
 ##	</summary>
 ## </param>
 #
-interface(`xsn_manage_lib_dirs',`
+interface(`galactrum_manage_lib_dirs',`
 	gen_require(`
-		type xsn_var_lib_t;
+		type galactrum_var_lib_t;
 	')
 
 	files_search_var_lib($1)
-	manage_dirs_pattern($1, xsn_var_lib_t, xsn_var_lib_t)
+	manage_dirs_pattern($1, galactrum_var_lib_t, galactrum_var_lib_t)
 ')
 
 
 ########################################
 ## <summary>
 ##	All of the rules required to administrate
-##	a xsn environment
+##	a galactrum environment
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -135,23 +135,23 @@ interface(`xsn_manage_lib_dirs',`
 ## </param>
 ## <rolecap/>
 #
-interface(`xsn_admin',`
+interface(`galactrum_admin',`
 	gen_require(`
-		type xsn_t;
-		type xsn_initrc_exec_t;
-		type xsn_var_lib_t;
+		type galactrum_t;
+		type galactrum_initrc_exec_t;
+		type galactrum_var_lib_t;
 	')
 
-	allow $1 xsn_t:process { ptrace signal_perms };
-	ps_process_pattern($1, xsn_t)
+	allow $1 galactrum_t:process { ptrace signal_perms };
+	ps_process_pattern($1, galactrum_t)
 
-	xsn_initrc_domtrans($1)
+	galactrum_initrc_domtrans($1)
 	domain_system_change_exemption($1)
-	role_transition $2 xsn_initrc_exec_t system_r;
+	role_transition $2 galactrum_initrc_exec_t system_r;
 	allow $2 system_r;
 
 	files_search_var_lib($1)
-	admin_pattern($1, xsn_var_lib_t)
+	admin_pattern($1, galactrum_var_lib_t)
 
 ')
 
