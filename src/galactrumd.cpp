@@ -18,6 +18,8 @@
 #include <httpserver.h>
 #include <httprpc.h>
 #include <utilstrencodings.h>
+#include <masternodeconfig.h>
+#include <tpos/merchantnodeconfig.h>
 #include <walletinitinterface.h>
 
 #include <boost/thread.hpp>
@@ -104,6 +106,17 @@ static bool AppInit(int argc, char* argv[])
             SelectParams(gArgs.GetChainName());
         } catch (const std::exception& e) {
             fprintf(stderr, "Error: %s\n", e.what());
+            return false;
+        }
+
+        std::string strErr;
+        if(!masternodeConfig.read(strErr)) {
+            LogPrintf("Error reading masternode configuration file: %s\n", strErr.c_str());
+            return false;
+        }
+
+        if(!merchantnodeConfig.read(strErr)) {
+            LogPrintf("Error reading merchantnode configuration file: %s\n", strErr.c_str());
             return false;
         }
 

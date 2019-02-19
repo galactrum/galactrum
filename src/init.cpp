@@ -1326,17 +1326,6 @@ bool AppInitPrivateSend()
             return InitError(_("Unable to sign spork message, wrong key?"));
     }
 
-    std::string strErr;
-    if(!masternodeConfig.read(strErr)) {
-        LogPrintf("Error reading masternode configuration file: %s\n", strErr.c_str());
-        return false;
-    }
-
-    if(!merchantnodeConfig.read(strErr)) {
-        LogPrintf("Error reading merchantnode configuration file: %s\n", strErr.c_str());
-        return false;
-    }
-
     fMasterNode = gArgs.GetBoolArg("-masternode", false);
     fMerchantNode = gArgs.GetBoolArg("-merchantnode", false);
     // TODO: masternode should have no wallet
