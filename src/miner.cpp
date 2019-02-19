@@ -260,6 +260,9 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(CWallet *wallet, 
 
     if (!pblock->IsProofOfStake()) {
         FillBlockPayments(coinbaseTx, nHeight, blockReward, pblock->txoutMasternode, pblock->voutSuperblock);
+        if (pblock->txoutMasternode != CTxOut()) {
+            coinbaseTx.vout[0].nValue -= pblock->txoutMasternode.nValue;
+        }
     }
 
     pblock->vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
