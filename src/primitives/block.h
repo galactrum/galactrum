@@ -78,6 +78,8 @@ public:
     std::vector<unsigned char> vchBlockSig;
 
     // memory only
+    mutable CTxOut txoutMasternode; // masternode payment
+    mutable std::vector<CTxOut> voutSuperblock; // superblock payment
     mutable bool fChecked;
     mutable CTransactionRef txTPoSContract;
 
@@ -110,6 +112,8 @@ public:
         CBlockHeader::SetNull();
         vtx.clear();
         fChecked = false;
+        txoutMasternode = CTxOut();
+        voutSuperblock.clear();
 		hashTPoSContractTx.SetNull();
 		vchBlockSig.clear();
     }

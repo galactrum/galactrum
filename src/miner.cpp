@@ -28,6 +28,7 @@
 #include <wallet/wallet.h>
 #include <blocksigner.h>
 #include <masternode-sync.h>
+#include <masternode-payments.h>
 #include <tpos/tposutils.h>
 #include <tpos/activemerchantnode.h>
 #include <tpos/merchantnodeman.h>
@@ -256,6 +257,11 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(CWallet *wallet, 
     }
 
     coinbaseTx.vin[0].scriptSig = CScript() << nHeight << OP_0;
+
+    if (!pblock->IsProofOfStake()) {
+        FillBlockPayments(coinbaseTx, nHeight, blockReward, pblock->txoutMasternode, pblock->voutSuperblock);
+    }
+
     pblock->vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
     pblocktemplate->vchCoinbaseCommitment = GenerateCoinbaseCommitment(*pblock, pindexPrev, chainparams.GetConsensus());
     pblocktemplate->vTxFees[0] = -nFees;
