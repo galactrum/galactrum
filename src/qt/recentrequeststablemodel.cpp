@@ -213,6 +213,11 @@ void RecentRequestsTableModel::updateDisplayUnit()
     updateAmountColumnTitle();
 }
 
+int RecentRequestsTableModel::count()
+{
+    return list.count();
+}
+
 bool RecentRequestEntryLessThan::operator()(RecentRequestEntry &left, RecentRequestEntry &right) const
 {
     RecentRequestEntry *pLeft = &left;

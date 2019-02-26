@@ -39,7 +39,7 @@ public:
         MINIMUM_COLUMN_WIDTH = 130
     };
 
-    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent = 0, QWidget *walletview  = 0);
     ~ReceiveCoinsDialog();
 
     void setModel(WalletModel *model);
@@ -76,6 +76,7 @@ private Q_SLOTS:
     void copyMessage();
     void copyAmount();
     void onThemeChanged();
+    void updateRequestView(int);
 };
 
 #endif // BITCOIN_QT_RECEIVECOINSDIALOG_H

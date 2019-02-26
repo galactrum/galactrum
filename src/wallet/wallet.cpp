@@ -4545,13 +4545,13 @@ bool CWallet::LoadTPoSContract(const CWalletTx &walletTx)
     if(contract.vchSignature.empty())
         return false;
 
-    if(isMerchant) {
-        tposMerchantContracts[txHash] = contract;
-    }
-    else {
+    if(isOwner) {
         // we need to lock this coin, because it can be spend
         tposOwnerContracts[txHash] = contract;
         LockCoin(TPoSUtils::GetContractCollateralOutpoint(contract));
+    }
+    else {
+        tposMerchantContracts[txHash] = contract;
     }
 
     return true;

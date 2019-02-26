@@ -28,7 +28,4 @@ TransactionView *TransactionsDialog::transactionView() const
 void TransactionsDialog::onThemeChanged()
 {
     auto themeName = GUIUtil::getThemeName();
-    ui->label->setPixmap(QPixmap(
-                             QString(
-                                 ":/images/res/images/pages/transactions/%1/transactions-header.png").arg(themeName)));
 }

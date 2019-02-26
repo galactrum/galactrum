@@ -31,7 +31,7 @@ class OverviewPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit OverviewPage(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit OverviewPage(const PlatformStyle *platformStyle, QWidget *parent = 0, QWidget *walletview = 0, QWidget *walletframe = 0);
     ~OverviewPage();
 
     void setClientModel(ClientModel *clientModel);
@@ -40,6 +40,7 @@ public:
 
 public Q_SLOTS:
     void setBalance(const interfaces::WalletBalances& balances);
+    void setEncryptionStatus(int status);
 
 Q_SIGNALS:
     void transactionClicked(const QModelIndex &index);

@@ -74,9 +74,8 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nLastPoWBlock = 99999999;
-        consensus.nSubsidyHalvingInterval = 43200; // Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
-        consensus.nMasternodePaymentsStartBlock = 20100; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
+        consensus.nLastPoWBlock = 310000;
+        consensus.nMasternodePaymentsStartBlock = 100000; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
         consensus.nInstantSendKeepLock = 24;
@@ -90,14 +89,14 @@ public:
         consensus.BIP66Height = consensus.nLastPoWBlock; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 30 * 2 * 60; // Galactrum: 1 day
-        consensus.nPowTargetSpacing = 2 * 60; // Galactrum: 1 minutes
+        consensus.nPowTargetSpacing = 2 * 60; // Galactrum: 2 minutes
         consensus.nPosTargetTimespan = 60 * 40; // TODO ??
-        consensus.nPosTargetSpacing = 2 * 60; // ORE: 2 minutes
+        consensus.nPosTargetSpacing = 2 * 60; // Galactrum: 2 minutes
         consensus.nMerchantnodeMinimumConfirmations = 1;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMaxAge = 60 * 60 * 24; // one day
-        consensus.nCoinbaseMaturity = 20;
+        consensus.nCoinbaseMaturity = 100;
         consensus.nTPoSContractSignatureDeploymentTime = 1523127600;
         consensus.nPowDGWHeight = 4000;
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -115,8 +114,8 @@ public:
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1564012740; // July 24th, 2019.
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1577078622; // Dec 23rd, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1549058400; // Febuary 1, 2019.
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1580594400; // Febuary 1, 2020
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x0");
@@ -138,7 +137,6 @@ public:
 
         genesis = CreateGenesisBlock(1513048963UL, 35669808, 0x1e0ffff0, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        printf("%s", consensus.hashGenesisBlock.ToString());
         assert(consensus.hashGenesisBlock == uint256S("0x0000082da923a04678394f873852c7f08b777af30224b6e23296f586370e80ae"));
         assert(genesis.hashMerkleRoot == uint256S("0x6d0e759ed0f3a9f7f66b76ec92e6cb868bbea60a33a49b8bc7a75b98aa69eb28"));
         vSeeds.emplace_back("seed1.galactrum.network");
@@ -153,7 +151,7 @@ public:
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
-        bech32_hrp = "xc";
+        bech32_hrp = "ga";
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 

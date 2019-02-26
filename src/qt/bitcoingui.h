@@ -108,6 +108,8 @@ private:
     QToolBar *appToolBar;
     QAction *overviewAction;
     QAction *historyAction;
+    QAction *settingsAction;
+    QAction *toolsAction;
     QAction *masternodeAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -120,7 +122,6 @@ private:
     QAction *receiveCoinsAction;
     QAction* ghostCoinsAction;
     QAction* merchantAction;
-    QAction* tposTabAction;
     QAction *receiveCoinsMenuAction;
     QAction *optionsAction;
     QAction *toggleHideAction;
@@ -166,7 +167,7 @@ private:
     /** Create the toolbar widgets */
     void createToolBarWidgets(QToolBar *toolbar);
     /** Create the toolbars */
-    void createToolBars(const NetworkStyle *networkStyle);
+    void createToolBars(const NetworkStyle *networkStyle, QWidget *statusbar);
     /** Create system tray icon and notification */
     void createTrayIcon(const NetworkStyle *networkStyle);
     /** Create system tray menu (or setup the dock menu) */
@@ -247,9 +248,9 @@ private Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    void gotoSettingsPage();
+    void gotoToolsPage();
 
-    /** Switch to tpos page */
-    void gotoTPoSPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -274,6 +275,7 @@ private Q_SLOTS:
     void showGraph();
     void showPeers();
     void showRepair();
+    void showStakeContract();
 
     /** Open external (default) editor with galactrum.conf */
     void showConfEditor();

@@ -298,9 +298,6 @@ void TPoSPage::onCancelClicked()
 void TPoSPage::onThemeChanged()
 {
     auto themeName = GUIUtil::getThemeName();
-    ui->label->setPixmap(QPixmap(
-                             QString(
-                                 ":/images/res/images/pages/tpos/%1/tpos-header.png").arg(themeName)));
 }
 
 void TPoSPage::onShowRequestClicked()

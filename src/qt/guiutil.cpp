@@ -1006,6 +1006,7 @@ void ClickableProgressBar::mouseReleaseEvent(QMouseEvent *event)
 // Return name of current UI-theme or default theme if no theme was found
 QString getThemeName()
 {
+    return QString("galactrum");
     QSettings settings;
     QString theme = settings.value("theme", "").toString();
 
@@ -1023,8 +1024,8 @@ QString loadStyleSheet()
 
 
     QString styleSheet;
-    QString cssName;
-    QString theme = settings.value("theme", "").toString();
+    QString cssName = QString(":/css/galactrum");
+    /*QString theme = settings.value("theme", "").toString();
 
 
     if (theme.isEmpty()) {
@@ -1032,7 +1033,7 @@ QString loadStyleSheet()
         theme = "dark";
     }
 
-    cssName = QString(":/css/res/css/%1.css").arg(theme);
+    cssName = QString(":/css/res/css/%1.css").arg(theme);*/
 
     QFile qFile(cssName);
     if (qFile.open(QFile::ReadOnly)) {

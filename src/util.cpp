@@ -947,6 +947,7 @@ std::string ArgsManager::GetChainName() const
         return CBaseChainParams::REGTEST;
     if (fTestNet)
         return CBaseChainParams::TESTNET;
+
     return CBaseChainParams::MAIN;
 }
 

@@ -5,6 +5,7 @@
 #ifndef BITCOIN_QT_WALLETFRAME_H
 #define BITCOIN_QT_WALLETFRAME_H
 
+#include <qt/toolspage.h>
 #include <QFrame>
 #include <QMap>
 
@@ -14,6 +15,7 @@ class PlatformStyle;
 class SendCoinsRecipient;
 class WalletModel;
 class WalletView;
+class RPCConsole;
 
 QT_BEGIN_NAMESPACE
 class QStackedWidget;
@@ -40,6 +42,7 @@ public:
     bool setCurrentWallet(const QString& name);
     bool removeWallet(const QString &name);
     void removeAllWallets();
+    void gotoToolsPageTab(enum ToolsPage::TabTypes page);
 
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 
@@ -73,8 +76,6 @@ public Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
-    /** Switch to tpos page */
-    void gotoTPoSPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -91,6 +92,8 @@ public Q_SLOTS:
     void unlockWallet();
     /** Lock wallet */
     void lockWallet();
+    void gotoSettingsPage();
+    void gotoToolsPage();
 
     /** Show used sending addresses */
     void usedSendingAddresses();

@@ -120,7 +120,7 @@ public:
 };
 #include <qt/overviewpage.moc>
 
-OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) :
+OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent, QWidget *walletview, QWidget *walletframe) :
     QWidget(parent),
     ui(new Ui::OverviewPage),
     clientModel(0),
@@ -132,21 +132,117 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     QString theme = GUIUtil::getThemeName();
 
     // Recent transactions
-    ui->listTransactions->setItemDelegate(txdelegate);
-    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
+    //ui->listTransactions->setItemDelegate(txdelegate);
+    //ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
     // Note: minimum height of listTransactions will be set later in updateAdvancedPSUI() to reflect actual settings
-    ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
+    //ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    //connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
 
+    // Pass through encryption status changed signals
+    connect(walletview, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
+    connect(ui->pushButtonEncryptWallet, SIGNAL(clicked(bool)), walletframe, SLOT(encryptWallet(bool)));
+    connect(ui->pushButtonBackupWallet, SIGNAL(clicked()), walletframe, SLOT(backupWallet()));
+    connect(ui->pushButtonChangePassphrase, SIGNAL(clicked()), walletframe, SLOT(changePassphrase()));
+    connect(ui->pushButtonUnlockWallet, SIGNAL(clicked()), walletframe, SLOT(unlockWallet()));
+    connect(ui->pushButtonLockWallet, SIGNAL(clicked()), walletframe, SLOT(lockWallet()));
+
+    //connect(ui->buttonShowPrivateSend, SIGNAL(clicked()), this, SLOT(showPrivateSend()));
+    //connect(ui->buttonHidePrivateSend, SIGNAL(clicked()), this, SLOT(hidePrivateSend()));
+
+    onThemeChanged();
+
+    ui->pushButtonEncryptWallet->setIcon(QIcon(":icons/galactrum/pw"));
+    ui->pushButtonBackupWallet->setIcon(QIcon(":icons/galactrum/filesave"));
+    ui->pushButtonChangePassphrase->setIcon(QIcon(":icons/galactrum/pw"));
+    ui->pushButtonUnlockWallet->setIcon(QIcon(":icons/galactrum/key"));
+    ui->pushButtonLockWallet->setIcon(QIcon(":icons/galactrum/lock_closed"));
+    ui->pushButtonEncryptWallet->setIconSize(QSize(32, 32));
+    ui->pushButtonBackupWallet->setIconSize(QSize(32, 32));
+    ui->pushButtonChangePassphrase->setIconSize(QSize(32, 32));
+    ui->pushButtonUnlockWallet->setIconSize(QSize(32, 32));
+    ui->pushButtonLockWallet->setIconSize(QSize(32, 32));
+
     // that's it for litemode
     if(fLiteMode) return;
 
-    onThemeChanged();
+    /*ui->buttonShowPrivateSend->setIcon(QIcon(":icons/galactrum/edit"));
+    ui->buttonHidePrivateSend->setIcon(QIcon(":icons/galactrum/hidden"));
+    ui->privateSendInfo->setIcon(QIcon(":icons/galactrum/info"));
+    ui->togglePrivateSend->setIcon(QIcon(":icons/galactrum/cloak"));
+    ui->privateSendReset->setIcon(QIcon(":icons/galactrum/reset"));
+    ui->buttonShowPrivateSend->setIconSize(QSize(32, 32));
+    ui->buttonHidePrivateSend->setIconSize(QSize(32, 32));
+    ui->privateSendInfo->setIconSize(QSize(32, 32));
+    ui->togglePrivateSend->setIconSize(QSize(32, 32));
+    ui->privateSendReset->setIconSize(QSize(32, 32));*/
 }
+
+#ifdef ENABLE_WALLET
+void OverviewPage::setEncryptionStatus(int status)
+{
+    switch(status)
+    {
+    case WalletModel::Unencrypted:
+        /*labelEncryptionIcon->hide();
+        encryptWalletAction->setChecked(false);
+        changePassphraseAction->setEnabled(false);
+        unlockWalletAction->setVisible(false);
+        lockWalletAction->setVisible(false);
+        encryptWalletAction->setEnabled(true);*/
+        ui->pushButtonEncryptWallet->setVisible(true);
+        ui->pushButtonChangePassphrase->setVisible(false);
+        ui->pushButtonLockWallet->setVisible(false);
+        ui->pushButtonUnlockWallet->setVisible(false);
+        break;
+    case WalletModel::Unlocked:
+        /*labelEncryptionIcon->show();
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
+        encryptWalletAction->setChecked(true);
+        changePassphraseAction->setEnabled(true);
+        unlockWalletAction->setVisible(false);
+        lockWalletAction->setVisible(true);
+        encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported*/
+        ui->pushButtonEncryptWallet->setVisible(false);
+        ui->pushButtonChangePassphrase->setVisible(true);
+        ui->pushButtonLockWallet->setVisible(true);
+        ui->pushButtonUnlockWallet->setVisible(false);
+        break;
+    /*case WalletModel::UnlockedForMixingOnly:*/
+        /*labelEncryptionIcon->show();
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b> for cloaking only"));
+        encryptWalletAction->setChecked(true);
+        changePassphraseAction->setEnabled(true);
+        unlockWalletAction->setVisible(true);
+        lockWalletAction->setVisible(true);
+        encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported*/
+        /*ui->pushButtonEncryptWallet->setVisible(false);
+        ui->pushButtonChangePassphrase->setVisible(true);
+        ui->pushButtonLockWallet->setVisible(true);
+        ui->pushButtonUnlockWallet->setVisible(false);
+        break;*/
+    case WalletModel::Locked:
+        /*labelEncryptionIcon->show();
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_closed").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
+        encryptWalletAction->setChecked(true);
+        changePassphraseAction->setEnabled(true);
+        unlockWalletAction->setVisible(true);
+        lockWalletAction->setVisible(false);
+        encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported*/
+        ui->pushButtonEncryptWallet->setVisible(false);
+        ui->pushButtonChangePassphrase->setVisible(true);
+        ui->pushButtonLockWallet->setVisible(false);
+        ui->pushButtonUnlockWallet->setVisible(true);
+        break;
+    }
+}
+#endif
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
 {
@@ -172,7 +268,7 @@ void OverviewPage::setBalance(const interfaces::WalletBalances& balances)
     ui->labelBalance->setText(BitcoinUnits::formatWithUnit(unit, balances.balance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::formatWithUnit(unit, balances.unconfirmed_balance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::formatWithUnit(unit, balances.immature_balance, false, BitcoinUnits::separatorAlways));
-    ui->labelStake->setText(BitcoinUnits::formatWithUnit(unit, 0, false, BitcoinUnits::separatorAlways));
+    //ui->labelStake->setText(BitcoinUnits::formatWithUnit(unit, 0, false, BitcoinUnits::separatorAlways));
     ui->labelTotal->setText(BitcoinUnits::formatWithUnit(unit, balances.balance + balances.unconfirmed_balance + balances.immature_balance, false, BitcoinUnits::separatorAlways));
 //    ui->labelWatchAvailable->setText(BitcoinUnits::formatWithUnit(unit, balances.watch_only_balance, false, BitcoinUnits::separatorAlways));
 //    ui->labelWatchPending->setText(BitcoinUnits::formatWithUnit(unit, balances.unconfirmed_watch_only_balance, false, BitcoinUnits::separatorAlways));
@@ -193,9 +289,6 @@ void OverviewPage::setBalance(const interfaces::WalletBalances& balances)
 void OverviewPage::onThemeChanged()
 {
     auto themeName = GUIUtil::getThemeName();
-    ui->label->setPixmap(QPixmap(
-                             QString(
-                                 ":/images/res/images/pages/overview/%1/overview-header.png").arg(themeName)));
 }
 
 // show/hide watch-only labels
@@ -211,13 +304,13 @@ void OverviewPage::updateWatchOnlyLabels(bool showWatchOnly)
     if (!showWatchOnly){
 //        ui->labelWatchImmature->hide();
     }
-    else{
-        ui->labelSpendable->setIndent(20);
+    else {
+        //ui->labelSpendable->setIndent(20);
         ui->labelBalance->setIndent(20);
         ui->labelUnconfirmed->setIndent(20);
         ui->labelImmature->setIndent(20);
-        ui->labelStake->setIndent(20);
-//        ui->labelTotal->setIndent(20);
+        //ui->labelStake->setIndent(20);
+        ui->labelTotal->setIndent(20);
     }
 }
 
@@ -246,8 +339,8 @@ void OverviewPage::setWalletModel(WalletModel *model)
         filter->setShowInactive(false);
         filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);
 
-        ui->listTransactions->setModel(filter.get());
-        ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+        //ui->listTransactions->setModel(filter.get());
+        //ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 
         // Keep up to date with wallet
         interfaces::Wallet& wallet = model->wallet();
@@ -278,7 +371,7 @@ void OverviewPage::updateDisplayUnit()
         // Update txdelegate->unit with the current unit
         txdelegate->unit = walletModel->getOptionsModel()->getDisplayUnit();
 
-        ui->listTransactions->update();
+        //ui->listTransactions->update();
     }
 }
 
@@ -291,5 +384,5 @@ void OverviewPage::updateAlerts(const QString &warnings)
 void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     ui->labelWalletStatus->setVisible(fShow);
-    ui->labelTransactionsStatus->setVisible(fShow);
+    //ui->labelTransactionsStatus->setVisible(fShow);
 }

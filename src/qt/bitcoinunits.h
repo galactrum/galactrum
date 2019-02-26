@@ -59,7 +59,7 @@ public:
         ORE,
         mORE,
         uORE,
-        duffs
+        crag
     };
 
     enum SeparatorStyle

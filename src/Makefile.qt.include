@@ -42,7 +42,9 @@ QT_FORMS_UI = \
   qt/forms/signverifymessagedialog.ui \
   qt/forms/transactiondescdialog.ui \
   qt/forms/transactionsdialog.ui \
-  qt/forms/tpospage.ui
+  qt/forms/tpospage.ui \
+  qt/forms/settingspage.ui \
+  qt/forms/toolspage.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
@@ -94,7 +96,9 @@ QT_MOC_CPP = \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp \
   qt/moc_tposaddressestablemodel.cpp \
-  qt/moc_tpospage.cpp
+  qt/moc_tpospage.cpp \
+  qt/moc_toolspage.cpp \
+  qt/moc_settingspage.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
@@ -174,7 +178,9 @@ BITCOIN_QT_H = \
   qt/walletmodel.h \
   qt/walletmodeltransaction.h \
   qt/walletview.h \
-  qt/winshutdownmonitor.h
+  qt/winshutdownmonitor.h \
+  qt/settingspage.h \
+  qt/toolspage.h
 
 RES_ICONS = \
   qt/res/icons/galactrum.ico \
@@ -292,7 +298,76 @@ RES_ICONS = \
   qt/res/icons/dark/transaction_abandoned.png \
   qt/res/icons/dark/network_disabled.png  \
   qt/res/icons/dark/staking_active.png \
-  qt/res/icons/dark/staking_inactive.png
+  qt/res/icons/dark/staking_inactive.png \
+  qt/res/icons/galactrum/add.png \
+  qt/res/icons/galactrum/address-book.png \
+  qt/res/icons/galactrum/browse.png \
+  qt/res/icons/galactrum/chevron-right.png \
+  qt/res/icons/galactrum/clock1.png \
+  qt/res/icons/galactrum/clock2.png \
+  qt/res/icons/galactrum/clock3.png \
+  qt/res/icons/galactrum/clock4.png \
+  qt/res/icons/galactrum/clock5.png \
+  qt/res/icons/galactrum/configure.png \
+  qt/res/icons/galactrum/connect0_16.png \
+  qt/res/icons/galactrum/connect1_16.png \
+  qt/res/icons/galactrum/connect2_16.png \
+  qt/res/icons/galactrum/connect3_16.png \
+  qt/res/icons/galactrum/connect4_16.png \
+  qt/res/icons/galactrum/debugwindow.png \
+  qt/res/icons/galactrum/drkblue_editpaste.png \
+  qt/res/icons/galactrum/drkblue_address-book.png \
+  qt/res/icons/galactrum/drkblue_editcopy.png \
+  qt/res/icons/galactrum/drkblue_remove.png \
+  qt/res/icons/galactrum/edit.png \
+  qt/res/icons/galactrum/editcopy.png \
+  qt/res/icons/galactrum/editpaste.png \
+  qt/res/icons/galactrum/export.png \
+  qt/res/icons/galactrum/eye.png \
+  qt/res/icons/galactrum/eye_minus.png \
+  qt/res/icons/galactrum/eye_plus.png \
+  qt/res/icons/galactrum/filesave.png \
+  qt/res/icons/galactrum/hd_disabled.png \
+  qt/res/icons/galactrum/hd_enabled.png \
+  qt/res/icons/galactrum/history.png \
+  qt/res/icons/galactrum/key.png \
+  qt/res/icons/galactrum/lock_closed.png \
+  qt/res/icons/galactrum/lock_open.png \
+  qt/res/icons/galactrum/masternodes.png \
+  qt/res/icons/galactrum/overview.png \
+  qt/res/icons/galactrum/quit.png \
+  qt/res/icons/galactrum/receive.png \
+  qt/res/icons/galactrum/remove.png \
+  qt/res/icons/galactrum/send.png \
+  qt/res/icons/galactrum/synced.png \
+  qt/res/icons/galactrum/transaction0.png \
+  qt/res/icons/galactrum/transaction2.png \
+  qt/res/icons/galactrum/transaction_conflicted.png \
+  qt/res/icons/galactrum/tx_inout.png \
+  qt/res/icons/galactrum/tx_input.png \
+  qt/res/icons/galactrum/tx_output.png \
+  qt/res/icons/galactrum/tx_mined.png \
+  qt/res/icons/galactrum/about.png \
+  qt/res/icons/galactrum/about_qt.png \
+  qt/res/icons/galactrum/verify.png \
+  qt/res/icons/galactrum/fontbigger.png \
+  qt/res/icons/galactrum/fontsmaller.png \
+  qt/res/icons/galactrum/transaction_abandoned.png \
+  qt/res/icons/galactrum/network_disabled.png \
+  qt/res/icons/galactrum/wrench.png \
+  qt/res/icons/galactrum/pw.png \
+  qt/res/icons/galactrum/cancel.png \
+  qt/res/icons/galactrum/info.png \
+  qt/res/icons/galactrum/cloak.png \
+  qt/res/icons/galactrum/inputs.png \
+  qt/res/icons/galactrum/reset.png \
+  qt/res/icons/galactrum/hidden.png \
+  qt/res/icons/galactrum/alert.png \
+  qt/res/icons/galactrum/fee.png \
+  qt/res/icons/galactrum/user-add.png \
+  qt/res/icons/galactrum/remove-disabled.png \
+  qt/res/icons/galactrum/edit-disabled.png \
+  qt/res/icons/galactrum/stop.png
 
 BITCOIN_QT_CPP = \
   qt/bantablemodel.cpp \
@@ -355,7 +430,9 @@ BITCOIN_QT_CPP += \
   qt/walletframe.cpp \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
-  qt/walletview.cpp
+  qt/walletview.cpp \
+  qt/settingspage.cpp \
+  qt/toolspage.cpp
 endif
 
 RES_IMAGES = \
@@ -418,11 +495,31 @@ RES_IMAGES = \
   qt/res/images/navigation-buttons/dark/tpos-activated.png \
   qt/res/images/navigation-buttons/dark/tpos-button.png \
   qt/res/images/pages/tpos/dark/tpos-header.png \
-  qt/res/images/pages/tpos/light/tpos-header.png
+  qt/res/images/pages/tpos/light/tpos-header.png \
+  qt/res/images/galactrum/about.png \
+  qt/res/images/galactrum/splash.png \
+  qt/res/images/galactrum/splash_testnet.png \
+  qt/res/images/galactrum/galactrum_logo_horizontal.png \
+  qt/res/images/galactrum/unchecked.png \
+  qt/res/images/galactrum/checked.png \
+  qt/res/images/galactrum/drkblue_downArrow.png \
+  qt/res/images/galactrum/drkblue_downArrow_small.png \
+  qt/res/images/galactrum/drkblue_upArrow_small.png \
+  qt/res/images/galactrum/drkblue_leftArrow_small.png \
+  qt/res/images/galactrum/drkblue_rightArrow_small.png \
+  qt/res/images/galactrum/drkblue_qtreeview_selected.png \
+  qt/res/images/galactrum/drkblue_walletFrame_bg.png \
+  qt/res/images/galactrum/orchid222.png \
+  qt/res/images/galactrum/static.png \
+  qt/res/images/galactrum/radio_checked.png \
+  qt/res/images/galactrum/radio_unchecked.png \
+  qt/res/images/galactrum/radio_disabled_unchecked.png \
+  qt/res/images/galactrum/radio_disabled_checked.png
 
 RES_CSS = \
   qt/res/css/light.css \
-  qt/res/css/dark.css
+  qt/res/css/dark.css \
+  qt/res/css/galactrum.css
 
 RES_MOVIES = \
     qt/res/movies/spinner-000.png \

@@ -7,6 +7,8 @@
 
 #include <amount.h>
 #include <masternodelist.h>
+#include <qt/settingspage.h>
+#include <qt/toolspage.h>
 
 #include <QStackedWidget>
 
@@ -22,6 +24,7 @@ class WalletModel;
 class AddressBookPage;
 class TPoSPage;
 class TransactionsDialog;
+class RPCConsole;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -58,6 +61,8 @@ public:
 
     void showOutOfSyncWarning(bool fShow);
 
+    void gotoToolsPageTab(enum ToolsPage::TabTypes page);
+
 private:
     ClientModel *clientModel;
     WalletModel *walletModel;
@@ -70,6 +75,8 @@ private:
     AddressBookPage *usedReceivingAddressesPage;
     MasternodeList *masternodeListPage;
     TPoSPage* tposPage;
+    SettingsPage *settingsPage;
+    ToolsPage *toolsPage;
 
 
     TransactionsDialog* transactionsDialog;
@@ -89,8 +96,10 @@ public Q_SLOTS:
     void gotoSendCoinsPage(QString addr = "");
     /** Switch to masternode page */
     void gotoMasternodePage();
-    /** Switch to tpos page */
-    void gotoTPoSPage();
+    /** Switch to settings page */
+    void gotoSettingsPage();
+    /** Switch to tools page */
+    void gotoToolsPage();
 
 
 

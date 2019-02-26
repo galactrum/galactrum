@@ -21,7 +21,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(ORE);
     unitlist.append(mORE);
     unitlist.append(uORE);
-    // unitlist.append(duffs);
+    // unitlist.append(crag);
     return unitlist;
 }
 
@@ -32,7 +32,7 @@ bool BitcoinUnits::valid(int unit)
     case ORE:
     case mORE:
     case uORE:
-    case duffs:
+    case crag:
         return true;
     default:
         return false;
@@ -46,7 +46,7 @@ QString BitcoinUnits::longName(int unit)
     case ORE: return QString("ORE");
     case mORE: return QString("mORE");
     case uORE: return QString::fromUtf8("µORE");
-    case duffs: return QString("duffs");
+    case crag: return QString("crag");
     default: return QString("???");
     }
 }
@@ -56,7 +56,7 @@ QString BitcoinUnits::shortName(int unit)
     switch(unit)
     {
     case uORE: return QString::fromUtf8("ORE");
-    case duffs: return QString("duffs");
+    case crag: return QString("crag");
     default: return longName(unit);
     }
 }
@@ -68,7 +68,7 @@ QString BitcoinUnits::description(int unit)
     case ORE: return QString("ORE");
     case mORE: return QString("Milli-ORE (1 / 1" THIN_SP_UTF8 "000)");
     case uORE: return QString("Micro-ORE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    case duffs: return QString("Ten Nano-ORE (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case crag: return QString("Ten Nano-ORE (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
@@ -80,7 +80,7 @@ qint64 BitcoinUnits::factor(int unit)
     case ORE: return 100000000;
     case mORE: return 100000;
     case uORE: return 100;
-    case duffs: return 1;
+    case crag: return 1;
     default: return 100000000;
     }
 }
@@ -92,7 +92,7 @@ int BitcoinUnits::decimals(int unit)
     case ORE: return 8;
     case mORE: return 5;
     case uORE: return 2;
-    case duffs: return 0;
+    case crag: return 0;
     default: return 0;
     }
 }

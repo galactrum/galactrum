@@ -57,17 +57,12 @@ SplashScreen::SplashScreen(interfaces::Node& node, Qt::WindowFlags f, const Netw
     QString copyrightTextGalactrum   = QChar(0xA9)+QString(" 2017-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Galactrum developers"));
     QString titleAddText    = networkStyle->getTitleAddText();
     // networkstyle.cpp can't (yet) read themes, so we do it here to get the correct Splash-screen
-    QString basePath = QString(":/images/res/images/other/%1/%2.png").arg(GUIUtil::getThemeName());
-    QString splashScreenPath = basePath.arg("splash");
-    if(gArgs.GetBoolArg("-regtest", false))
-        splashScreenPath = basePath.arg("splash");
-    if(gArgs.GetBoolArg("-testnet", false))
-        splashScreenPath = basePath.arg("splash");
+    QString splashPath = QString(":/images/galactrum/splash");
 
     QString font = QApplication::font().toString();
 
     // load the bitmap for writing some text over it
-    pixmap = QPixmap(splashScreenPath);
+    pixmap = QPixmap(splashPath);
 
     QPainter pixPaint(&pixmap);
     pixPaint.setPen(QColor(255, 255, 255));
