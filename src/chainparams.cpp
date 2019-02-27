@@ -74,7 +74,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nLastPoWBlock = 310000;
+        consensus.nLastPoWBlock = 323000;
         consensus.nMasternodePaymentsStartBlock = 100000; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
@@ -92,7 +92,7 @@ public:
         consensus.nPowTargetSpacing = 2 * 60; // Galactrum: 2 minutes
         consensus.nPosTargetTimespan = 60 * 40; // TODO ??
         consensus.nPosTargetSpacing = 2 * 60; // Galactrum: 2 minutes
-        consensus.nMerchantnodeMinimumConfirmations = 1;
+        consensus.nStakenodeMinimumConfirmations = 1;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMaxAge = 60 * 60 * 24; // one day
@@ -219,7 +219,7 @@ public:
         consensus.nPowTargetSpacing = 2 * 60; // Galactrum: 2 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.nMerchantnodeMinimumConfirmations = 1;
+        consensus.nStakenodeMinimumConfirmations = 1;
         consensus.fPowNoRetargeting = false;
         consensus.nPowDGWHeight = 60;
         consensus.nStakeMinAge = 60 * 60;
