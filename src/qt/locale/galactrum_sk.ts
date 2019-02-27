@@ -3114,7 +3114,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>Celková veľkosť transakcie</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Kupec</translation>
     </message>
     <message>

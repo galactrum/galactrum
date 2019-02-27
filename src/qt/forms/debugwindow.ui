@@ -286,9 +286,9 @@
         </widget>
        </item>
        <item row="11" column="0">
-        <widget class="QLabel" name="merchantnodeCountLabel">
+        <widget class="QLabel" name="stakenodeCountLabel">
          <property name="text">
-          <string>Number of Merchantnodes</string>
+          <string>Number of Stakenodes</string>
          </property>
         </widget>
        </item>
@@ -439,7 +439,7 @@
         </widget>
        </item>
        <item row="11" column="1">
-        <widget class="QLabel" name="merchantnodeCount">
+        <widget class="QLabel" name="stakenodeCount">
          <property name="text">
           <string>N/A</string>
          </property>

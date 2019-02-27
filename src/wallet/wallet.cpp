@@ -158,7 +158,7 @@ void CWallet::LoadContractsFromDB()
         if(!LoadTPoSContract(contractTx))
         {
             // if contract was not added, there is a big chance that it's deprecated, let's cleanup watch only address
-            if(TPoSUtils::IsTPoSMerchantContract(this, contractTx.tx))
+            if(TPoSUtils::IsTPoSStakenodeContract(this, contractTx.tx))
             {
                 auto tposContract = TPoSContract::FromTPoSContractTx(contractTx.tx);
                 if(tposContract.IsValid())
@@ -497,18 +497,18 @@ void CWallet::FillCoinStakePayments(CMutableTransaction &transaction,
         }
     }
 
-    // here we need to send reward to merchant to his reward address
+    // here we need to send reward to StakeNode reward address
     if(tposContract.IsValid())
     {
         transaction.vout.emplace_back(GetStakeReward(blockReward, 100 - tposContract.stakePercentage),
-                                      GetScriptForDestination(tposContract.merchantAddress.Get()));
+                                      GetScriptForDestination(tposContract.stakenodeAddress.Get()));
     }
 }
 
 bool CWallet::IsTPoSContractSpent(COutPoint outpoint) const
 {
     TPoSContract contract;
-    for(const auto &container : {tposOwnerContracts, tposMerchantContracts})
+    for(const auto &container : {tposOwnerContracts, tposStakenodeContracts})
     {
         auto it = container.find(outpoint.hash);
         if(it != std::end(container))
@@ -1494,8 +1494,8 @@ bool CWallet::AddToWalletIfTPoSContract(const CTransactionRef &tx)
         //            if(tposOwnerContracts.count(tx.GetHash()))
         //                tposOwnerContracts.erase(tx.GetHash());
 
-        //            if(tposMerchantContracts.count(tx.GetHash()))
-        //                tposMerchantContracts.erase(tx.GetHash());
+        //            if(tposStakenodeContracts.count(tx.GetHash()))
+        //                tposStakenodeContracts.erase(tx.GetHash());
 
         //            CWalletDB walletDb(strWalletFile);
         //            walletDb.EraseTPoSContractTx(tx.GetHash());
@@ -1504,10 +1504,10 @@ bool CWallet::AddToWalletIfTPoSContract(const CTransactionRef &tx)
         //        }
         //        else
         {
-            bool isMerchant = TPoSUtils::IsTPoSMerchantContract(this, tx);
+            bool isStakenode = TPoSUtils::IsTPoSStakenodeContract(this, tx);
             bool isOwner = TPoSUtils::IsTPoSOwnerContract(this, tx);
 
-            if(isMerchant || isOwner)
+            if(isStakenode || isOwner)
             {
                 auto contract = TPoSContract::FromTPoSContractTx(tx);
 
@@ -1518,7 +1518,7 @@ bool CWallet::AddToWalletIfTPoSContract(const CTransactionRef &tx)
                     walletDb.WriteTPoSContractTx(wtx.GetHash(), wtx);
 
 
-                    if(isMerchant && !isOwner) {
+                    if(isStakenode && !isOwner) {
                         AddWatchOnly(GetScriptForDestination(contract.tposAddress.Get()));
                     }
                 }
@@ -2625,7 +2625,7 @@ static bool IsCorrectType(CAmount nAmount, AvailableCoinsType nCoinType)
 #endif
     } else if(nCoinType == ONLY_MASTERNODE_COLLATERAL) {
         found = nAmount == 1000 * COIN;
-    } else if(nCoinType == ONLY_MERCHANTNODE_COLLATERAL) {
+    } else if(nCoinType == ONLY_STAKENODE_COLLATERAL) {
         found = nAmount == 1 * COIN;
     } else if(nCoinType == ONLY_PRIVATESEND_COLLATERAL) {
 #if 0
@@ -2722,7 +2722,7 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
                 continue;
 
             if (IsLockedCoin(entry.first, i) && nCoinType != ONLY_MASTERNODE_COLLATERAL &&
-                    nCoinType != ONLY_MERCHANTNODE_COLLATERAL)
+                    nCoinType != ONLY_STAKENODE_COLLATERAL)
                 continue;
 
             if (IsSpent(wtxid, i))
@@ -4533,10 +4533,10 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts) const
 
 bool CWallet::LoadTPoSContract(const CWalletTx &walletTx)
 {
-    bool isMerchant = TPoSUtils::IsTPoSMerchantContract(this, walletTx.tx);
+    bool isStakenode = TPoSUtils::IsTPoSStakenodeContract(this, walletTx.tx);
     bool isOwner = TPoSUtils::IsTPoSOwnerContract(this, walletTx.tx);
 
-    if(!isMerchant && !isOwner)
+    if(!isStakenode && !isOwner)
         return false; // shouldn't happen
 
     auto contract = TPoSContract::FromTPoSContractTx(walletTx.tx);
@@ -4551,7 +4551,7 @@ bool CWallet::LoadTPoSContract(const CWalletTx &walletTx)
         LockCoin(TPoSUtils::GetContractCollateralOutpoint(contract));
     }
     else {
-        tposMerchantContracts[txHash] = contract;
+        tposStakenodeContracts[txHash] = contract;
     }
 
     return true;
@@ -4569,8 +4569,8 @@ bool CWallet::RemoveTPoSContract(const uint256 &contractTxId)
     if (!WalletBatch(*database).EraseTPoSContractTx(contractTxId))
         return false;
 
-    if(tposMerchantContracts.count(contractTxId))
-        tposMerchantContracts.erase(contractTxId);
+    if(tposStakenodeContracts.count(contractTxId))
+        tposStakenodeContracts.erase(contractTxId);
 
     if(tposOwnerContracts.count(contractTxId))
         tposOwnerContracts.erase(contractTxId);

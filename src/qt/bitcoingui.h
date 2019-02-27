@@ -121,7 +121,6 @@ private:
     QAction *aboutAction;
     QAction *receiveCoinsAction;
     QAction* ghostCoinsAction;
-    QAction* merchantAction;
     QAction *receiveCoinsMenuAction;
     QAction *optionsAction;
     QAction *toggleHideAction;

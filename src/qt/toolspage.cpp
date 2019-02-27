@@ -377,7 +377,7 @@ void ToolsPage::setClientModel(ClientModel *model)
         // TPoS
         connect(ui->createStakeContractButton, &QPushButton::clicked, this, &ToolsPage::onStakeClicked);
         connect(ui->clearStakeContractButton, &QPushButton::clicked, this, &ToolsPage::onClearClicked);
-        //    connect(ui->showRequestButton, &QPushButton::clicked, this, &TPoSPage::onShowRequestClicked);
+        //    connect(ui->showRequestButton, &QPushButton::clicked, this, &ToolsPage::onShowRequestClicked);
         connect(ui->cancelStakeContractButton, &QPushButton::clicked, this, &ToolsPage::onCancelClicked);
     }
     if (!model) {
@@ -1033,16 +1033,16 @@ enum Values {
 }
 
 static QString PrepareCreateContractQuestionString(const CBitcoinAddress &tposAddress,
-                                                   const CBitcoinAddress &merchantAddress,
+                                                   const CBitcoinAddress &stakenodeAddress,
                                                    int commission)
 {
     QString questionString = QObject::tr("Are you sure you want to setup tpos contract?");
     questionString.append("<br /><br />");
 
     // Show total amount + all alternative units
-    questionString.append(QObject::tr("TPoS Address = <b>%1</b><br />Merchant address = <b>%2</b> <br />Merchant commission = <b>%3</b>")
+    questionString.append(QObject::tr("TPoS Address = <b>%1</b><br />StakeNode address = <b>%2</b> <br />StakeNode commission = <b>%3</b>")
                           .arg(QString::fromStdString(tposAddress.ToString()))
-                          .arg(QString::fromStdString(merchantAddress.ToString()))
+                          .arg(QString::fromStdString(stakenodeAddress.ToString()))
                           .arg(commission));
 
 
@@ -1051,11 +1051,11 @@ static QString PrepareCreateContractQuestionString(const CBitcoinAddress &tposAd
 
 std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateContractTransaction(QWidget *widget,
                                                                                  const CBitcoinAddress &tposAddress,
-                                                                                 const CBitcoinAddress &merchantAddress,
-                                                                                 int merchantCommission)
+                                                                                 const CBitcoinAddress &stakenodeAddress,
+                                                                                 int stakenodeCommission)
 {
     std::string strError;
-    auto questionString = PrepareCreateContractQuestionString(tposAddress, merchantAddress, merchantCommission);
+    auto questionString = PrepareCreateContractQuestionString(tposAddress, stakenodeAddress, stakenodeCommission);
     // Display message box
     QMessageBox::StandardButton retval = QMessageBox::question(widget, QObject::tr("Confirm creating tpos contract"),
                                                                questionString,
@@ -1065,7 +1065,7 @@ std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateContractTransactio
     {
         return {};
     }
-    if(auto walletTx =  walletModel->wallet().createTPoSContractTransaction(tposAddress.Get(), merchantAddress.Get(), merchantCommission, strError))  {
+    if(auto walletTx =  walletModel->wallet().createTPoSContractTransaction(tposAddress.Get(), stakenodeAddress.Get(), stakenodeCommission, strError))  {
         return walletTx;
     }
 
@@ -1196,13 +1196,13 @@ void ToolsPage::onStakeClicked()
             {
                 throw std::runtime_error("Critical error, TPoS address is empty");
             }
-            CBitcoinAddress merchantAddress(ui->merchantAddress->text().toStdString());
-            if(!merchantAddress.IsValid())
+            CBitcoinAddress stakenodeAddress(ui->stakenodeAddress->text().toStdString());
+            if(!stakenodeAddress.IsValid())
             {
-                throw std::runtime_error("Critical error, merchant address is empty");
+                throw std::runtime_error("Critical error, StakeNode address is empty");
             }
-            auto merchantCommission = ui->merchantCut->value();
-            if(auto penWalletTx = CreateContractTransaction(this, tposAddress, merchantAddress, merchantCommission))
+            auto stakenodeCommission = ui->stakenodeCut->value();
+            if(auto penWalletTx = CreateContractTransaction(this, tposAddress, stakenodeAddress, stakenodeCommission))
             {
                 SendPendingTransaction(penWalletTx.get());
                 sendToTPoSAddress(tposAddress);

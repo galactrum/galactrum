@@ -235,13 +235,13 @@ public:
         return std::move(pending);
     }
     std::unique_ptr<PendingWalletTx> createTPoSContractTransaction(CTxDestination tpos_address,
-            CTxDestination merchant_address,
-            int merchant_commission,
+            CTxDestination stakenode_address,
+            int stakenode_commission,
             std::string& fail_reason) override
     {
         LOCK2(cs_main, m_wallet.cs_wallet);
         auto pending = MakeUnique<PendingWalletTxImpl>(m_wallet);
-        if(!TPoSUtils::CreateTPoSTransaction(&m_wallet, pending->m_tx, pending->m_key, tpos_address, merchant_address, merchant_commission, fail_reason)) {
+        if(!TPoSUtils::CreateTPoSTransaction(&m_wallet, pending->m_tx, pending->m_key, tpos_address, stakenode_address, stakenode_commission, fail_reason)) {
             return {};
         }
         return std::move(pending);
@@ -368,10 +368,10 @@ public:
     }
 
     bool getTPoSPayments(const CTransactionRef &tx, CAmount &stakeAmount, CAmount &commissionAmount,
-                                     CTxDestination &tposAddress, CTxDestination &merchantAddress) override
+                                     CTxDestination &tposAddress, CTxDestination &stakenodeAddress) override
     {
         LOCK2(::cs_main, m_wallet.cs_wallet);
-        return TPoSUtils::GetTPoSPayments(&m_wallet, tx, stakeAmount, commissionAmount, tposAddress, merchantAddress);
+        return TPoSUtils::GetTPoSPayments(&m_wallet, tx, stakeAmount, commissionAmount, tposAddress, stakenodeAddress);
     }
 
 

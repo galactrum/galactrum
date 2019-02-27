@@ -22,7 +22,7 @@ void RegisterRawTransactionRPCCommands(CRPCTable &tableRPC);
 /** Register Galactrum misc RPC commands */
 void RegisterGalactrumMiscCommands(CRPCTable &tableRPC);
 void RegisterMasternodeCommands(CRPCTable &tableRPC);
-void RegisterMerchantnodeCommands(CRPCTable &tableRPC);
+void RegisterStakenodeCommands(CRPCTable &tableRPC);
 void RegisterGovernanceRPCCommands(CRPCTable &tableRPC);
 
 static inline void RegisterAllCoreRPCCommands(CRPCTable &t)
@@ -34,7 +34,7 @@ static inline void RegisterAllCoreRPCCommands(CRPCTable &t)
     RegisterRawTransactionRPCCommands(t);
     RegisterGalactrumMiscCommands(t);
     RegisterMasternodeCommands(t);
-    RegisterMerchantnodeCommands(t);
+    RegisterStakenodeCommands(t);
     RegisterGovernanceRPCCommands(t);
 }
 

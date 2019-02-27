@@ -163,8 +163,8 @@ private:
 
     std::unique_ptr<interfaces::PendingWalletTx> CreateContractTransaction(QWidget *widget,
                                           const CBitcoinAddress &tposAddress,
-                                          const CBitcoinAddress &merchantAddress,
-                                          int merchantCommission);
+                                          const CBitcoinAddress &stakenodeAddress,
+                                          int stakenodeCommission);
 
     std::unique_ptr<interfaces::PendingWalletTx> CreateCancelContractTransaction(QWidget *widget,
                                                 const TPoSContract &contract);

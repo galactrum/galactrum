@@ -142,8 +142,8 @@ public:
 
     //! Create tpos contract transaction.
     virtual std::unique_ptr<PendingWalletTx> createTPoSContractTransaction(CTxDestination tpos_address,
-        CTxDestination merchant_address,
-        int merchant_commission,
+        CTxDestination stakenode_address,
+        int stakenode_commission,
         std::string& fail_reason) = 0;
 
     //! Create cancel tpos contract transaction.
@@ -205,7 +205,7 @@ public:
         int64_t& adjusted_time) = 0;
 
     virtual bool getTPoSPayments(const CTransactionRef &tx, CAmount &stakeAmount, CAmount &commissionAmount,
-                                 CTxDestination &tposAddress, CTxDestination &merchantAddress) = 0;
+                                 CTxDestination &tposAddress, CTxDestination &stakenodeAddress) = 0;
 
     //! Get balances.
     virtual WalletBalances getBalances() = 0;

@@ -3337,7 +3337,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>Całkowity rozmiar transakcji</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Kupiec</translation>
     </message>
     <message>

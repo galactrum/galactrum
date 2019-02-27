@@ -4360,8 +4360,8 @@ https://www.transifex.com/projects/p/galactrum/</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>Merchant</source>
-        <translation>Merchant</translation>
+        <source>Stakenode</source>
+        <translation>Stakenode</translation>
     </message>
     <message>
         <location line="+7"/>

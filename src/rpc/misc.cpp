@@ -23,12 +23,12 @@
 #include <wallet/rpcwallet.h>
 #include <wallet/wallet.h>
 #include <wallet/walletdb.h>
-#include <tpos/merchantnode-sync.h>
+#include <tpos/stakenode-sync.h>
 #include <masternode-sync.h>
 #include <miner.h>
-#include <tpos/merchantnode.h>
-#include <tpos/merchantnodeman.h>
-#include <tpos/activemerchantnode.h>
+#include <tpos/stakenode.h>
+#include <tpos/stakenodeman.h>
+#include <tpos/activestakenode.h>
 #endif
 #include <warnings.h>
 
@@ -498,7 +498,7 @@ UniValue getstakingstatus(const JSONRPCRequest& request)
         obj.push_back(Pair("enoughcoins", pwalletMain->GetBalance() > 0));
     }
     obj.push_back(Pair("mnsync", masternodeSync.IsSynced()));
-    obj.push_back(Pair("merchantsync", merchantnodeSync.IsSynced()));
+    obj.push_back(Pair("stakenodesync", stakenodeSync.IsSynced()));
 
     bool nStaking = false;
 
@@ -523,26 +523,26 @@ UniValue getstakingstatus(const JSONRPCRequest& request)
                 return false;
             }
 
-            CMerchantnode merchantNode;
-            merchantnodeman.Get(activeMerchantnode.pubKeyMerchantnode, merchantNode);
+            CStakenode StakeNode;
+            stakenodeman.Get(activeStakenode.pubKeyStakenode, StakeNode);
 
-            if(!merchantnodeman.Get(activeMerchantnode.pubKeyMerchantnode, merchantNode))
+            if(!stakenodeman.Get(activeStakenode.pubKeyStakenode, StakeNode))
             {
-                tposStatus = "Merchantnode is not available in the list";
+                tposStatus = "Stakenode is not available in the list";
                 return false;
             }
 
-            if(!merchantNode.IsValidForPayment())
+            if(!StakeNode.IsValidForPayment())
             {
-                tposStatus = "Merchantnode is not valid for payment";
+                tposStatus = "Stakenode is not valid for payment";
                 return false;
             }
 
-            auto merchantnodePayee = CBitcoinAddress(activeMerchantnode.pubKeyMerchantnode.GetID());
+            auto stakenodePayee = CBitcoinAddress(activeStakenode.pubKeyStakenode.GetID());
 
-            if(contract.merchantAddress != merchantnodePayee)
+            if(contract.stakenodeAddress != stakenodePayee)
             {
-                tposStatus = "Merchantnode is not configured for contract: " + txId.ToString();
+                tposStatus = "Stakenode is not configured for contract: " + txId.ToString();
             }
 
             return true;

@@ -22,7 +22,6 @@ class SendCoinsRecipient;
 class TransactionView;
 class WalletModel;
 class AddressBookPage;
-class TPoSPage;
 class TransactionsDialog;
 class RPCConsole;
 
@@ -74,7 +73,6 @@ private:
     AddressBookPage *usedSendingAddressesPage;
     AddressBookPage *usedReceivingAddressesPage;
     MasternodeList *masternodeListPage;
-    TPoSPage* tposPage;
     SettingsPage *settingsPage;
     ToolsPage *toolsPage;
 

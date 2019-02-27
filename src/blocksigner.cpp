@@ -1,6 +1,6 @@
 #include <blocksigner.h>
 #include <tpos/tposutils.h>
-#include <tpos/activemerchantnode.h>
+#include <tpos/activestakenode.h>
 #include <keystore.h>
 #include <primitives/block.h>
 #include <utilstrencodings.h>
@@ -45,16 +45,16 @@ bool CBlockSigner::SignBlock()
 
         if(refBlock.IsTPoSBlock())
         {
-            CKeyID merchantKeyID;
-            if(!refContract.merchantAddress.GetKeyID(merchantKeyID))
-                return error("CBlockSigner::SignBlock() : merchant address is not P2PKH, critical error, can't accept.");
+            CKeyID stakenodeKeyID;
+            if(!refContract.stakenodeAddress.GetKeyID(stakenodeKeyID))
+                return error("CBlockSigner::SignBlock() : stakenode address is not P2PKH, critical error, can't accept.");
 
-            if(merchantKeyID != activeMerchantnode.pubKeyMerchantnode.GetID())
-                return error("CBlockSigner::SignBlock() : contract address is different from merchantnode address, won't sign.");
+            if(stakenodeKeyID != activeStakenode.pubKeyStakenode.GetID())
+                return error("CBlockSigner::SignBlock() : contract address is different from stakenode address, won't sign.");
 
             scriptType = CPubKey::InputScriptType::SPENDP2PKH;
 
-            keySecret = activeMerchantnode.keyMerchantnode;
+            keySecret = activeStakenode.keyStakenode;
         }
         else
         {
@@ -95,7 +95,7 @@ bool CBlockSigner::CheckBlockSignature() const
     {
         if(refBlock.IsTPoSBlock())
         {
-            destination = refContract.merchantAddress.Get();
+            destination = refContract.stakenodeAddress.Get();
         }
     }
     else

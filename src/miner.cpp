@@ -30,10 +30,10 @@
 #include <masternode-sync.h>
 #include <masternode-payments.h>
 #include <tpos/tposutils.h>
-#include <tpos/activemerchantnode.h>
-#include <tpos/merchantnodeman.h>
-#include <tpos/merchantnode.h>
-#include <tpos/merchantnode-sync.h>
+#include <tpos/activestakenode.h>
+#include <tpos/stakenodeman.h>
+#include <tpos/stakenode.h>
+#include <tpos/stakenode-sync.h>
 
 #include <algorithm>
 #include <queue>
@@ -622,7 +622,7 @@ void static GalactrumMiner(const CChainParams& chainparams, CConnman& connman,
             if(fProofOfStake)
             {
                 if (chainActive.Tip()->nHeight < chainparams.GetConsensus().nLastPoWBlock ||
-                        pwallet->IsLocked() || !masternodeSync.IsSynced() || !merchantnodeSync.IsSynced())
+                        pwallet->IsLocked() || !masternodeSync.IsSynced() || !stakenodeSync.IsSynced())
                 {
                     nLastCoinStakeSearchInterval = 0;
                     MilliSleep(5000);
@@ -636,24 +636,24 @@ void static GalactrumMiner(const CChainParams& chainparams, CConnman& connman,
 
                 if(isTPoS)
                 {
-                    auto it = pwallet->tposMerchantContracts.find(hashTPoSContractTxId);
-                    if(it != std::end(pwallet->tposMerchantContracts))
+                    auto it = pwallet->tposStakenodeContracts.find(hashTPoSContractTxId);
+                    if(it != std::end(pwallet->tposStakenodeContracts))
                         contract = it->second;
 
-                    // check if our merchant node is set, otherwise block won't be accepted.
-                    CMerchantnode merchantNode;
-                    bool isValidForPayment = merchantnodeman.Get(activeMerchantnode.pubKeyMerchantnode, merchantNode);
+                    // check if our stakenode is set, otherwise block won't be accepted.
+                    CStakenode StakeNode;
+                    bool isValidForPayment = stakenodeman.Get(activeStakenode.pubKeyStakenode, StakeNode);
 
-                    isValidForPayment &= merchantNode.IsValidForPayment();
-                    auto merchantnodePayee = CBitcoinAddress(activeMerchantnode.pubKeyMerchantnode.GetID());
-                    bool isValidContract = contract.merchantAddress == merchantnodePayee;
+                    isValidForPayment &= StakeNode.IsValidForPayment();
+                    auto stakenodePayee = CBitcoinAddress(activeStakenode.pubKeyStakenode.GetID());
+                    bool isValidContract = contract.stakenodeAddress == stakenodePayee;
                     if(!isValidForPayment || !isValidContract)
                     {
-                        LogPrintf("Won't tpos, merchant node valid for payment: %d isValidContract: %d\n Contract address: %s, merchantnode address: %s\n",
+                        LogPrintf("Won't tpos, stakenode valid for payment: %d isValidContract: %d\n Contract address: %s, stakenode address: %s\n",
                                   isValidForPayment,
                                   isValidContract,
-                                  contract.merchantAddress.ToString(),
-                                  merchantnodePayee.ToString());
+                                  contract.stakenodeAddress.ToString(),
+                                  stakenodePayee.ToString());
 
                         nLastCoinStakeSearchInterval = 0;
                         MilliSleep(10000);

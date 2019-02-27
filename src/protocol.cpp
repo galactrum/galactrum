@@ -66,10 +66,10 @@ const char *MNGOVERNANCESYNC="govsync";
 const char *MNGOVERNANCEOBJECT="govobj";
 const char *MNGOVERNANCEOBJECTVOTE="govobjvote";
 const char *MNVERIFY="mnv";
-const char *MERCHANTNODEVERIFY="mrnv";
-const char *MERCHANTNODEANNOUNCE="mrnan";
-const char *MERCHANTNODEPING="mrnp";
-const char *MERCHANTNODESEG="mrnseg";
+const char *STAKENODEVERIFY="mrnv";
+const char *STAKENODEANNOUNCE="mrnan";
+const char *STAKENODEPING="mrnp";
+const char *STAKENODESEG="mrnseg";
 const char *MERCHANTSYNCSTATUSCOUNT="mrnssc";
 } // namespace NetMsgType
 
@@ -120,16 +120,16 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::DSTX,
     NetMsgType::DSQUEUE,
     NetMsgType::DSEG,
-    NetMsgType::MERCHANTNODESEG,
+    NetMsgType::STAKENODESEG,
     NetMsgType::SYNCSTATUSCOUNT,
     NetMsgType::MERCHANTSYNCSTATUSCOUNT,
     NetMsgType::MNGOVERNANCESYNC,
     NetMsgType::MNGOVERNANCEOBJECT,
     NetMsgType::MNGOVERNANCEOBJECTVOTE,
     NetMsgType::MNVERIFY,
-    NetMsgType::MERCHANTNODEVERIFY,
-    NetMsgType::MERCHANTNODEANNOUNCE,
-    NetMsgType::MERCHANTNODEPING
+    NetMsgType::STAKENODEVERIFY,
+    NetMsgType::STAKENODEANNOUNCE,
+    NetMsgType::STAKENODEPING
 };
 const static std::vector<std::string> allNetMessageTypesVec(allNetMessageTypes, allNetMessageTypes+ARRAYLEN(allNetMessageTypes));
 
@@ -251,9 +251,9 @@ std::string CInv::GetCommand() const
     case MSG_GOVERNANCE_OBJECT: return cmd.append(NetMsgType::MNGOVERNANCEOBJECT);
     case MSG_GOVERNANCE_OBJECT_VOTE: return cmd.append(NetMsgType::MNGOVERNANCEOBJECTVOTE);
     case MSG_MASTERNODE_VERIFY: return cmd.append(NetMsgType::MNVERIFY);
-    case MSG_MERCHANTNODE_VERIFY: return cmd.append(NetMsgType::MERCHANTNODEVERIFY);
-    case MSG_MERCHANTNODE_ANNOUNCE: return cmd.append(NetMsgType::MERCHANTNODEANNOUNCE);
-    case MSG_MERCHANTNODE_PING: return cmd.append(NetMsgType::MERCHANTNODEPING);
+    case MSG_STAKENODE_VERIFY: return cmd.append(NetMsgType::STAKENODEVERIFY);
+    case MSG_STAKENODE_ANNOUNCE: return cmd.append(NetMsgType::STAKENODEANNOUNCE);
+    case MSG_STAKENODE_PING: return cmd.append(NetMsgType::STAKENODEPING);
     default:
         throw std::out_of_range(strprintf("CInv::GetCommand(): type=%d unknown type", type));
     }

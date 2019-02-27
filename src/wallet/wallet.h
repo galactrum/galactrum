@@ -100,7 +100,7 @@ enum AvailableCoinsType
     ONLY_DENOMINATED,
     ONLY_NONDENOMINATED,
     ONLY_MASTERNODE_COLLATERAL, // find masternode outputs including locked ones (use with caution)
-    ONLY_MERCHANTNODE_COLLATERAL,
+    ONLY_STAKENODE_COLLATERAL,
     ONLY_PRIVATESEND_COLLATERAL
 };
 
@@ -855,7 +855,7 @@ public:
 
     uint64_t nStakeSplitThreshold = 2000;
     std::map<uint256, TPoSContract> tposOwnerContracts;
-    std::map<uint256, TPoSContract> tposMerchantContracts;
+    std::map<uint256, TPoSContract> tposStakenodeContracts;
     std::map<uint256, CWalletTx> mapWallet;
     std::list<CAccountingEntry> laccentries;
 

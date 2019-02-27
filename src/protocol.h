@@ -257,16 +257,16 @@ extern const char *DSSTATUSUPDATE;
 extern const char *DSTX;
 extern const char *DSQUEUE;
 extern const char *DSEG;
-extern const char *MERCHANTNODESEG;
+extern const char *STAKENODESEG;
 extern const char *SYNCSTATUSCOUNT;
 extern const char *MERCHANTSYNCSTATUSCOUNT;
 extern const char *MNGOVERNANCESYNC;
 extern const char *MNGOVERNANCEOBJECT;
 extern const char *MNGOVERNANCEOBJECTVOTE;
 extern const char *MNVERIFY;
-extern const char *MERCHANTNODEVERIFY;
-extern const char *MERCHANTNODEANNOUNCE;
-extern const char *MERCHANTNODEPING;
+extern const char *STAKENODEVERIFY;
+extern const char *STAKENODEANNOUNCE;
+extern const char *STAKENODEPING;
 };
 
 /* Get a vector of all valid message types (see above) */
@@ -415,9 +415,9 @@ enum GetDataMsg
     MSG_GOVERNANCE_OBJECT,
     MSG_GOVERNANCE_OBJECT_VOTE,
     MSG_MASTERNODE_VERIFY,
-    MSG_MERCHANTNODE_VERIFY,
-    MSG_MERCHANTNODE_ANNOUNCE,
-    MSG_MERCHANTNODE_PING,
+    MSG_STAKENODE_VERIFY,
+    MSG_STAKENODE_ANNOUNCE,
+    MSG_STAKENODE_PING,
     MSG_WITNESS_BLOCK = MSG_BLOCK | MSG_WITNESS_FLAG, //!< Defined in BIP144
     MSG_WITNESS_TX = MSG_TX | MSG_WITNESS_FLAG,       //!< Defined in BIP144
     MSG_FILTERED_WITNESS_BLOCK = MSG_FILTERED_BLOCK | MSG_WITNESS_FLAG,

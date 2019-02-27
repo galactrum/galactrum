@@ -2756,7 +2756,7 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>ID della transazione</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Mercante</translation>
     </message>
     <message>

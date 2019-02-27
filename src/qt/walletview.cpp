@@ -19,7 +19,6 @@
 #include <qt/transactionview.h>
 #include <qt/walletmodel.h>
 #include <qt/transactionsdialog.h>
-#include <qt/tpospage.h>
 
 #include <interfaces/node.h>
 #include <ui_interface.h>
@@ -62,7 +61,6 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
 
     receiveCoinsPage = new ReceiveCoinsDialog(platformStyle, 0, parent);
     sendCoinsPage = new SendCoinsDialog(platformStyle, 0, parent);
-    tposPage = new TPoSPage(this);
     settingsPage = new SettingsPage(platformStyle);
     toolsPage = new ToolsPage(platformStyle);
 
@@ -73,7 +71,6 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     addWidget(transactionsPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
-    addWidget(tposPage);
     addWidget(settingsPage);
     addWidget(toolsPage);
 
@@ -156,7 +153,6 @@ void WalletView::setWalletModel(WalletModel *_walletModel)
     overviewPage->setWalletModel(_walletModel);
     receiveCoinsPage->setModel(_walletModel);
     sendCoinsPage->setModel(_walletModel);
-    tposPage->setWalletModel(_walletModel);
     toolsPage->addWallet(_walletModel);
     toolsPage->setWalletModel(_walletModel);
     QSettings settings;

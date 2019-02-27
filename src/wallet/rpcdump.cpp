@@ -675,9 +675,8 @@ UniValue dumpprivkey(const JSONRPCRequest& request)
             "Galactrum team members will never ask for this command's output and it is not needed for Galactrum setup or diagnosis!\n"
             "\n"
             " Please seek help on one of our public channels. \n"
-            " Telegram: https://t.me/joinchat/BdGxxw-s3b4_DdBdbChI4g\n"
-            " Discord: https://discord.gg/cyF5yCA\n"
-            " Reddit: https://www.reddit.com/r/StakeNet/\n"
+            " Discord: https://discord.gg/PGHuQu\n"
+            " Reddit: https://www.reddit.com/r/Galactrum/\n"
             "\n"
             ;
         throw std::runtime_error(warning);

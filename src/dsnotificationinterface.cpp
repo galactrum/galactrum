@@ -9,8 +9,8 @@
 #include <masternodeman.h>
 #include <masternode-payments.h>
 #include <masternode-sync.h>
-#include <tpos/merchantnode-sync.h>
-#include <tpos/merchantnodeman.h>
+#include <tpos/stakenode-sync.h>
+#include <tpos/stakenodeman.h>
 
 void CDSNotificationInterface::InitializeCurrentBlockTip()
 {
@@ -21,13 +21,13 @@ void CDSNotificationInterface::InitializeCurrentBlockTip()
 void CDSNotificationInterface::AcceptedBlockHeader(const CBlockIndex *pindexNew)
 {
     masternodeSync.AcceptedBlockHeader(pindexNew);
-    merchantnodeSync.AcceptedBlockHeader(pindexNew);
+    stakenodeSync.AcceptedBlockHeader(pindexNew);
 }
 
 void CDSNotificationInterface::NotifyHeaderTip(const CBlockIndex *pindexNew, bool fInitialDownload)
 {
     masternodeSync.NotifyHeaderTip(pindexNew, fInitialDownload, connman);
-    merchantnodeSync.NotifyHeaderTip(pindexNew, fInitialDownload, connman);
+    stakenodeSync.NotifyHeaderTip(pindexNew, fInitialDownload, connman);
 }
 
 void CDSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload)
@@ -36,13 +36,13 @@ void CDSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindexNew, con
         return;
 
     masternodeSync.UpdatedBlockTip(pindexNew, fInitialDownload, connman);
-    merchantnodeSync.UpdatedBlockTip(pindexNew, fInitialDownload, connman);
+    stakenodeSync.UpdatedBlockTip(pindexNew, fInitialDownload, connman);
 
     if (fInitialDownload)
         return;
 
     mnodeman.UpdatedBlockTip(pindexNew);
-    merchantnodeman.UpdatedBlockTip(pindexNew);
+    stakenodeman.UpdatedBlockTip(pindexNew);
 //    CPrivateSend::UpdatedBlockTip(pindexNew);
 //#ifdef ENABLE_WALLET
 //    privateSendClient.UpdatedBlockTip(pindexNew);

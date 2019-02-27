@@ -2914,7 +2914,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>ID de transacción</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Vendedor</translation>
     </message>
     <message>

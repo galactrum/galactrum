@@ -124,7 +124,6 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
     aboutAction(0),
     receiveCoinsAction(0),
     ghostCoinsAction(0),
-    merchantAction(0),
     receiveCoinsMenuAction(0),
     optionsAction(0),
     toggleHideAction(0),

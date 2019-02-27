@@ -609,8 +609,8 @@ void RPCConsole::setClientModel(ClientModel *model)
         setMasternodeCount(model->getMasternodeCountString());
         connect(model, SIGNAL(strMasternodesChanged(QString)), this, SLOT(setMasternodeCount(QString)));
 
-        setMerchantnodeCount(model->getMerchantnodeCountString());
-        connect(model, SIGNAL(strMerchantnodesChanged(QString)), this, SLOT(setMerchantnodeCount(QString)));
+        setStakenodeCount(model->getStakenodeCountString());
+        connect(model, SIGNAL(strStakenodesChanged(QString)), this, SLOT(setStakenodeCount(QString)));
 
         updateTrafficStats(node.getTotalBytesRecv(), node.getTotalBytesSent());
         connect(model, SIGNAL(bytesChanged(quint64,quint64)), this, SLOT(updateTrafficStats(quint64, quint64)));
@@ -949,9 +949,9 @@ void RPCConsole::setMasternodeCount(const QString &strMasternodes)
     ui->masternodeCount->setText(strMasternodes);
 }
 
-void RPCConsole::setMerchantnodeCount(const QString &strMerchantnodes)
+void RPCConsole::setStakenodeCount(const QString &strStakenodes)
 {
-    ui->merchantnodeCount->setText(strMerchantnodes);
+    ui->stakenodeCount->setText(strStakenodes);
 }
 
 void RPCConsole::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool headers)

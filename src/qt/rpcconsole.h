@@ -114,8 +114,8 @@ public Q_SLOTS:
     void setNetworkActive(bool networkActive);
     /** Set number of masternodes shown in the UI */
     void setMasternodeCount(const QString &strMasternodes);
-    /** Set number of merchantnodes shown in the UI */
-    void setMerchantnodeCount(const QString &strMerchantnodes);
+    /** Set number of stakenodes shown in the UI */
+    void setStakenodeCount(const QString &strStakenodes);
     /** Set number of blocks and last block date shown in the UI */
     void setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool headers);
     /** Set size (number of transactions and memory usage) of the mempool in the UI */

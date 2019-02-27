@@ -88,7 +88,7 @@ const char * const BITCOIN_PID_FILENAME = "galactrumd.pid";
 //Galactrum only features
 bool fMasterNode = false;
 bool fLiteMode = false;
-bool fMerchantNode = false;
+bool fStakeNode = false;
 
 ArgsManager gArgs;
 
@@ -608,8 +608,8 @@ std::string ArgsManager::GetHelpMessage()
             usage += HelpMessageGroup("Register Commands:"); break;
         case OptionsCategory::MASTERNODE:
             usage += HelpMessageGroup("Masternodes options:"); break;
-        case OptionsCategory::MERCHANTNODE:
-            usage += HelpMessageGroup("Merchantnode options:"); break;
+        case OptionsCategory::STAKENODE:
+            usage += HelpMessageGroup("Stakenode options:"); break;
         default:
             break;
         }
@@ -825,9 +825,9 @@ fs::path GetMasternodeConfigFile()
     return pathConfigFile;
 }
 
-fs::path GetMerchantnodeConfigFile()
+fs::path GetStakenodeConfigFile()
 {
-    boost::filesystem::path pathConfigFile(gArgs.GetArg("-prospectnodeconf", "merchantnode.conf"));
+    boost::filesystem::path pathConfigFile(gArgs.GetArg("-stakenodeconf", "stakenode.conf"));
     if (!pathConfigFile.is_complete())
         return fs::absolute(pathConfigFile, GetDataDir());
 

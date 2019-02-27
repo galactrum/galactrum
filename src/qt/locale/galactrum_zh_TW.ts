@@ -3329,7 +3329,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>交易的總大小</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>商家</translation>
     </message>
     <message>

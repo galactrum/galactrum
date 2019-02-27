@@ -1,6 +1,6 @@
 
 #include <netbase.h>
-#include <tpos/merchantnodeconfig.h>
+#include <tpos/stakenodeconfig.h>
 #include <util.h>
 #include <chainparams.h>
 #include <utilstrencodings.h>
@@ -8,23 +8,23 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-CMerchantnodeConfig merchantnodeConfig;
+CStakenodeConfig stakenodeConfig;
 
-void CMerchantnodeConfig::add(std::string alias, std::string ip, std::string merchantPrivKey, std::string hashContractTxId) {
-    CMerchantnodeEntry cme(alias, ip, merchantPrivKey, hashContractTxId);
+void CStakenodeConfig::add(std::string alias, std::string ip, std::string stakenodePrivKey, std::string hashContractTxId) {
+    CStakenodeEntry cme(alias, ip, stakenodePrivKey, hashContractTxId);
     entries.push_back(cme);
 }
 
-bool CMerchantnodeConfig::read(std::string& strErr) {
+bool CStakenodeConfig::read(std::string& strErr) {
     int linenumber = 1;
-    boost::filesystem::path pathMerchantnodeConfigFile = GetMerchantnodeConfigFile();
-    boost::filesystem::ifstream streamConfig(pathMerchantnodeConfigFile);
+    boost::filesystem::path pathStakenodeConfigFile = GetStakenodeConfigFile();
+    boost::filesystem::ifstream streamConfig(pathStakenodeConfigFile);
 
     if (!streamConfig.good()) {
-        FILE* configFile = fopen(pathMerchantnodeConfigFile.string().c_str(), "a");
+        FILE* configFile = fopen(pathStakenodeConfigFile.string().c_str(), "a");
         if (configFile != NULL) {
-            std::string strHeader = "# Merchantnode config file\n"
-                          "# Format: alias IP:port merchantPrivkey contractTxId\n"
+            std::string strHeader = "# Stakenode config file\n"
+                          "# Format: alias IP:port stakenodePrivkey contractTxId\n"
                           "# Example: mn1 127.0.0.2:19999 \n";
             fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
             fclose(configFile);
@@ -37,7 +37,7 @@ bool CMerchantnodeConfig::read(std::string& strErr) {
         if(line.empty()) continue;
 
         std::istringstream iss(line);
-        std::string comment, alias, ip, merchantPrivKey, hashContractTxId;
+        std::string comment, alias, ip, stakenodePrivKey, hashContractTxId;
 
         if (iss >> comment) {
             if(comment.at(0) == '#') continue;
@@ -45,11 +45,11 @@ bool CMerchantnodeConfig::read(std::string& strErr) {
             iss.clear();
         }
 
-        if (!(iss >> alias >> ip >> merchantPrivKey >> hashContractTxId)) {
+        if (!(iss >> alias >> ip >> stakenodePrivKey >> hashContractTxId)) {
             iss.str(line);
             iss.clear();
-            if (!(iss >> alias >> ip >> merchantPrivKey >> hashContractTxId)) {
-                strErr = _("Could not parse merchantnode.conf") + "\n" +
+            if (!(iss >> alias >> ip >> stakenodePrivKey >> hashContractTxId)) {
+                strErr = _("Could not parse stakenode.conf") + "\n" +
                         strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"";
                 streamConfig.close();
                 return false;
@@ -68,7 +68,7 @@ bool CMerchantnodeConfig::read(std::string& strErr) {
         int mainnetDefaultPort = CreateChainParams(CBaseChainParams::MAIN)->GetDefaultPort();
         if(Params().NetworkIDString() == CBaseChainParams::MAIN) {
             if(port != mainnetDefaultPort) {
-                strErr = _("Invalid port detected in merchantnode.conf") + "\n" +
+                strErr = _("Invalid port detected in stakenode.conf") + "\n" +
                         strprintf(_("Port: %d"), port) + "\n" +
                         strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
                         strprintf(_("(must be %d for mainnet)"), mainnetDefaultPort);
@@ -76,7 +76,7 @@ bool CMerchantnodeConfig::read(std::string& strErr) {
                 return false;
             }
         } else if(port == mainnetDefaultPort) {
-            strErr = _("Invalid port detected in merchantnode.conf") + "\n" +
+            strErr = _("Invalid port detected in stakenode.conf") + "\n" +
                     strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
                     strprintf(_("(%d could be used only on mainnet)"), mainnetDefaultPort);
             streamConfig.close();
@@ -84,7 +84,7 @@ bool CMerchantnodeConfig::read(std::string& strErr) {
         }
 
 
-        add(alias, ip, merchantPrivKey, hashContractTxId);
+        add(alias, ip, stakenodePrivKey, hashContractTxId);
     }
 
     streamConfig.close();

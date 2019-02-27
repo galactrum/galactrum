@@ -184,11 +184,11 @@ BITCOIN_CORE_H = \
   torcontrol.h \
   txdb.h \
   tpos/tposutils.h \
-  tpos/activemerchantnode.h \
-  tpos/merchantnodeman.h \
-  tpos/merchantnode.h \
-  tpos/merchantnode-sync.h \
-  tpos/merchantnodeconfig.h \
+  tpos/activestakenode.h \
+  tpos/stakenodeman.h \
+  tpos/stakenode.h \
+  tpos/stakenode-sync.h \
+  tpos/stakenodeconfig.h \
   txmempool.h \
   ui_interface.h \
   undo.h \
@@ -273,7 +273,7 @@ libgalactrum_server_a_SOURCES = \
   rpc/misc.cpp \
   rpc/net.cpp \
   rpc/masternode.cpp \
-  rpc/merchantnode.cpp \
+  rpc/stakenode.cpp \
   rpc/rawtransaction.cpp \
   rpc/server.cpp \
   rpc/galactrummisc.cpp \
@@ -285,11 +285,11 @@ libgalactrum_server_a_SOURCES = \
   txdb.cpp \
   txmempool.cpp \
   tpos/tposutils.cpp \
-  tpos/activemerchantnode.cpp \
-  tpos/merchantnode.cpp \
-  tpos/merchantnodeman.cpp \
-  tpos/merchantnode-sync.cpp \
-  tpos/merchantnodeconfig.cpp \
+  tpos/activestakenode.cpp \
+  tpos/stakenode.cpp \
+  tpos/stakenodeman.cpp \
+  tpos/stakenode-sync.cpp \
+  tpos/stakenodeconfig.cpp \
   ui_interface.cpp \
   validation.cpp \
   validationinterface.cpp \

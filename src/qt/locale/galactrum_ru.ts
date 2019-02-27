@@ -3353,7 +3353,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>Полный размер транзакции</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Продавец</translation>
     </message>
     <message>

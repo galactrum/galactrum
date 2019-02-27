@@ -2282,7 +2282,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>Transaktions-ID</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Handlare</translation>
     </message>
     <message>

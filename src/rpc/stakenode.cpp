@@ -2,15 +2,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <tpos/activemerchantnode.h>
+#include <tpos/activestakenode.h>
 #include <key_io.h>
 #include <init.h>
 #include <netbase.h>
 #include <validation.h>
-#include <tpos/merchantnode-sync.h>
-#include <tpos/merchantnodeman.h>
-#include <tpos/merchantnode.h>
-#include <tpos/merchantnodeconfig.h>
+#include <tpos/stakenode-sync.h>
+#include <tpos/stakenodeman.h>
+#include <tpos/stakenode.h>
+#include <tpos/stakenodeconfig.h>
 #include <rpc/server.h>
 #include <util.h>
 #include <utilmoneystr.h>
@@ -24,11 +24,11 @@
 #include <iomanip>
 #include <univalue.h>
 
-static UniValue merchantsync(const JSONRPCRequest& request)
+static UniValue stakenodesync(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 1)
         throw runtime_error(
-                "merchantsync [status|next|reset]\n"
+                "stakenodesync [status|next|reset]\n"
                 "Returns the sync status, updates to the next step or resets it entirely.\n"
                 );
 
@@ -36,34 +36,34 @@ static UniValue merchantsync(const JSONRPCRequest& request)
 
     if(strMode == "status") {
         UniValue objStatus(UniValue::VOBJ);
-        objStatus.push_back(Pair("AssetID", merchantnodeSync.GetAssetID()));
-        objStatus.push_back(Pair("AssetName", merchantnodeSync.GetAssetName()));
-        objStatus.push_back(Pair("AssetStartTime", merchantnodeSync.GetAssetStartTime()));
-        objStatus.push_back(Pair("Attempt", merchantnodeSync.GetAttempt()));
-        objStatus.push_back(Pair("IsBlockchainSynced", merchantnodeSync.IsBlockchainSynced()));
-        objStatus.push_back(Pair("IsMasternodeListSynced", merchantnodeSync.IsMerchantnodeListSynced()));
-        objStatus.push_back(Pair("IsSynced", merchantnodeSync.IsSynced()));
-        objStatus.push_back(Pair("IsFailed", merchantnodeSync.IsFailed()));
+        objStatus.push_back(Pair("AssetID", stakenodeSync.GetAssetID()));
+        objStatus.push_back(Pair("AssetName", stakenodeSync.GetAssetName()));
+        objStatus.push_back(Pair("AssetStartTime", stakenodeSync.GetAssetStartTime()));
+        objStatus.push_back(Pair("Attempt", stakenodeSync.GetAttempt()));
+        objStatus.push_back(Pair("IsBlockchainSynced", stakenodeSync.IsBlockchainSynced()));
+        objStatus.push_back(Pair("IsMasternodeListSynced", stakenodeSync.IsStakenodeListSynced()));
+        objStatus.push_back(Pair("IsSynced", stakenodeSync.IsSynced()));
+        objStatus.push_back(Pair("IsFailed", stakenodeSync.IsFailed()));
         return objStatus;
     }
 
     if(strMode == "next")
     {
-        merchantnodeSync.SwitchToNextAsset(*g_connman);
-        return "sync updated to " + merchantnodeSync.GetAssetName();
+        stakenodeSync.SwitchToNextAsset(*g_connman);
+        return "sync updated to " + stakenodeSync.GetAssetName();
     }
 
     if(strMode == "reset")
     {
-        merchantnodeSync.Reset();
-        merchantnodeSync.SwitchToNextAsset(*g_connman);
+        stakenodeSync.Reset();
+        stakenodeSync.SwitchToNextAsset(*g_connman);
         return "success";
     }
     return "failure";
 }
 
 
-static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> myMerchantNodesIps, bool showOnlyMine)
+static UniValue ListOfStakeNodes(const UniValue& params, std::set<CService> myStakeNodesIps, bool showOnlyMine)
 {
     std::string strMode = "status";
     std::string strFilter = "";
@@ -73,14 +73,14 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
 
     UniValue obj(UniValue::VOBJ);
 
-    auto mapMerchantnodes = merchantnodeman.GetFullMerchantnodeMap();
-    for (auto& mnpair : mapMerchantnodes) {
+    auto mapStakenodes = stakenodeman.GetFullStakenodeMap();
+    for (auto& mnpair : mapStakenodes) {
 
-        if(showOnlyMine && myMerchantNodesIps.count(mnpair.second.addr) == 0) {
+        if(showOnlyMine && myStakeNodesIps.count(mnpair.second.addr) == 0) {
             continue;
         }
 
-        CMerchantnode mn = mnpair.second;
+        CStakenode mn = mnpair.second;
         std::string strOutpoint = HexStr(mnpair.first.GetID().ToString());
         if (strMode == "activeseconds") {
             if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -95,7 +95,7 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
             streamFull << std::setw(18) <<
                           mn.GetStatus() << " " <<
                           mn.nProtocolVersion << " " <<
-                          CBitcoinAddress(mn.pubKeyMerchantnode.GetID()).ToString() << " " <<
+                          CBitcoinAddress(mn.pubKeyStakenode.GetID()).ToString() << " " <<
                           mn.hashTPoSContractTx.ToString() << " " <<
                           (int64_t)mn.lastPing.sigTime << " " << std::setw(8) <<
                           (int64_t)(mn.lastPing.sigTime - mn.sigTime) << " " << std::setw(10) <<
@@ -109,7 +109,7 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
             streamInfo << std::setw(18) <<
                           mn.GetStatus() << " " <<
                           mn.nProtocolVersion << " " <<
-                          CBitcoinAddress(mn.pubKeyMerchantnode.GetID()).ToString() << " " <<
+                          CBitcoinAddress(mn.pubKeyStakenode.GetID()).ToString() << " " <<
                           (int64_t)mn.lastPing.sigTime << " " << std::setw(8) <<
                           (int64_t)(mn.lastPing.sigTime - mn.sigTime) << " " <<
                           (mn.lastPing.fSentinelIsCurrent ? "current" : "expired") << " " <<
@@ -122,7 +122,7 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
             if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
             obj.push_back(Pair(strOutpoint, (int64_t)mn.lastPing.sigTime));
         } else if (strMode == "payee") {
-            CBitcoinAddress address(mn.pubKeyMerchantnode.GetID());
+            CBitcoinAddress address(mn.pubKeyStakenode.GetID());
             std::string strPayee = address.ToString();
             if (strFilter !="" && strPayee.find(strFilter) == std::string::npos &&
                     strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -133,7 +133,7 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
             obj.push_back(Pair(strOutpoint, (int64_t)mn.nProtocolVersion));
         } else if (strMode == "pubkey") {
             if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
-            obj.push_back(Pair(strOutpoint, HexStr(mn.pubKeyMerchantnode)));
+            obj.push_back(Pair(strOutpoint, HexStr(mn.pubKeyStakenode)));
         } else if (strMode == "status") {
             std::string strStatus = mn.GetStatus();
             if (strFilter !="" && strStatus.find(strFilter) == std::string::npos &&
@@ -145,7 +145,7 @@ static UniValue ListOfMerchantNodes(const UniValue& params, std::set<CService> m
     return obj;
 }
 
-static UniValue merchantnodelist(const JSONRPCRequest& request)
+static UniValue stakenodelist(const JSONRPCRequest& request)
 {
     std::string strMode = "status";
     std::string strFilter = "";
@@ -160,29 +160,29 @@ static UniValue merchantnodelist(const JSONRPCRequest& request)
                 strMode != "rank" && strMode != "status"))
     {
         throw std::runtime_error(
-                    "merchantnodelist ( \"mode\" \"filter\" )\n"
-                    "Get a list of merchantnodes in different modes\n"
+                    "stakenodelist ( \"mode\" \"filter\" )\n"
+                    "Get a list of stakenodes in different modes\n"
                     "\nArguments:\n"
                     "1. \"mode\"      (string, optional/required to use filter, defaults = status) The mode to run list in\n"
                     "2. \"filter\"    (string, optional) Filter results. Partial match by outpoint by default in all modes,\n"
                     "                                    additional matches in some modes are also available\n"
                     "\nAvailable modes:\n"
-                    "  activeseconds  - Print number of seconds merchantnode recognized by the network as enabled\n"
-                    "                   (since latest issued \"merchantnode start/start-many/start-alias\")\n"
-                    "  addr           - Print ip address associated with a merchantnode (can be additionally filtered, partial match)\n"
+                    "  activeseconds  - Print number of seconds stakenode recognized by the network as enabled\n"
+                    "                   (since latest issued \"stakenode start/start-many/start-alias\")\n"
+                    "  addr           - Print ip address associated with a stakenode (can be additionally filtered, partial match)\n"
                     "  full           - Print info in format 'status protocol payee lastseen activeseconds lastpaidtime lastpaidblock IP'\n"
                     "                   (can be additionally filtered, partial match)\n"
                     "  info           - Print info in format 'status protocol payee lastseen activeseconds sentinelversion sentinelstate IP'\n"
                     "                   (can be additionally filtered, partial match)\n"
                     "  lastpaidblock  - Print the last block height a node was paid on the network\n"
                     "  lastpaidtime   - Print the last time a node was paid on the network\n"
-                    "  lastseen       - Print timestamp of when a merchantnode was last seen on the network\n"
-                    "  payee          - Print Galactrum address associated with a merchantnode (can be additionally filtered,\n"
+                    "  lastseen       - Print timestamp of when a stakenode was last seen on the network\n"
+                    "  payee          - Print Galactrum address associated with a stakenode (can be additionally filtered,\n"
                     "                   partial match)\n"
-                    "  protocol       - Print protocol of a merchantnode (can be additionally filtered, exact match)\n"
-                    "  pubkey         - Print the merchantnode (not collateral) public key\n"
-                    "  rank           - Print rank of a merchantnode based on current block\n"
-                    "  status         - Print merchantnode status: PRE_ENABLED / ENABLED / EXPIRED / WATCHDOG_EXPIRED / NEW_START_REQUIRED /\n"
+                    "  protocol       - Print protocol of a stakenode (can be additionally filtered, exact match)\n"
+                    "  pubkey         - Print the stakenode (not collateral) public key\n"
+                    "  rank           - Print rank of a stakenode based on current block\n"
+                    "  status         - Print stakenode status: PRE_ENABLED / ENABLED / EXPIRED / WATCHDOG_EXPIRED / NEW_START_REQUIRED /\n"
                     "                   UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)\n"
                     );
     }
@@ -195,11 +195,11 @@ static UniValue merchantnodelist(const JSONRPCRequest& request)
         }
     }
 
-    std::set<CService> myMerchantNodesIps;
-    return  ListOfMerchantNodes(request.params, myMerchantNodesIps, false);
+    std::set<CService> myStakeNodesIps;
+    return  ListOfStakeNodes(request.params, myStakeNodesIps, false);
 }
 
-static UniValue merchantnode(const JSONRPCRequest& request)
+static UniValue stakenode(const JSONRPCRequest& request)
 {
 #ifdef ENABLE_WALLET
     auto pwallet = GetWalletForJSONRPCRequest(request);
@@ -224,25 +224,25 @@ static UniValue merchantnode(const JSONRPCRequest& request)
                 strCommand != "debug" && strCommand != "current" && strCommand != "winner" && strCommand != "winners" && strCommand != "genkey" &&
                 strCommand != "connect" && strCommand != "status"))
         throw std::runtime_error(
-                "merchantnode \"command\"...\n"
-                "Set of commands to execute merchantnode related actions\n"
+                "stakenode \"command\"...\n"
+                "Set of commands to execute stakenode related actions\n"
                 "\nArguments:\n"
                 "1. \"command\"        (string or set of strings, required) The command to execute\n"
                 "\nAvailable commands:\n"
-                "  count        - Print number of all known merchantnodes (optional: 'ps', 'enabled', 'all', 'qualify')\n"
-                "  current      - Print info on current merchantnode winner to be paid the next block (calculated locally)\n"
-                "  genkey       - Generate new merchantnodeprivkey\n"
+                "  count        - Print number of all known stakenodes (optional: 'ps', 'enabled', 'all', 'qualify')\n"
+                "  current      - Print info on current stakenode winner to be paid the next block (calculated locally)\n"
+                "  genkey       - Generate new stakenodeprivkey\n"
             #ifdef ENABLE_WALLET
-                "  outputs      - Print merchantnode compatible outputs\n"
-                "  start-alias  - Start single remote merchantnode by assigned alias configured in merchantnode.conf\n"
-                "  start-<mode> - Start remote merchantnodes configured in merchantnode.conf (<mode>: 'all', 'missing', 'disabled')\n"
+                "  outputs      - Print stakenode compatible outputs\n"
+                "  start-alias  - Start single remote stakenode by assigned alias configured in stakenode.conf\n"
+                "  start-<mode> - Start remote stakenodes configured in stakenode.conf (<mode>: 'all', 'missing', 'disabled')\n"
             #endif // ENABLE_WALLET
-                "  status       - Print merchantnode status information\n"
-                "  list         - Print list of all known merchantnodes (see merchantnodelist for more info)\n"
-                "  list-conf    - Print merchantnode.conf in JSON format\n"
+                "  status       - Print stakenode status information\n"
+                "  list         - Print list of all known stakenodes (see stakenodelist for more info)\n"
+                "  list-conf    - Print stakenode.conf in JSON format\n"
                 "  list-mine    - Print own nodes"
-                "  winner       - Print info on next merchantnode winner to vote for\n"
-                "  winners      - Print list of merchantnode winners\n"
+                "  winner       - Print info on next stakenode winner to vote for\n"
+                "  winners      - Print list of stakenode winners\n"
                 );
 
     if (strCommand == "list")
@@ -256,7 +256,7 @@ static UniValue merchantnode(const JSONRPCRequest& request)
         auto newRequest = request;
         newRequest.params = newParams;
 
-        return merchantnodelist(newRequest);
+        return stakenodelist(newRequest);
     }
 
     if(strCommand == "list-mine")
@@ -267,35 +267,35 @@ static UniValue merchantnode(const JSONRPCRequest& request)
             newParams.push_back(request.params[i]);
         }
 
-        std::set<CService> myMerchantNodesIps;
-        for(auto &&mne : merchantnodeConfig.getEntries())
+        std::set<CService> myStakeNodesIps;
+        for(auto &&mne : stakenodeConfig.getEntries())
         {
             CService service;
             Lookup(mne.getIp().c_str(), service, 0, false);
 
-            myMerchantNodesIps.insert(service);
+            myStakeNodesIps.insert(service);
         }
 
-        return  ListOfMerchantNodes(newParams, myMerchantNodesIps, true);
+        return  ListOfStakeNodes(newParams, myStakeNodesIps, true);
     }
 
     if (strCommand == "list-conf")
     {
         UniValue resultObj(UniValue::VARR);
 
-        for(auto &&mne : merchantnodeConfig.getEntries())
+        for(auto &&mne : stakenodeConfig.getEntries())
         {
-            CMerchantnode mn;
-            CKey privKey = DecodeSecret(mne.getMerchantPrivKey());
+            CStakenode mn;
+            CKey privKey = DecodeSecret(mne.getStakenodePrivKey());
             CPubKey pubKey = privKey.GetPubKey();
-            bool fFound = merchantnodeman.Get(pubKey, mn);
+            bool fFound = stakenodeman.Get(pubKey, mn);
 
             std::string strStatus = fFound ? mn.GetStatus() : "MISSING";
 
             UniValue mnObj(UniValue::VOBJ);
             mnObj.push_back(Pair("alias", mne.getAlias()));
             mnObj.push_back(Pair("address", mne.getIp()));
-            mnObj.push_back(Pair("privateKey", mne.getMerchantPrivKey()));
+            mnObj.push_back(Pair("privateKey", mne.getStakenodePrivKey()));
             mnObj.push_back(Pair("status", strStatus));
             resultObj.push_back(mnObj);
         }
@@ -306,18 +306,18 @@ static UniValue merchantnode(const JSONRPCRequest& request)
     if(strCommand == "connect")
     {
         if (request.params.size() < 2)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Merchantnode address required");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Stakenode address required");
 
         std::string strAddress = request.params[1].get_str();
 
         CService addr;
         if (!Lookup(strAddress.c_str(), addr, 0, false))
-            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Incorrect merchantnode address %s", strAddress));
+            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Incorrect stakenode address %s", strAddress));
 
         // TODO: Pass CConnman instance somehow and don't use global variable.
         CNode *pnode = g_connman->OpenMasternodeConnection(CAddress(addr, NODE_NETWORK));
         if(!pnode)
-            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Couldn't connect to merchantnode %s", strAddress));
+            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Couldn't connect to stakenode %s", strAddress));
 
         return "successfully connected";
     }
@@ -328,21 +328,21 @@ static UniValue merchantnode(const JSONRPCRequest& request)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Too many parameters");
 
         if (request.params.size() == 1)
-            return merchantnodeman.size();
+            return stakenodeman.size();
 
         std::string strMode = request.params[1].get_str();
 
         if (strMode == "ps")
-            return merchantnodeman.CountEnabled();
+            return stakenodeman.CountEnabled();
 
         if (strMode == "enabled")
-            return merchantnodeman.CountEnabled();
+            return stakenodeman.CountEnabled();
 
 
         if (strMode == "all")
             return strprintf("Total: %d (PS Compatible: %d / Enabled: %d)",
-                             merchantnodeman.size(), merchantnodeman.CountEnabled(),
-                             merchantnodeman.CountEnabled());
+                             stakenodeman.size(), stakenodeman.CountEnabled(),
+                             stakenodeman.CountEnabled());
     }
 #ifdef ENABLE_WALLET
     if (strCommand == "start-alias")
@@ -362,18 +362,18 @@ static UniValue merchantnode(const JSONRPCRequest& request)
         UniValue statusObj(UniValue::VOBJ);
         statusObj.push_back(Pair("alias", strAlias));
 
-        for(auto && mrne : merchantnodeConfig.getEntries()) {
+        for(auto && mrne : stakenodeConfig.getEntries()) {
             if(mrne.getAlias() == strAlias) {
                 fFound = true;
                 std::string strError;
-                CMerchantnodeBroadcast mnb;
+                CStakenodeBroadcast mnb;
 
-                bool fResult = CMerchantnodeBroadcast::Create(mrne.getIp(), mrne.getMerchantPrivKey(),
+                bool fResult = CStakenodeBroadcast::Create(mrne.getIp(), mrne.getStakenodePrivKey(),
                                                               mrne.getContractTxID(), strError, mnb);
 
                 statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
                 if(fResult) {
-                    merchantnodeman.UpdateMerchantnodeList(mnb, *g_connman);
+                    stakenodeman.UpdateStakenodeList(mnb, *g_connman);
                     mnb.Relay(*g_connman);
                 } else {
                     statusObj.push_back(Pair("errorMessage", strError));
@@ -394,28 +394,28 @@ static UniValue merchantnode(const JSONRPCRequest& request)
 
     if (strCommand == "status")
     {
-        if (!fMerchantNode)
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "This is not a merchantnode");
+        if (!fStakeNode)
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "This is not a stakenode");
 
         UniValue mnObj(UniValue::VOBJ);
 
-        mnObj.push_back(Pair("pubkey", activeMerchantnode.pubKeyMerchantnode.GetID().ToString()));
-        mnObj.push_back(Pair("service", activeMerchantnode.service.ToString()));
+        mnObj.push_back(Pair("pubkey", activeStakenode.pubKeyStakenode.GetID().ToString()));
+        mnObj.push_back(Pair("service", activeStakenode.service.ToString()));
 
-        CMerchantnode mn;
-        auto pubKey = activeMerchantnode.pubKeyMerchantnode;
-        if(merchantnodeman.Get(pubKey, mn)) {
-            mnObj.push_back(Pair("merchantAddress", CBitcoinAddress(pubKey.GetID()).ToString()));
+        CStakenode mn;
+        auto pubKey = activeStakenode.pubKeyStakenode;
+        if(stakenodeman.Get(pubKey, mn)) {
+            mnObj.push_back(Pair("stakenodeAddress", CBitcoinAddress(pubKey.GetID()).ToString()));
         }
 
-        mnObj.push_back(Pair("status", activeMerchantnode.GetStatus()));
+        mnObj.push_back(Pair("status", activeStakenode.GetStatus()));
         return mnObj;
     }
 
     return NullUniValue;
 }
 
-static bool DecodeHexVecMnb(std::vector<CMerchantnodeBroadcast>& vecMnb, std::string strHexMnb) {
+static bool DecodeHexVecMnb(std::vector<CStakenodeBroadcast>& vecMnb, std::string strHexMnb) {
 
     if (!IsHex(strHexMnb))
         return false;
@@ -432,7 +432,7 @@ static bool DecodeHexVecMnb(std::vector<CMerchantnodeBroadcast>& vecMnb, std::st
     return true;
 }
 
-UniValue merchantsentinelping(const JSONRPCRequest& request)
+UniValue stakenodesentinelping(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 1) {
         throw std::runtime_error(
@@ -448,7 +448,7 @@ UniValue merchantsentinelping(const JSONRPCRequest& request)
                     );
     }
 
-    //    activeMerchantnode.UpdateSentinelPing(StringVersionToInt(request.params[0].get_str()));
+    //    activeStakenode.UpdateSentinelPing(StringVersionToInt(request.params[0].get_str()));
     return true;
 }
 
@@ -464,20 +464,20 @@ UniValue tposcontract(const JSONRPCRequest& request)
     if (request.fHelp  || (strCommand != "list" && strCommand != "create" && strCommand != "refresh" && strCommand != "cleanup"))
         throw std::runtime_error(
                 "tposcontract \"command\"...\n"
-                "Set of commands to execute merchantnode related actions\n"
+                "Set of commands to execute stakenode related actions\n"
                 "\nArguments:\n"
                 "1. \"command\"        (string or set of strings, required) The command to execute\n"
                 "\nAvailable commands:\n"
                 "  create           - Create tpos transaction\n"
-                "  list             - Print list of all tpos contracts that you are owner or merchant\n"
-                "  refresh          - Refresh tpos contract for merchant to fetch all coins from blockchain.\n"
+                "  list             - Print list of all tpos contracts that you are own or have been granted\n"
+                "  refresh          - Refresh tpos contract for stakenode to fetch all coins from blockchain.\n"
                 );
 
 
     if (strCommand == "list")
     {
         UniValue result(UniValue::VOBJ);
-        UniValue merchantArray(UniValue::VARR);
+        UniValue stakenodeArray(UniValue::VARR);
         UniValue ownerArray(UniValue::VARR);
 
         auto parseContract = [](const TPoSContract &contract) {
@@ -485,17 +485,17 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
             object.push_back(Pair("txid", contract.rawTx->GetHash().ToString()));
             object.push_back(Pair("tposAddress", contract.tposAddress.ToString()));
-            object.push_back(Pair("merchantAddress", contract.merchantAddress.ToString()));
-            object.push_back(Pair("commission", 100 - contract.stakePercentage)); // show merchant commission
+            object.push_back(Pair("stakenodeAddress", contract.stakenodeAddress.ToString()));
+            object.push_back(Pair("commission", 100 - contract.stakePercentage)); // show StakeNode commission
             if(contract.vchSignature.empty())
                 object.push_back(Pair("deprecated", true));
 
             return object;
         };
 
-        for(auto &&it : pwallet->tposMerchantContracts)
+        for(auto &&it : pwallet->tposStakenodeContracts)
         {
-            merchantArray.push_back(parseContract(it.second));
+            stakenodeArray.push_back(parseContract(it.second));
         }
 
         for(auto &&it : pwallet->tposOwnerContracts)
@@ -503,7 +503,7 @@ UniValue tposcontract(const JSONRPCRequest& request)
             ownerArray.push_back(parseContract(it.second));
         }
 
-        result.push_back(Pair("as_merchant", merchantArray));
+        result.push_back(Pair("as_stakenode", stakenodeArray));
         result.push_back(Pair("as_owner", ownerArray));
 
         return result;
@@ -512,19 +512,19 @@ UniValue tposcontract(const JSONRPCRequest& request)
     {
         if (request.params.size() < 4)
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Expected format: tposcontract create tpos_address merchant_address commission");
+                               "Expected format: tposcontract create tpos_address stakenode_address commission");
 
         CBitcoinAddress tposAddress(request.params[1].get_str());
-        CBitcoinAddress merchantAddress(request.params[2].get_str());
+        CBitcoinAddress stakenodeAddress(request.params[2].get_str());
         int commission = std::stoi(request.params[3].get_str());
 
         if(!tposAddress.IsValid())
             throw JSONRPCError(RPC_INVALID_PARAMETER,
                                "tpos address is not valid, won't continue");
 
-        if(!merchantAddress.IsValid())
+        if(!stakenodeAddress.IsValid())
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "merchant address is not valid, won't continue");
+                               "stakenode address is not valid, won't continue");
 
         CReserveKey reserveKey(pwallet);
 
@@ -533,7 +533,7 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
         if(TPoSUtils::CreateTPoSTransaction(pwallet, transaction,
                                             reserveKey, tposAddress,
-                                            merchantAddress, commission, strError))
+                                            stakenodeAddress, commission, strError))
         {
             return EncodeHexTx(*transaction);
         }
@@ -548,9 +548,9 @@ UniValue tposcontract(const JSONRPCRequest& request)
             throw JSONRPCError(RPC_INVALID_PARAMETER,
                                "Expected format: tposcontract refresh tposcontract_id");
 
-        auto it = pwallet->tposMerchantContracts.find(ParseHashV(request.params[1], "tposcontractid"));
-        if(it == std::end(pwallet->tposMerchantContracts))
-            return JSONRPCError(RPC_INVALID_PARAMETER, "No merchant tpos contract found");
+        auto it = pwallet->tposStakenodeContracts.find(ParseHashV(request.params[1], "tposcontractid"));
+        if(it == std::end(pwallet->tposStakenodeContracts))
+            return JSONRPCError(RPC_INVALID_PARAMETER, "No StakeNode tpos contract found");
 
         WalletRescanReserver reserver(pwallet);
 
@@ -569,9 +569,9 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
         auto tposContractHashID = ParseHashV(request.params[1], "tposcontractid");
 
-        auto it = pwallet->tposMerchantContracts.find(tposContractHashID);
-        if(it == std::end(pwallet->tposMerchantContracts))
-            return "No merchant tpos contract found";
+        auto it = pwallet->tposStakenodeContracts.find(tposContractHashID);
+        if(it == std::end(pwallet->tposStakenodeContracts))
+            return "No StakeNode tpos contract found";
 
         CTransactionRef tx;
         uint256 hashBlock;
@@ -596,15 +596,15 @@ UniValue tposcontract(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         argNames
   //  --------------------- ------------------------  -----------------------  ----------
-  { "merchantnode",            "merchantnode",            &merchantnode,            {"command"} }, /* uses wallet if enabled */
-  { "merchantnode",            "merchantnodelist",        &merchantnodelist,        {"mode", "filter"} },
+  { "stakenode",            "stakenode",            &stakenode,            {"command"} }, /* uses wallet if enabled */
+  { "stakenode",            "stakenodelist",        &stakenodelist,        {"mode", "filter"} },
   #ifdef ENABLE_WALLET
-  { "merchantnode",            "tposcontract",            &tposcontract,            {"command"} },
+  { "stakenode",            "tposcontract",            &tposcontract,            {"command"} },
   #endif
-  { "merchantnode",            "merchantsync",            &merchantsync,            {"command"} },
+  { "stakenode",            "stakenodesync",            &stakenodesync,            {"command"} },
 };
 
-void RegisterMerchantnodeCommands(CRPCTable &t)
+void RegisterStakenodeCommands(CRPCTable &t)
 {
     for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++)
         t.appendCommand(commands[vcidx].name, &commands[vcidx]);

@@ -182,7 +182,7 @@ public:
                                bool manual_connection = false);
 
     CNode *OpenMasternodeConnection(const CAddress &addrConnect);
-    CNode *OpenMerchantnodeConnection(const CAddress &addrConnect);
+    CNode *OpenStakenodeConnection(const CAddress &addrConnect);
 
     bool CheckIncomingNonce(uint64_t nonce);
 
@@ -682,10 +682,10 @@ public:
     bool fSentAddr;
     // If 'true' this node will be disconnected on CMasternodeMan::ProcessMasternodeConnections()
     bool fMasternode;
-    bool fMerchantnode;
+    bool fStakenode;
     CSemaphoreGrant grantOutbound;
     CSemaphoreGrant grantMasternodeOutbound;
-    CSemaphoreGrant grantMerchantnodeOutbound;
+    CSemaphoreGrant grantStakenodeOutbound;
     CCriticalSection cs_filter;
     std::unique_ptr<CBloomFilter> pfilter;
     std::atomic<int> nRefCount;

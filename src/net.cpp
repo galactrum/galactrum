@@ -1185,7 +1185,7 @@ void CConnman::ThreadSocketHandler()
                     if (pnode->fMasternode)
                         pnode->Release();
 
-                    if (pnode->fMerchantnode)
+                    if (pnode->fStakenode)
                         pnode->Release();
 #endif
 
@@ -2004,14 +2004,14 @@ CNode *CConnman::OpenMasternodeConnection(const CAddress &addrConnect)
     return nullptr;
 }
 
-CNode *CConnman::OpenMerchantnodeConnection(const CAddress &addrConnect)
+CNode *CConnman::OpenStakenodeConnection(const CAddress &addrConnect)
 {
     if(auto pNode = OpenNetworkConnectionImpl(addrConnect, true, nullptr, nullptr, false, false, false, true))
     {
-        if(!pNode->fMerchantnode)
+        if(!pNode->fStakenode)
             pNode->AddRef();
 
-        pNode->fMerchantnode = true;
+        pNode->fStakenode = true;
         return pNode;
     }
 

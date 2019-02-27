@@ -50,16 +50,16 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <messagesigner.h>
-#include <tpos/activemerchantnode.h>
+#include <tpos/activestakenode.h>
 #include <masternodeconfig.h>
-#include <tpos/merchantnodeconfig.h>
+#include <tpos/stakenodeconfig.h>
 #include <activemasternode.h>
 #include <instantx.h>
 #include <wallet/wallet.h>
 #include <net_processing_galactrum.h>
 #include <masternodeman.h>
 #include <masternode-payments.h>
-#include <tpos/merchantnodeman.h>
+#include <tpos/stakenodeman.h>
 #include <netfulfilledman.h>
 #include <governance/governance.h>
 #include <flat-database.h>
@@ -249,9 +249,9 @@ static bool LoadExtensionsDataCaches()
         return InitError(_("Failed to load fulfilled requests cache from") + "\n" + (pathDB / strDBName).string());
     }
 
-    CFlatDB<CMerchantnodeMan> flatdb5("merchantnodecache.dat", "magicMerchantnodeCache");
-    if(!flatdb5.Load(merchantnodeman)) {
-        return InitError(_("Failed to load merchantnode cache from") + "\n" + (pathDB / strDBName).string());
+    CFlatDB<CStakenodeMan> flatdb5("stakenodecache.dat", "magicStakenodeCache");
+    if(!flatdb5.Load(stakenodeman)) {
+        return InitError(_("Failed to load stakenode cache from") + "\n" + (pathDB / strDBName).string());
     }
 
     return true;
@@ -268,8 +268,8 @@ static void StoreExtensionsDataCaches()
     flatdb3.Dump(governance);
     CFlatDB<CNetFulfilledRequestManager> flatdb4("netfulfilled.dat", "magicFulfilledCache");
     flatdb4.Dump(netfulfilledman);
-    CFlatDB<CMerchantnodeMan> flatdb5("merchantnodecache.dat", "magicMerchantnodeCache");
-    flatdb5.Dump(merchantnodeman);
+    CFlatDB<CStakenodeMan> flatdb5("stakenodecache.dat", "magicStakenodeCache");
+    flatdb5.Dump(stakenodeman);
 }
 
 void Shutdown()
@@ -608,9 +608,9 @@ void SetupServerArgs()
     gArgs.AddArg("-masternodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::MASTERNODE);
     gArgs.AddArg("-clearmncache", "Clears mncache on startup", false, OptionsCategory::MASTERNODE);
 
-    gArgs.AddArg("-prospectnode=<n>", "Enable the client to act as a merchantnode (0-1, default: false", false, OptionsCategory::MERCHANTNODE);
-    gArgs.AddArg("-prospectnodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::MERCHANTNODE);
-    gArgs.AddArg("-prospectnodeconf=<file>", "Specify merchantnode configuration file (default: merchantnode.conf)", false, OptionsCategory::MERCHANTNODE);
+    gArgs.AddArg("-stakenode=<n>", "Enable the client to act as a stakenode (0-1, default: false", false, OptionsCategory::STAKENODE);
+    gArgs.AddArg("-stakenodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::STAKENODE);
+    gArgs.AddArg("-stakenodeconf=<file>", "Specify stakenode configuration file (default: stakenode.conf)", false, OptionsCategory::STAKENODE);
 
 #if HAVE_DECL_DAEMON
     gArgs.AddArg("-daemon", "Run in the background as a daemon and accept commands", false, OptionsCategory::OPTIONS);
@@ -625,7 +625,7 @@ void SetupServerArgs()
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/galactrum/galactrum>";
-    const std::string URL_WEBSITE = "<https://stakenet.io/";
+    const std::string URL_WEBSITE = "<https://galactrum.org/";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR) + " ") + "\n" +
             "\n" +
@@ -1327,7 +1327,7 @@ bool AppInitPrivateSend()
     }
 
     fMasterNode = gArgs.GetBoolArg("-masternode", false);
-    fMerchantNode = gArgs.GetBoolArg("-prospectnode", false);
+    fStakeNode = gArgs.GetBoolArg("-stakenode", false);
     // TODO: masternode should have no wallet
 
     //    if((fMasterNode || masternodeConfig.getCount() > 0) && fTxIndex == false) {
@@ -1350,17 +1350,17 @@ bool AppInitPrivateSend()
         }
     }
 
-    if(fMerchantNode) {
-        LogPrintf("MERCHANTNODE:\n");
+    if(fStakeNode) {
+        LogPrintf("STAKENODE:\n");
 
-        std::string strMerchantNodePrivKey = gArgs.GetArg("-prospectnodeprivkey", "");
-        if(!strMerchantNodePrivKey.empty()) {
-            if(!CMessageSigner::GetKeysFromSecret(strMerchantNodePrivKey, activeMerchantnode.keyMerchantnode, activeMerchantnode.pubKeyMerchantnode))
-                return InitError(_("Invalid merchantnodeprivkey. Please see documenation."));
+        std::string strStakeNodePrivKey = gArgs.GetArg("-stakenodeprivkey", "");
+        if(!strStakeNodePrivKey.empty()) {
+            if(!CMessageSigner::GetKeysFromSecret(strStakeNodePrivKey, activeStakenode.keyStakenode, activeStakenode.pubKeyStakenode))
+                return InitError(_("Invalid stakenodeprivkey. Please see documenation."));
 
-            LogPrintf("  pubKeyMerchantnode: %s\n", activeMerchantnode.pubKeyMerchantnode.GetID().ToString());
+            LogPrintf("  pubKeyStakenode: %s\n", activeStakenode.pubKeyStakenode.GetID().ToString());
         } else {
-            return InitError(_("You must specify a merchantnodeprivkey in the configuration. Please see documentation for help."));
+            return InitError(_("You must specify a stakenodeprivkey in the configuration. Please see documentation for help."));
         }
     }
 

@@ -52,8 +52,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const interface
             CAmount stakeAmount = 0;
             CAmount commissionAmount = 0;
             CTxDestination tposAddress;
-            CTxDestination merchantAddress;
-            if(wallet.getTPoSPayments(wtx.tx, stakeAmount, commissionAmount, tposAddress, merchantAddress))
+            CTxDestination stakenodeAddress;
+            if(wallet.getTPoSPayments(wtx.tx, stakeAmount, commissionAmount, tposAddress, stakenodeAddress))
             {
                 //stake reward
                 sub.involvesWatchAddress = false;
@@ -85,8 +85,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const interface
             CAmount stakeAmount = 0;
             CAmount commissionAmount = 0;
             CTxDestination tposAddress;
-            CTxDestination merchantAddress;
-            bool isTPoSBlock = wallet.getTPoSPayments(wtx.tx, stakeAmount, commissionAmount, tposAddress, merchantAddress);
+            CTxDestination stakenodeAddress;
+            bool isTPoSBlock = wallet.getTPoSPayments(wtx.tx, stakeAmount, commissionAmount, tposAddress, stakenodeAddress);
             isminetype mine = wtx.txout_is_mine[1];
             sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
 
@@ -95,7 +95,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const interface
                 if(sub.involvesWatchAddress)
                 {
                     sub.type = TransactionRecord::StakeMintTPoSCommission;
-                    sub.address = EncodeDestination(merchantAddress);
+                    sub.address = EncodeDestination(stakenodeAddress);
                     sub.credit = commissionAmount;
                 }
                 else

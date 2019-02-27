@@ -2108,7 +2108,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
 
     const auto& coinbaseTransaction = (pindex->nHeight > Params().GetConsensus().nLastPoWBlock ? block.vtx[1] : block.vtx[0]);
 
-    if(block.IsTPoSBlock() && !TPoSUtils::IsMerchantPaymentValid(state, block, pindex->nHeight, expectedReward, pindex->nMint)) {
+    if(block.IsTPoSBlock() && !TPoSUtils::IsStakenodePaymentValid(state, block, pindex->nHeight, expectedReward, pindex->nMint)) {
         return false;
     }
 

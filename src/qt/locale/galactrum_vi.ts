@@ -3353,7 +3353,7 @@ https://www.transifex.com/projects/p/galactrum/</translation>
         <translation>Tổng kích thước giao dịch</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Người bán</translation>
     </message>
     <message>

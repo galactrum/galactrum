@@ -19,7 +19,7 @@
 #include <httprpc.h>
 #include <utilstrencodings.h>
 #include <masternodeconfig.h>
-#include <tpos/merchantnodeconfig.h>
+#include <tpos/stakenodeconfig.h>
 #include <walletinitinterface.h>
 
 #include <boost/thread.hpp>
@@ -115,8 +115,8 @@ static bool AppInit(int argc, char* argv[])
             return false;
         }
 
-        if(!merchantnodeConfig.read(strErr)) {
-            LogPrintf("Error reading merchantnode configuration file: %s\n", strErr.c_str());
+        if(!stakenodeConfig.read(strErr)) {
+            LogPrintf("Error reading stakenode configuration file: %s\n", strErr.c_str());
             return false;
         }
 

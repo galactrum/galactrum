@@ -28,7 +28,7 @@
 #include <validation.h>
 #include <warnings.h>
 #include <masternodeman.h>
-#include <tpos/merchantnodeman.h>
+#include <tpos/stakenodeman.h>
 
 #if defined(HAVE_CONFIG_H)
 #include <config/galactrum-config.h>
@@ -166,14 +166,14 @@ class NodeImpl : public Node
         LOCK(::cs_main);
         return ::chainActive.Height();
     }
-    MasternodeMerchantnodeCountInfo getNumMasternodes() override
+    MasternodeStakenodeCountInfo getNumMasternodes() override
     {
-        MasternodeMerchantnodeCountInfo mnCount(mnodeman.size(), mnodeman.CountEnabled(PROTOCOL_VERSION), mnodeman.CountEnabled());
+        MasternodeStakenodeCountInfo mnCount(mnodeman.size(), mnodeman.CountEnabled(PROTOCOL_VERSION), mnodeman.CountEnabled());
         return mnCount;
     }
-    MasternodeMerchantnodeCountInfo getNumMerchantnodes() override
+    MasternodeStakenodeCountInfo getNumStakenodes() override
     {
-        MasternodeMerchantnodeCountInfo mnCount(merchantnodeman.size(), merchantnodeman.CountEnabled(PROTOCOL_VERSION), merchantnodeman.CountEnabled());
+        MasternodeStakenodeCountInfo mnCount(stakenodeman.size(), stakenodeman.CountEnabled(PROTOCOL_VERSION), stakenodeman.CountEnabled());
         return mnCount;
     }
     int64_t getLastBlockTime() override

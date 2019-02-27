@@ -38,7 +38,7 @@
 
 #include <walletinitinterface.h>
 #include <masternodeconfig.h>
-#include <tpos/merchantnodeconfig.h>
+#include <tpos/stakenodeconfig.h>
 
 #include <memory>
 #include <stdint.h>
@@ -729,9 +729,9 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    if(!merchantnodeConfig.read(strErr)) {
+    if(!stakenodeConfig.read(strErr)) {
         QMessageBox::critical(0, QObject::tr(PACKAGE_NAME),
-                              QObject::tr("Error reading merchantnode configuration file: %1").arg(strErr.c_str()));
+                              QObject::tr("Error reading stakenode configuration file: %1").arg(strErr.c_str()));
         return EXIT_FAILURE;
     }
 

@@ -42,7 +42,6 @@ QT_FORMS_UI = \
   qt/forms/signverifymessagedialog.ui \
   qt/forms/transactiondescdialog.ui \
   qt/forms/transactionsdialog.ui \
-  qt/forms/tpospage.ui \
   qt/forms/settingspage.ui \
   qt/forms/toolspage.ui
 
@@ -96,7 +95,6 @@ QT_MOC_CPP = \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp \
   qt/moc_tposaddressestablemodel.cpp \
-  qt/moc_tpospage.cpp \
   qt/moc_toolspage.cpp \
   qt/moc_settingspage.cpp
 
@@ -167,7 +165,6 @@ BITCOIN_QT_H = \
   qt/transactiondesc.h \
   qt/transactionsdialog.h \
   qt/tposaddressestablemodel.h \
-  qt/tpospage.h \
   qt/transactiondescdialog.h \
   qt/transactionfilterproxy.h \
   qt/transactionrecord.h \
@@ -421,7 +418,6 @@ BITCOIN_QT_CPP += \
   qt/transactiondesc.cpp \
   qt/transactionsdialog.cpp \
   qt/tposaddressestablemodel.cpp \
-  qt/tpospage.cpp \
   qt/transactiondescdialog.cpp \
   qt/transactionfilterproxy.cpp \
   qt/transactionrecord.cpp \

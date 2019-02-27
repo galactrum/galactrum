@@ -18,7 +18,7 @@ struct TPoSContract
 {
     TPoSContract() = default;
     TPoSContract(CTransactionRef tx,
-                 CBitcoinAddress merchantAddress,
+                 CBitcoinAddress stakenodeAddress,
                  CBitcoinAddress tposAddress,
                  short stakePercentage,
                  std::vector<unsigned char> vchSignature);
@@ -28,7 +28,7 @@ struct TPoSContract
     static TPoSContract FromTPoSContractTx(const CTransactionRef tx);
 
     CTransactionRef rawTx;
-    CBitcoinAddress merchantAddress;
+    CBitcoinAddress stakenodeAddress;
     CBitcoinAddress tposAddress;
     std::vector<unsigned char> vchSignature;
     int stakePercentage = 0;
@@ -50,17 +50,17 @@ public:
                                 const CTransactionRef &tx,
                                 CAmount &stakeAmount,
                                 CAmount &commissionAmount,
-                                CTxDestination &tposAddress, CTxDestination &merchantAddress);
+                                CTxDestination &tposAddress, CTxDestination &stakenodeAddress);
 
     static bool IsTPoSOwnerContract(CWallet *wallet, const CTransactionRef &tx);
-    static bool IsTPoSMerchantContract(CWallet *wallet, const CTransactionRef &tx);
+    static bool IsTPoSStakenodeContract(CWallet *wallet, const CTransactionRef &tx);
 
     static bool CreateTPoSTransaction(CWallet *wallet,
                                       CTransactionRef &transactionOut,
                                       CReserveKey &reserveKey,
                                       const CBitcoinAddress &tposAddress,
-                                      const CBitcoinAddress &merchantAddress,
-                                      int merchantCommission,
+                                      const CBitcoinAddress &stakenodeAddress,
+                                      int stakenodeCommission,
                                       std::string &strError);
 
     static bool CreateCancelContractTransaction(CWallet *wallet,
@@ -71,7 +71,7 @@ public:
 
     static COutPoint GetContractCollateralOutpoint(const TPoSContract &contract);
     static bool CheckContract(const uint256 &hashContractTx, TPoSContract &contract, bool fCheckSignature, bool fCheckContractOutpoint);
-    static bool IsMerchantPaymentValid(CValidationState &state, const CBlock &block, int nBlockHeight, CAmount expectedReward, CAmount actualReward);
+    static bool IsStakenodePaymentValid(CValidationState &state, const CBlock &block, int nBlockHeight, CAmount expectedReward, CAmount actualReward);
 
 #endif
 

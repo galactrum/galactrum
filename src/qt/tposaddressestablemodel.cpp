@@ -217,12 +217,12 @@ TPoSAddressesTableModel::Entry TPoSAddressesTableModel::GetAmountForAddress(CBit
             CAmount stakeAmount = 0;
             CAmount commissionAmount = 0;
             CTxDestination tposAddress;
-            CTxDestination merchantAddress;
-            if(walletInterface.getTPoSPayments(walletTx.tx, stakeAmount, commissionAmount, tposAddress, merchantAddress) &&
+            CTxDestination stakenodeAddress;
+            if(walletInterface.getTPoSPayments(walletTx.tx, stakeAmount, commissionAmount, tposAddress, stakenodeAddress) &&
                     tposAddress == address.Get())
             {
                 // at this moment nNet contains net stake reward
-                // commission was sent to merchant address, so it was base of tx
+                // commission was sent to stakenode address, so it was base of tx
                 result.commissionAmount += commissionAmount;
                 // stake amount is just what was sent to tpos address
                 result.stakeAmount += stakeAmount;

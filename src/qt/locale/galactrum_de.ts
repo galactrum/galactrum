@@ -3356,7 +3356,7 @@ Dies kann passieren, wenn einige Galactrum aus ihrer Wallet bereits ausgegeben w
         <translation>Gesamtgröße der Transaktion</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Händler</translation>
     </message>
     <message>

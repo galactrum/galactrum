@@ -3,31 +3,31 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef SRC_MERCHANTNODECONFIG_H_
-#define SRC_MERCHANTNODECONFIG_H_
+#ifndef SRC_STAKENODECONFIG_H_
+#define SRC_STAKENODECONFIG_H_
 
-class CMerchantnodeConfig;
-extern CMerchantnodeConfig merchantnodeConfig;
+class CStakenodeConfig;
+extern CStakenodeConfig stakenodeConfig;
 
-class CMerchantnodeConfig
+class CStakenodeConfig
 {
 
 public:
 
-    class CMerchantnodeEntry {
+    class CStakenodeEntry {
 
     private:
         std::string alias;
         std::string ip;
-        std::string merchantPrivKey;
+        std::string stakenodePrivKey;
         std::string hashContractTxId;
 
     public:
 
-        CMerchantnodeEntry(std::string alias, std::string ip, std::string merchantPrivKey, std::string hashContractTxId) {
+        CStakenodeEntry(std::string alias, std::string ip, std::string stakenodePrivKey, std::string hashContractTxId) {
             this->alias = alias;
             this->ip = ip;
-            this->merchantPrivKey = merchantPrivKey;
+            this->stakenodePrivKey = stakenodePrivKey;
             this->hashContractTxId = hashContractTxId;
         }
 
@@ -39,16 +39,16 @@ public:
             this->alias = alias;
         }
 
-        const std::string& getMerchantPrivKey() const {
-            return merchantPrivKey;
+        const std::string& getStakenodePrivKey() const {
+            return stakenodePrivKey;
         }
 
         const std::string& getContractTxID() const {
             return this->hashContractTxId;
         }
 
-        void setMerchantPrivKey(const std::string& merchantPrivKey) {
-            this->merchantPrivKey = merchantPrivKey;
+        void setStakenodePrivKey(const std::string& stakenodePrivKey) {
+            this->stakenodePrivKey = stakenodePrivKey;
         }
 
         const std::string& getIp() const {
@@ -60,15 +60,15 @@ public:
         }
     };
 
-    CMerchantnodeConfig() {
-        entries = std::vector<CMerchantnodeEntry>();
+    CStakenodeConfig() {
+        entries = std::vector<CStakenodeEntry>();
     }
 
     void clear();
     bool read(std::string& strErr);
-    void add(std::string alias, std::string ip, std::string merchantPrivKey, std::string hashContractTxId);
+    void add(std::string alias, std::string ip, std::string stakenodePrivKey, std::string hashContractTxId);
 
-    std::vector<CMerchantnodeEntry>& getEntries() {
+    std::vector<CStakenodeEntry>& getEntries() {
         return entries;
     }
 
@@ -77,10 +77,10 @@ public:
     }
 
 private:
-    std::vector<CMerchantnodeEntry> entries;
+    std::vector<CStakenodeEntry> entries;
 
 
 };
 
 
-#endif /* SRC_MERCHANTNODECONFIG_H_ */
+#endif /* SRC_STAKENODECONFIG_H_ */

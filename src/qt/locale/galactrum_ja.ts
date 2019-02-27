@@ -2139,7 +2139,7 @@
         <translation>取引 ID</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>商人</translation>
     </message>
     <message>

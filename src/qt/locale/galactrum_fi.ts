@@ -3358,7 +3358,7 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Siirtotapahtuman koko yhteensä</translation>
     </message>
     <message>
-        <source>Merchant</source>
+        <source>Stakenode</source>
         <translation>Kauppias</translation>
     </message>
     <message>

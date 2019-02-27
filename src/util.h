@@ -38,7 +38,7 @@
 int64_t GetStartupTime();
 
 extern bool fMasterNode;
-extern bool fMerchantNode;
+extern bool fStakeNode;
 extern bool fLiteMode;
 
 /** Signals for translation. */
@@ -97,7 +97,7 @@ const fs::path &GetBackupsDir(bool fNetSpecific = true);
 void ClearDatadirCache();
 fs::path GetConfigFile(const std::string& confPath);
 fs::path GetMasternodeConfigFile();
-fs::path GetMerchantnodeConfigFile();
+fs::path GetStakenodeConfigFile();
 #ifndef WIN32
 fs::path GetPidFile();
 void CreatePidFile(const fs::path &path, pid_t pid);
@@ -142,7 +142,7 @@ enum class OptionsCategory {
     COMMANDS,
     REGISTER_COMMANDS,
     MASTERNODE,
-    MERCHANTNODE,
+    STAKENODE,
 
     HIDDEN // Always the last option to avoid printing these in the help
 };

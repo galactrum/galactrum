@@ -54,7 +54,7 @@ namespace BCLog {
         QT           = (1 << 19),
         LEVELDB      = (1 << 20),
         KERNEL       = (1 << 21),
-        MERCHANTNODE = (1 << 22),
+        STAKENODE = (1 << 22),
         SPORK        = (1 << 23),
         MNSYNC       = (1 << 24),
         MASTERNODE   = (1 << 25),
