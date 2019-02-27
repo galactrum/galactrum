@@ -608,9 +608,9 @@ void SetupServerArgs()
     gArgs.AddArg("-masternodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::MASTERNODE);
     gArgs.AddArg("-clearmncache", "Clears mncache on startup", false, OptionsCategory::MASTERNODE);
 
-    gArgs.AddArg("-merchantnode=<n>", "Enable the client to act as a merchantnode (0-1, default: false", false, OptionsCategory::MERCHANTNODE);
-    gArgs.AddArg("-merchantnodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::MERCHANTNODE);
-    gArgs.AddArg("-merchantnodeconf=<file>", "Specify merchantnode configuration file (default: merchantnode.conf)", false, OptionsCategory::MERCHANTNODE);
+    gArgs.AddArg("-prospectnode=<n>", "Enable the client to act as a merchantnode (0-1, default: false", false, OptionsCategory::MERCHANTNODE);
+    gArgs.AddArg("-prospectnodeprivkey=<n>", "Set the masternode private key", false, OptionsCategory::MERCHANTNODE);
+    gArgs.AddArg("-prospectnodeconf=<file>", "Specify merchantnode configuration file (default: merchantnode.conf)", false, OptionsCategory::MERCHANTNODE);
 
 #if HAVE_DECL_DAEMON
     gArgs.AddArg("-daemon", "Run in the background as a daemon and accept commands", false, OptionsCategory::OPTIONS);
@@ -1327,7 +1327,7 @@ bool AppInitPrivateSend()
     }
 
     fMasterNode = gArgs.GetBoolArg("-masternode", false);
-    fMerchantNode = gArgs.GetBoolArg("-merchantnode", false);
+    fMerchantNode = gArgs.GetBoolArg("-prospectnode", false);
     // TODO: masternode should have no wallet
 
     //    if((fMasterNode || masternodeConfig.getCount() > 0) && fTxIndex == false) {
@@ -1353,7 +1353,7 @@ bool AppInitPrivateSend()
     if(fMerchantNode) {
         LogPrintf("MERCHANTNODE:\n");
 
-        std::string strMerchantNodePrivKey = gArgs.GetArg("-merchantnodeprivkey", "");
+        std::string strMerchantNodePrivKey = gArgs.GetArg("-prospectnodeprivkey", "");
         if(!strMerchantNodePrivKey.empty()) {
             if(!CMessageSigner::GetKeysFromSecret(strMerchantNodePrivKey, activeMerchantnode.keyMerchantnode, activeMerchantnode.pubKeyMerchantnode))
                 return InitError(_("Invalid merchantnodeprivkey. Please see documenation."));

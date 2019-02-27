@@ -726,7 +726,7 @@ bool CMasternodePayments::ProcessBlock(int nBlockHeight, CConnman& connman)
         return false;
     }
 
-    LogPrintf("CMasternodePayments::ProcessBlock -- Masternode found by GetNextMasternodeInQueueForPayment(): %s\n", mnInfo.vin.prevout.ToString());
+    LogPrintf("CMasternodePayments::ProcessBlock -- Masternode found by GetNextMasternodeInQueueForPayment(): %s\n", mnInfo.outpoint.ToString());
 
 
     CScript payee = GetScriptForDestination(mnInfo.pubKeyCollateralAddress.GetID());
@@ -784,7 +784,7 @@ void CMasternodePayments::CheckPreviousBlockVotes(int nPrevBlockHeight)
                         continue;
                     }
                     auto vote = mapMasternodePaymentVotes[voteHash];
-                    if (vote.vinMasternode.prevout == mn.second.vin.prevout) {
+                    if (vote.vinMasternode.prevout == mn.second.outpoint) {
                         payee = vote.payee;
                         found = true;
                         break;
@@ -795,8 +795,8 @@ void CMasternodePayments::CheckPreviousBlockVotes(int nPrevBlockHeight)
 
         if (!found) {
             debugStr += strprintf("CMasternodePayments::CheckPreviousBlockVotes --   %s - no vote received\n",
-                                  mn.second.vin.prevout.ToString());
-            mapMasternodesDidNotVote[mn.second.vin.prevout]++;
+                                  mn.second.outpoint.ToString());
+            mapMasternodesDidNotVote[mn.second.outpoint]++;
             continue;
         }
 
@@ -804,7 +804,7 @@ void CMasternodePayments::CheckPreviousBlockVotes(int nPrevBlockHeight)
         ExtractDestination(payee, address1);
 
         debugStr += strprintf("CMasternodePayments::CheckPreviousBlockVotes --   %s - voted for %s\n",
-                              mn.second.vin.prevout.ToString(), EncodeDestination(address1));
+                              mn.second.outpoint.ToString(), EncodeDestination(address1));
     }
     debugStr += "CMasternodePayments::CheckPreviousBlockVotes -- Masternodes which missed a vote in the past:\n";
     for (auto it : mapMasternodesDidNotVote) {

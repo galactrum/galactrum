@@ -827,7 +827,7 @@ fs::path GetMasternodeConfigFile()
 
 fs::path GetMerchantnodeConfigFile()
 {
-    boost::filesystem::path pathConfigFile(gArgs.GetArg("-merchantnodeconf", "merchantnode.conf"));
+    boost::filesystem::path pathConfigFile(gArgs.GetArg("-prospectnodeconf", "merchantnode.conf"));
     if (!pathConfigFile.is_complete())
         return fs::absolute(pathConfigFile, GetDataDir());
 

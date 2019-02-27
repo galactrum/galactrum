@@ -33,7 +33,7 @@ static const int MASTERNODE_POSE_BAN_MAX_SCORE          = 5;
 class CMasternodePing
 {
 public:
-    CTxIn vin{};
+    COutPoint masternodeOutpoint{};
     uint256 blockHash{};
     int64_t sigTime{}; //mnb message times
     std::vector<unsigned char> vchSig{};
@@ -49,7 +49,7 @@ public:
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(vin);
+        READWRITE(masternodeOutpoint);
         READWRITE(blockHash);
         READWRITE(sigTime);
         READWRITE(vchSig);
@@ -66,7 +66,7 @@ public:
     uint256 GetHash() const
     {
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
-        ss << vin;
+        ss << masternodeOutpoint << uint8_t{} << 0xffffffff;
         ss << sigTime;
         return ss.GetHash();
     }
@@ -82,7 +82,7 @@ public:
 
 inline bool operator==(const CMasternodePing& a, const CMasternodePing& b)
 {
-    return a.vin == b.vin && a.blockHash == b.blockHash;
+    return a.masternodeOutpoint == b.masternodeOutpoint && a.blockHash == b.blockHash;
 }
 inline bool operator!=(const CMasternodePing& a, const CMasternodePing& b)
 {
@@ -100,11 +100,11 @@ struct masternode_info_t
         nActiveState{activeState}, nProtocolVersion{protoVer}, sigTime{sTime} {}
 
     masternode_info_t(int activeState, int protoVer, int64_t sTime,
-                      COutPoint const& outpoint, CService const& addr,
+                      COutPoint const& poutpoint, CService const& addr,
                       CPubKey const& pkCollAddr, CPubKey const& pkMN,
                       int64_t tWatchdogV = 0) :
         nActiveState{activeState}, nProtocolVersion{protoVer}, sigTime{sTime},
-        vin{outpoint}, addr{addr},
+        outpoint{poutpoint}, addr{addr},
         pubKeyCollateralAddress{pkCollAddr}, pubKeyMasternode{pkMN},
         nTimeLastWatchdogVote{tWatchdogV} {}
 
@@ -112,7 +112,7 @@ struct masternode_info_t
     int nProtocolVersion = 0;
     int64_t sigTime = 0; //mnb message time
 
-    CTxIn vin{};
+    COutPoint outpoint{};
     CService addr{};
     CPubKey pubKeyCollateralAddress{};
     CPubKey pubKeyMasternode{};
@@ -177,7 +177,7 @@ public:
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
         LOCK(cs);
-        READWRITE(vin);
+        READWRITE(outpoint);
         READWRITE(addr);
         READWRITE(pubKeyCollateralAddress);
         READWRITE(pubKeyMasternode);
@@ -288,11 +288,11 @@ public:
 
 inline bool operator==(const CMasternode& a, const CMasternode& b)
 {
-    return a.vin == b.vin;
+    return a.outpoint == b.outpoint;
 }
 inline bool operator!=(const CMasternode& a, const CMasternode& b)
 {
-    return !(a.vin == b.vin);
+    return !(a.outpoint== b.outpoint);
 }
 
 
@@ -315,7 +315,7 @@ public:
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(vin);
+        READWRITE(outpoint);
         READWRITE(addr);
         READWRITE(pubKeyCollateralAddress);
         READWRITE(pubKeyMasternode);
@@ -328,7 +328,7 @@ public:
     uint256 GetHash() const
     {
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
-        ss << vin;
+        ss << outpoint;
         ss << pubKeyCollateralAddress;
         ss << sigTime;
         return ss.GetHash();
