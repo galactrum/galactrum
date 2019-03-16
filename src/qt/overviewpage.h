@@ -40,11 +40,14 @@ public:
 
 public Q_SLOTS:
     void setBalance(const interfaces::WalletBalances& balances);
-    void setEncryptionStatus(int status);
+    void setEncryptionStatus();
+    void encryptWallet();
+
 
 Q_SIGNALS:
     void transactionClicked(const QModelIndex &index);
     void outOfSyncWarningClicked();
+    void encryptWallet(bool status);
 
 private:
     QTimer *timer;

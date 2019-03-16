@@ -926,7 +926,7 @@
                                                 </item>
                                             </layout>
                                         </item>
-                                        <item>
+                                        <!--item>
                                             <widget class="QLabel" name="labelSettingsCloaking">
                                                 <property name="font">
                                                     <font>
@@ -1067,7 +1067,7 @@
                                                     </spacer>
                                                 </item>
                                             </layout>
-                                        </item>
+                                        </item-->
                                         <item>
                                             <widget class="QLabel" name="labelSettingsNode">
                                                 <property name="font">

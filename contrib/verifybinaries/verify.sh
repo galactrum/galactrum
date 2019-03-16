@@ -23,7 +23,7 @@ TMPFILE="hashes.tmp"
 
 SIGNATUREFILENAME="SHA256SUMS.asc"
 RCSUBDIR="test"
-HOST1="https://galactrumcore.org"
+HOST1="https://galactrum.org"
 HOST2="https://galactrum.org"
 BASEDIR="/bin/"
 VERSIONPREFIX="galactrum-"

@@ -141,10 +141,10 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent, 
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
-
     // Pass through encryption status changed signals
-    connect(walletview, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
-    connect(ui->pushButtonEncryptWallet, SIGNAL(clicked(bool)), walletframe, SLOT(encryptWallet(bool)));
+    connect(walletview, SIGNAL(encryptionStatusChanged()), this, SLOT(setEncryptionStatus()));
+    connect(ui->pushButtonEncryptWallet, SIGNAL(clicked()), this, SLOT(encryptWallet()));
+    connect(this, SIGNAL(encryptWallet(bool)), walletframe, SLOT(encryptWallet(bool)));
     connect(ui->pushButtonBackupWallet, SIGNAL(clicked()), walletframe, SLOT(backupWallet()));
     connect(ui->pushButtonChangePassphrase, SIGNAL(clicked()), walletframe, SLOT(changePassphrase()));
     connect(ui->pushButtonUnlockWallet, SIGNAL(clicked()), walletframe, SLOT(unlockWallet()));
@@ -180,10 +180,15 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent, 
     ui->togglePrivateSend->setIconSize(QSize(32, 32));
     ui->privateSendReset->setIconSize(QSize(32, 32));*/
 }
+void OverviewPage::encryptWallet()
+{
+    Q_EMIT encryptWallet(true);
+}
 
 #ifdef ENABLE_WALLET
-void OverviewPage::setEncryptionStatus(int status)
+void OverviewPage::setEncryptionStatus()
 {
+    int status = walletModel->getEncryptionStatus();
     switch(status)
     {
     case WalletModel::Unencrypted:

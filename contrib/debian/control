@@ -26,7 +26,7 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://galactrumcore.org/
+Homepage: https://galactrum.org/
 Vcs-Git: git://github.com/galactrum/galactrum.git
 Vcs-Browser: https://github.com/galactrum/galactrum
 

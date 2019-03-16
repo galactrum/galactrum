@@ -319,6 +319,14 @@ QPushButton#pushButtonBackupWallet:hover,
     background-color: #27aee4;
 }
 
+#fallbackFeeWarningLabel {
+    margin-left: 10px;
+}
+
+#useAvailableBalanceButton {
+    margin-left: 10px;
+}
+
 QComboBox {
     /* Dropdown Menus */
     border: 1px solid #000;

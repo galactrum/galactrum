@@ -227,7 +227,7 @@ public Q_SLOTS:
        @param[in] status            current encryption status
        @see WalletModel::EncryptionStatus
     */
-    void setEncryptionStatus(int status);
+    void setEncryptionStatus(int);
 
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 

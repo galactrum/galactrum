@@ -2071,7 +2071,7 @@
                                                     <string>Remove the selected entries from the list</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>Cancel TPoS</string>
+                                                    <string>Cancel Contract</string>
                                                 </property>
                                                 <property name="autoDefault">
                                                     <bool>false</bool>
