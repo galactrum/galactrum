@@ -85,7 +85,7 @@ Ensure gitian-builder is up-to-date:
 
     pushd ./gitian-builder
     mkdir -p inputs
-    wget -P inputs https://galactrumcore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
+    wget -P inputs https://galactrum.org/cfields/osslsigncode-Backports-to-1.7.1.patch
     wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
     popd
 
@@ -292,7 +292,7 @@ galactrum.org (see below for galactrum.org update instructions).
 
   - galactrum-dev and galactrum-dev mailing list
 
-  - Galactrum announcements list https://galactrumcore.org/en/list/announcements/join/
+  - Galactrum announcements list https://galactrum.org/en/list/announcements/join/
 
   - galactrum.org blog post
 

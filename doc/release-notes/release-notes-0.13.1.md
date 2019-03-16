@@ -1,6 +1,6 @@
 Galactrum version 0.13.1 is now available from:
 
-  <https://galactrum.org/bin/galactrum-core-0.13.1/>
+  <https://bitcoin.org/bin/galactrum-core-0.13.1/>
 
 This is a new minor version release, including activation parameters for the
 segwit softfork, various bugfixes and performance improvements, as well as
@@ -12,7 +12,7 @@ Please report bugs using the issue tracker at github:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://galactrumcore.org/en/list/announcements/join/>
+  <https://bitcoincore.org/en/list/announcements/join/>
 
 Compatibility
 ==============
@@ -159,13 +159,13 @@ For more information about segwit, please see the [segwit FAQ][], the
 operator, please see the [versionbits FAQ][] for information about
 signaling support for a soft fork.
 
-[Segwit FAQ]: https://galactrumcore.org/en/2016/01/26/segwit-benefits/
-[segwit wallet developers guide]: https://galactrumcore.org/en/segwit_wallet_dev/
+[Segwit FAQ]: https://bitcoincore.org/en/2016/01/26/segwit-benefits/
+[segwit wallet developers guide]: https://bitcoincore.org/en/segwit_wallet_dev/
 [BIP141]: https://github.com/galactrum/bips/blob/master/bip-0141.mediawiki
 [BIP143]: https://github.com/galactrum/bips/blob/master/bip-0143.mediawiki
 [BIP144]: https://github.com/galactrum/bips/blob/master/bip-0144.mediawiki
 [BIP145]: https://github.com/galactrum/bips/blob/master/bip-0145.mediawiki
-[versionbits FAQ]: https://galactrumcore.org/en/2016/06/08/version-bits-miners-faq/
+[versionbits FAQ]: https://bitcoincore.org/en/2016/06/08/version-bits-miners-faq/
 
 
 Null dummy soft fork

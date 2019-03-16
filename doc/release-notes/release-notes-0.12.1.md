@@ -1,6 +1,6 @@
 Galactrum version 0.12.1 is now available from:
 
-  <https://galactrum.org/bin/galactrum-core-0.12.1/>
+  <https://bitcoin.org/bin/galactrum-core-0.12.1/>
 
 This is a new minor version release, including the BIP9, BIP68 and BIP112
 softfork, various bugfixes and updated translations.

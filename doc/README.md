@@ -5,7 +5,7 @@ Setup
 ---------------------
 Galactrum is the original Galactrum client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Galactrum transactions (which is currently more than 100 GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download Galactrum, visit [galactrum.org](https://galactrumcore.org/en/releases/).
+To download Galactrum, visit [galactrum.org](https://galactrum.org/#download).
 
 Running
 ---------------------
@@ -28,7 +28,7 @@ Drag Galactrum to your applications folder, and then run Galactrum.
 
 ### Need Help?
 
-* See the documentation at the [Galactrum Wiki](https://en.galactrum.it/wiki/Main_Page)
+* See the documentation at the [Galactrum Wiki](http://wiki.galactrum.org)
 for help and more information.
 * Ask for help on [#galactrum](http://webchat.freenode.net?channels=galactrum) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=galactrum).
 * Ask for help on the [GalactrumTalk](https://galactrumtalk.org/) forums, in the [Technical Support board](https://galactrumtalk.org/index.php?board=4.0).

@@ -3,7 +3,7 @@ release-notes at release time)
 
 Galactrum version *version* is now available from:
 
-  <https://galactrumcore.org/bin/galactrum-core-*version*/>
+  <https://galactrum.org/bin/galactrum-core-*version*/>
 
 This is a new major version release, including new features, various bugfixes
 and performance improvements, as well as updated translations.
@@ -14,7 +14,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://galactrumcore.org/en/list/announcements/join/>
+  <https://galactrum.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============
