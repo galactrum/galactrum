@@ -63,7 +63,7 @@
                         <item>
                             <widget class="QPushButton" name="receivingAddressesButton">
                                 <property name="toolTip">
-                                    <string>Clear all fields of the form.</string>
+                                    <string>Open the address book.</string>
                                 </property>
                                 <property name="text">
                                     <string>My Addresses...</string>

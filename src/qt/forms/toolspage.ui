@@ -1780,7 +1780,7 @@
                                                     <string>Public key which is used to identify StakeNode service provider.</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>STAKENODE ADDRESS</string>
+                                                    <string>Stakenode Address</string>
                                                 </property>
                                                 <property name="alignment">
                                                     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -1799,14 +1799,14 @@
                                                     </size>
                                                 </property>
                                                 <property name="toolTip">
-                                                    <string>An optional label to associate with the new receiving address.</string>
+                                                    <string>Public key which is used to identify StakeNode service provider.</string>
                                                 </property>
                                                 </widget>
                                             </item>
                                             <item>
                                                 <widget class="QLabel" name="tposAddrLabel">
                                                 <property name="text">
-                                                    <string>AMOUNT</string>
+                                                    <string>Amount</string>
                                                 </property>
                                                 <property name="alignment">
                                                     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -1830,7 +1830,7 @@
                                                             </size>
                                                         </property>
                                                         <property name="toolTip">
-                                                            <string>An optional amount to request. Leave this empty or zero to not request a specific amount.</string>
+                                                            <string>The amount of ORE to stake.</string>
                                                         </property>
                                                         <property name="styleSheet">
                                                             <string notr="true" />
@@ -1845,7 +1845,7 @@
                                                     <string>Percentage of stake reward paid to StakeNode operator as commission.</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>COMMISSION</string>
+                                                    <string>Commision</string>
                                                 </property>
                                                 <property name="alignment">
                                                     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>

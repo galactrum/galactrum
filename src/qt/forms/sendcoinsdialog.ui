@@ -76,7 +76,7 @@
                         <item>
                             <widget class="QPushButton" name="sendingAddressesButton">
                                 <property name="toolTip">
-                                    <string>Clear all fields of the form.</string>
+                                    <string>Show receiving addresses.</string>
                                 </property>
                                 <property name="text">
                                     <string>Address Book...</string>

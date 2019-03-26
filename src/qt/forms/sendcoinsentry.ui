@@ -65,7 +65,7 @@
       <item>
        <widget class="QPushButton" name="deleteButton">
         <property name="text">
-         <string>Clear</string>
+         <string>Delete</string>
         </property>
        </widget>
       </item>
@@ -107,7 +107,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="payToLabel">
       <property name="text">
-       <string>PAY TO</string>
+       <string>Pay To</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -120,7 +120,7 @@
     <item row="4" column="0">
      <widget class="QLabel" name="labelLabel">
       <property name="text">
-       <string>LABEL</string>
+       <string>Label</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -133,7 +133,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="amountLabel">
       <property name="text">
-       <string>AMOUNT</string>
+       <string>Amount</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
