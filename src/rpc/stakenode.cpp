@@ -390,6 +390,33 @@ static UniValue stakenode(const JSONRPCRequest& request)
 
         return statusObj;
     }
+    if (strCommand == "genkey")
+    {
+        CWallet * const pwallet = GetWalletForJSONRPCRequest(request);
+        EnsureWalletIsUnlocked(pwallet);
+
+        // Generate a new key that is added to wallet
+        CPubKey newKey;
+        if (!pwallet->GetKeyFromPool(newKey)) {
+            throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
+        }
+        OutputType output_type = pwallet->m_default_address_type;
+        pwallet->LearnRelatedScripts(newKey, output_type);
+        CTxDestination dest = GetDestinationForKey(newKey, output_type);
+
+        pwallet->SetAddressBook(dest, "", "receive");
+
+        UniValue obj(UniValue::VOBJ);
+
+        obj.push_back(Pair("public_address", EncodeDestination(dest)));
+        CKey vchSecret;
+        if (!pwallet->GetKey(newKey.GetID(), vchSecret)) {
+            throw JSONRPCError(RPC_WALLET_ERROR, "Unable to fetch private key");
+        }
+        obj.push_back(Pair("secret_key", EncodeSecret(vchSecret)));
+
+        return obj;
+    }
 #endif
 
     if (strCommand == "status")
@@ -590,7 +617,6 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
     return NullUniValue;
 }
-
 #endif
 
 static const CRPCCommand commands[] =
