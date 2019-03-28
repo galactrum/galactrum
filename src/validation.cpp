@@ -3252,9 +3252,9 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
         if(block.IsTPoSBlock()) {
             bool fCheckTPoSSignature = block.GetBlockTime() >
                     Params().GetConsensus().nTPoSContractSignatureDeploymentTime;
-
-            if(!TPoSUtils::CheckContract(block.hashTPoSContractTx, contract, fCheckTPoSSignature, fCheckContractOutpoint)) {
-                state.DoS(100, error("CheckBlock(): check contract failed for stakenode block %s\n", hash.ToString().c_str()));
+            std::string strError;
+            if(!TPoSUtils::CheckContract(block.hashTPoSContractTx, contract, fCheckTPoSSignature, fCheckContractOutpoint, strError)) {
+                state.DoS(100, error("CheckBlock(): check contract failed, %s for stakenode block %s\n", strError, hash.ToString().c_str()));
                 return false;
             }
 
