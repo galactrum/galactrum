@@ -19,18 +19,10 @@ Communication Channels
 ----------------------
 
 Most communication about Galactrum development happens on IRC, in the
-#galactrum-dev channel on Freenode. The easiest way to participate on IRC is
-with the web client, [webchat.freenode.net](https://webchat.freenode.net/). Chat
-history logs can be found
-on [botbot.me](https://botbot.me/freenode/galactrum-core-dev/).
+#development channel on Discord. Join the Galactrum discord [here](https://discord.gg/zQcPK9G).
 
 Discussion about code base improvements happens in GitHub issues and on pull
 requests.
-
-The developer
-[mailing list](https://lists.linuxfoundation.org/mailman/listinfo/galactrum-dev)
-should be used to discuss complicated or controversial changes before working on
-a patch set.
 
 
 Contributor Workflow
