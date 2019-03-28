@@ -400,7 +400,7 @@ static UniValue stakenode(const JSONRPCRequest& request)
         if (!pwallet->GetKeyFromPool(newKey)) {
             throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
         }
-        OutputType output_type = pwallet->m_default_address_type;
+        OutputType output_type = OutputType::LEGACY;
         pwallet->LearnRelatedScripts(newKey, output_type);
         CTxDestination dest = GetDestinationForKey(newKey, output_type);
 
@@ -480,7 +480,7 @@ UniValue stakenodesentinelping(const JSONRPCRequest& request)
 }
 
 #ifdef ENABLE_WALLET
-UniValue tposcontract(const JSONRPCRequest& request)
+UniValue stakecontract(const JSONRPCRequest& request)
 {
     auto pwallet = GetWalletForJSONRPCRequest(request);
     std::string strCommand;
@@ -490,14 +490,14 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
     if (request.fHelp  || (strCommand != "list" && strCommand != "create" && strCommand != "refresh" && strCommand != "cleanup"))
         throw std::runtime_error(
-                "tposcontract \"command\"...\n"
+                "stakecontract \"command\"...\n"
                 "Set of commands to execute stakenode related actions\n"
                 "\nArguments:\n"
                 "1. \"command\"        (string or set of strings, required) The command to execute\n"
                 "\nAvailable commands:\n"
-                "  create           - Create tpos transaction\n"
-                "  list             - Print list of all tpos contracts that you are own or have been granted\n"
-                "  refresh          - Refresh tpos contract for stakenode to fetch all coins from blockchain.\n"
+                "  create           - Create stake contract transaction\n"
+                "  list             - Print list of all stake contracts that you are own or have been granted\n"
+                "  refresh          - Refresh stake contract for stakenode to fetch all coins from blockchain.\n"
                 );
 
 
@@ -511,7 +511,7 @@ UniValue tposcontract(const JSONRPCRequest& request)
             UniValue object(UniValue::VOBJ);
 
             object.push_back(Pair("txid", contract.rawTx->GetHash().ToString()));
-            object.push_back(Pair("tposAddress", contract.tposAddress.ToString()));
+            object.push_back(Pair("ownerAddress", contract.tposAddress.ToString()));
             object.push_back(Pair("stakenodeAddress", contract.stakenodeAddress.ToString()));
             object.push_back(Pair("commission", 100 - contract.stakePercentage)); // show StakeNode commission
             if(contract.vchSignature.empty())
@@ -539,7 +539,7 @@ UniValue tposcontract(const JSONRPCRequest& request)
     {
         if (request.params.size() < 4)
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Expected format: tposcontract create tpos_address stakenode_address commission");
+                               "Expected format: stakecontract create owner_address stakenode_address commission");
 
         CBitcoinAddress tposAddress(request.params[1].get_str());
         CBitcoinAddress stakenodeAddress(request.params[2].get_str());
@@ -547,7 +547,7 @@ UniValue tposcontract(const JSONRPCRequest& request)
 
         if(!tposAddress.IsValid())
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "tpos address is not valid, won't continue");
+                               "owner address is not valid, won't continue");
 
         if(!stakenodeAddress.IsValid())
             throw JSONRPCError(RPC_INVALID_PARAMETER,
@@ -566,18 +566,18 @@ UniValue tposcontract(const JSONRPCRequest& request)
         }
         else
         {
-            return "Failed to create tpos transaction, reason: " + strError;
+            return "Failed to create stake contract transaction, reason: " + strError;
         }
     }
     else if(strCommand == "refresh")
     {
         if(request.params.size() < 2)
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Expected format: tposcontract refresh tposcontract_id");
+                               "Expected format: stakecontract refresh stakecontract_id");
 
-        auto it = pwallet->tposStakenodeContracts.find(ParseHashV(request.params[1], "tposcontractid"));
+        auto it = pwallet->tposStakenodeContracts.find(ParseHashV(request.params[1], "stakecontractid"));
         if(it == std::end(pwallet->tposStakenodeContracts))
-            return JSONRPCError(RPC_INVALID_PARAMETER, "No StakeNode tpos contract found");
+            return JSONRPCError(RPC_INVALID_PARAMETER, "No Stakenode contract found");
 
         WalletRescanReserver reserver(pwallet);
 
@@ -592,19 +592,19 @@ UniValue tposcontract(const JSONRPCRequest& request)
     {
         if(request.params.size() < 2)
             throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Expected format: tposcontract refres tposcontract_id");
+                               "Expected format: stakecontract refresh stakecontract_id");
 
-        auto tposContractHashID = ParseHashV(request.params[1], "tposcontractid");
+        auto tposContractHashID = ParseHashV(request.params[1], "stakecontractid");
 
         auto it = pwallet->tposStakenodeContracts.find(tposContractHashID);
         if(it == std::end(pwallet->tposStakenodeContracts))
-            return "No StakeNode tpos contract found";
+            return "No Stakenode contract found";
 
         CTransactionRef tx;
         uint256 hashBlock;
         if(!GetTransaction(tposContractHashID, tx, Params().GetConsensus(), hashBlock, true))
         {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Failed to get transaction for tpos contract ");
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Failed to get transaction for stake contract ");
         }
 
         TPoSContract tmpContract = TPoSContract::FromTPoSContractTx(tx);
@@ -625,7 +625,7 @@ static const CRPCCommand commands[] =
   { "stakenode",            "stakenode",            &stakenode,            {"command"} }, /* uses wallet if enabled */
   { "stakenode",            "stakenodelist",        &stakenodelist,        {"mode", "filter"} },
   #ifdef ENABLE_WALLET
-  { "stakenode",            "tposcontract",            &tposcontract,            {"command"} },
+  { "stakenode",            "stakecontract",            &stakecontract,            {"command"} },
   #endif
   { "stakenode",            "stakenodesync",            &stakenodesync,            {"command"} },
 };

@@ -31,7 +31,7 @@ enum {
     SPORK_12_RECONSIDER_BLOCKS                             = 10011,
     SPORK_13_OLD_SUPERBLOCK_FLAG                           = 10012,
     SPORK_14_REQUIRE_SENTINEL_FLAG                         = 10013,
-    SPORK_15_TPOS_ENABLED                                  = 10014,
+    SPORK_15_STAKENODES_ENABLED                                  = 10014,
     SPORK_END
 };
 

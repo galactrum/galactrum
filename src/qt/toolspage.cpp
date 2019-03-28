@@ -1036,11 +1036,11 @@ static QString PrepareCreateContractQuestionString(const CBitcoinAddress &tposAd
                                                    const CBitcoinAddress &stakenodeAddress,
                                                    int commission)
 {
-    QString questionString = QObject::tr("Are you sure you want to setup tpos contract?");
+    QString questionString = QObject::tr("Are you sure you want to setup stake contract?");
     questionString.append("<br /><br />");
 
     // Show total amount + all alternative units
-    questionString.append(QObject::tr("TPoS Address = <b>%1</b><br />StakeNode address = <b>%2</b> <br />StakeNode commission = <b>%3</b>")
+    questionString.append(QObject::tr("Owner Address = <b>%1</b><br />Stakenode address = <b>%2</b> <br />Stakenode commission = <b>%3</b>%%")
                           .arg(QString::fromStdString(tposAddress.ToString()))
                           .arg(QString::fromStdString(stakenodeAddress.ToString()))
                           .arg(commission));
@@ -1057,7 +1057,7 @@ std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateContractTransactio
     std::string strError;
     auto questionString = PrepareCreateContractQuestionString(tposAddress, stakenodeAddress, stakenodeCommission);
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(widget, QObject::tr("Confirm creating tpos contract"),
+    QMessageBox::StandardButton retval = QMessageBox::question(widget, QObject::tr("Confirm creating stake contract"),
                                                                questionString,
                                                                QMessageBox::Yes | QMessageBox::Cancel,
                                                                QMessageBox::Cancel);
@@ -1069,7 +1069,7 @@ std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateContractTransactio
         return walletTx;
     }
 
-    throw std::runtime_error(QString("Failed to create tpos transaction: %1").arg(QString::fromStdString(strError)).toStdString());
+    throw std::runtime_error(QString("Failed to create stake contract transaction: %1").arg(QString::fromStdString(strError)).toStdString());
 }
 
 std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateCancelContractTransaction(QWidget *widget,
@@ -1078,7 +1078,7 @@ std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateCancelContractTran
     std::string strError;
     auto questionString = QString("Are you sure you want to cancel contract with address: <b>%1</b>").arg(contract.tposAddress.ToString().c_str());
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(widget, QObject::tr("Confirm canceling tpos contract"),
+    QMessageBox::StandardButton retval = QMessageBox::question(widget, QObject::tr("Confirm canceling stake contract"),
                                                                questionString,
                                                                QMessageBox::Yes | QMessageBox::Cancel,
                                                                QMessageBox::Cancel);
@@ -1092,7 +1092,7 @@ std::unique_ptr<interfaces::PendingWalletTx> ToolsPage::CreateCancelContractTran
         return walletTx;
     }
 
-    throw std::runtime_error(QString("Failed to create tpos transaction: %1").arg(QString::fromStdString(strError)).toStdString());
+    throw std::runtime_error(QString("Failed to create stake contract transaction: %1").arg(QString::fromStdString(strError)).toStdString());
 }
 
 static void SendPendingTransaction(interfaces::PendingWalletTx *pendingTx)
@@ -1158,8 +1158,7 @@ CBitcoinAddress ToolsPage::GetNewAddress()
     CKeyID keyID = newKey.GetID();
 
 
-    walletModel->wallet().setAddressBook(keyID, std::string(), "tpos address");
-    //pwalletMain->SetAddressBook(keyID, std::string(), "tpos address");
+    walletModel->wallet().setAddressBook(keyID, std::string(), "stake contract address");
 
     return CBitcoinAddress(keyID);
 }
@@ -1194,12 +1193,12 @@ void ToolsPage::onStakeClicked()
             CBitcoinAddress tposAddress = GetNewAddress();
             if(!tposAddress.IsValid())
             {
-                throw std::runtime_error("Critical error, TPoS address is empty");
+                throw std::runtime_error("Critical error, stake contract address is empty");
             }
             CBitcoinAddress stakenodeAddress(ui->stakenodeAddress->text().toStdString());
             if(!stakenodeAddress.IsValid())
             {
-                throw std::runtime_error("Critical error, StakeNode address is empty");
+                throw std::runtime_error("Critical error, Stakenode address is empty");
             }
             auto stakenodeCommission = ui->stakenodeCut->value();
             if(auto penWalletTx = CreateContractTransaction(this, tposAddress, stakenodeAddress, stakenodeCommission))
@@ -1215,7 +1214,7 @@ void ToolsPage::onStakeClicked()
             if (!ctx.isValid())
             {
                 //unlock was cancelled
-                throw std::runtime_error("Wallet is locked and user declined to unlock. Can't redeem from TPoS address.");
+                throw std::runtime_error("Wallet is locked and user declined to unlock. Can't redeem from stake contract address.");
             }
 
             worker();
@@ -1227,7 +1226,7 @@ void ToolsPage::onStakeClicked()
     }
     catch(std::exception &ex)
     {
-        QMessageBox::warning(this, "TPoS", ex.what());
+        QMessageBox::warning(this, "Stake Contract", ex.what());
     }
 }
 
@@ -1261,8 +1260,8 @@ void ToolsPage::onCancelClicked()
             if (!ctx.isValid())
             {
                 //unlock was cancelled
-                QMessageBox::warning(this, tr("TPoS"),
-                                     tr("Wallet is locked and user declined to unlock. Can't redeem from TPoS address."),
+                QMessageBox::warning(this, tr("Stake Contract"),
+                                     tr("Wallet is locked and user declined to unlock. Can't redeem from stake contract address."),
                                      QMessageBox::Ok, QMessageBox::Ok);
 
                 return;
@@ -1276,7 +1275,7 @@ void ToolsPage::onCancelClicked()
     }
     catch(std::exception &ex)
     {
-        QMessageBox::warning(this, "TPoS", ex.what());
+        QMessageBox::warning(this, "Stake Contract", ex.what());
     }
 }
 

@@ -45,7 +45,7 @@ TPoSAddressesTableModel::TPoSAddressesTableModel(WalletModel *parent, OptionsMod
 
 {
     auto displayUnit = optionsModel->getDisplayUnit();
-    columns << tr("TPoS Address")
+    columns << tr("Owner Address")
             << BitcoinUnits::getAmountColumnTitle(displayUnit)
             << GetStakeAmountColumnTitle(displayUnit)
             << GetCommisionAmountColumnTitle(displayUnit);

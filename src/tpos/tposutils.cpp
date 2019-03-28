@@ -14,7 +14,7 @@
 #include <sstream>
 #include <numeric>
 
-static const std::string TPOSEXPORTHEADER("TPOSOWNERINFO");
+static const std::string TPOSEXPORTHEADER("STAKEOWNERINFO");
 static const int TPOSEXPORTHEADERWIDTH = 40;
 
 static const int TPOS_CONTRACT_COLATERAL = 1 * COIN;
@@ -140,12 +140,12 @@ bool TPoSUtils::CreateTPoSTransaction(CWallet *wallet,
     CKeyID keyID;
     if(!tposAddress.GetKeyID(keyID))
     {
-        strError = "Error: TPoS Address is not P2PKH";
+        strError = "Error: stake contract address is not P2PKH";
         return false;
     }
     if (!wallet->GetKey(keyID, key))
     {
-        strError = "Error: Failed to get private key associated with TPoS address";
+        strError = "Error: Failed to get private key associated with stake contract address";
         return false;
     }
     std::vector<unsigned char> vchSignature;
@@ -174,7 +174,7 @@ bool TPoSUtils::CreateTPoSTransaction(CWallet *wallet,
         auto hashMessage = SerializeHash(firstInput);
         if(!key.SignCompact(hashMessage, vchSignature))
         {
-            strError = "Error: Failed to sign tpos contract";
+            strError = "Error: Failed to sign stake contract";
         }
         it->scriptPubKey.FindAndDelete(CScript(vchSignatureCopy));
         it->scriptPubKey << vchSignature;
@@ -275,14 +275,14 @@ bool TPoSUtils::CheckContract(const uint256 &hashContractTx, TPoSContract &contr
     uint256 hashBlock;
     if(!GetTransaction(hashContractTx, tx, Params().GetConsensus(), hashBlock, true))
     {
-        return error("CheckContract() : failed to get transaction for tpos contract %s",
+        return error("CheckContract() : failed to get transaction for stake contract %s",
                      hashContractTx.ToString());
     }
 
     TPoSContract tmpContract = TPoSContract::FromTPoSContractTx(tx);
 
     if(!tmpContract.IsValid())
-        return error("CheckContract() : invalid transaction for tpos contract");
+        return error("CheckContract() : invalid transaction for stake contract");
 
     if(fCheckSignature)
     {
@@ -290,7 +290,7 @@ bool TPoSUtils::CheckContract(const uint256 &hashContractTx, TPoSContract &contr
         std::string strError;
         if(!CHashSigner::VerifyHash(hashMessage, tmpContract.tposAddress.Get(), tmpContract.vchSignature, strError))
         {
-            return error("CheckContract() : TPoS contract signature is invalid %s", strError);
+            return error("CheckContract() : Stake contract signature is invalid %s", strError);
         }
     }
 
@@ -299,7 +299,7 @@ bool TPoSUtils::CheckContract(const uint256 &hashContractTx, TPoSContract &contr
         auto tposContractOutpoint = TPoSUtils::GetContractCollateralOutpoint(tmpContract);
         Coin coin;
         if(!pcoinsTip->GetCoin(tposContractOutpoint, coin) || coin.IsSpent())
-            return error("CheckContract() : tpos contract invalid, collateral is spent");
+            return error("CheckContract() : Stake contract invalid, collateral is spent");
     }
 
     contract = tmpContract;
@@ -353,7 +353,7 @@ bool TPoSUtils::IsStakenodePaymentValid(CValidationState &state, const CBlock &b
         return true;
     }
 
-    if(!sporkManager.IsSporkActive(Spork::SPORK_15_TPOS_ENABLED))
+    if(!sporkManager.IsSporkActive(Spork::SPORK_15_STAKENODES_ENABLED))
     {
         return state.DoS(0, error("IsBlockPayeeValid -- ERROR: Invalid stakenode payment detected at height %d\n", nBlockHeight),
                          REJECT_INVALID, "bad-stakenode-payee", true);
@@ -457,7 +457,7 @@ TPoSContract TPoSContract::FromTPoSContractTx(const CTransactionRef tx)
     }
     catch(std::exception &ex)
     {
-        LogPrintf("Failed to parse tpos which had to be tpos, %s\n", ex.what());
+        LogPrintf("Failed to parse stake contract, %s\n", ex.what());
     }
 
     return TPoSContract();

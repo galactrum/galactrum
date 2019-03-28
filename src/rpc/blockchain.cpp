@@ -151,7 +151,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
     if(block.IsTPoSBlock())
     {
-        result.pushKV("tposcontract", block.hashTPoSContractTx.ToString());
+        result.pushKV("stakecontract", block.hashTPoSContractTx.ToString());
     }
 
     if (blockindex->pprev)

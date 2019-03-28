@@ -649,7 +649,7 @@ void static GalactrumMiner(const CChainParams& chainparams, CConnman& connman,
                     bool isValidContract = contract.stakenodeAddress == stakenodePayee;
                     if(!isValidForPayment || !isValidContract)
                     {
-                        LogPrintf("Won't tpos, stakenode valid for payment: %d isValidContract: %d\n Contract address: %s, stakenode address: %s\n",
+                        LogPrintf("Won't stake, stakenode valid for payment: %d isValidContract: %d\n Contract address: %s, stakenode address: %s\n",
                                   isValidForPayment,
                                   isValidContract,
                                   contract.stakenodeAddress.ToString(),

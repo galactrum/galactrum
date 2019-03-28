@@ -1031,7 +1031,7 @@ static UniValue setgenerate(const JSONRPCRequest& request)
                     throw JSONRPCError(RPC_INTERNAL_ERROR, "Parsing error, one of txids is incorrect");
 
                 SetTPoSMinningParams(true, tposTxId);
-                return std::string("Minting started, tpos contract: ") + tposTxId.ToString();
+                return std::string("Minting started, stake contract: ") + tposTxId.ToString();
             }
         }
     }
@@ -1049,7 +1049,7 @@ static const CRPCCommand commands[] =
     { "mining",             "prioritisetransaction",  &prioritisetransaction,  {"txid","dummy","fee_delta"} },
     { "mining",             "getblocktemplate",       &getblocktemplate,       {"template_request"} },
     { "mining",             "submitblock",            &submitblock,            {"hexdata","dummy"} },
-    { "mining",             "setgenerate",            &setgenerate,            {"generate", "genproclimit", "staking", "tposID"} },
+    { "mining",             "setgenerate",            &setgenerate,            {"generate", "genproclimit", "staking", "stakecontractTxID"} },
 
 
     { "generating",         "generatetoaddress",      &generatetoaddress,      {"nblocks","address","maxtries"} },

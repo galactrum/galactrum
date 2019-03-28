@@ -356,7 +356,7 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
     case TransactionRecord::StakeMint:
         return tr("Minted");
     case TransactionRecord::StakeMintTPoS:
-        return tr("Minted(TPoS)");
+        return tr("Minted(Stakenode)");
     case TransactionRecord::StakeMintTPoSCommission:
         return tr("Minted(Commission)");
     case TransactionRecord::RecvFromOther:

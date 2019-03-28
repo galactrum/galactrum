@@ -3725,7 +3725,7 @@ bool CWallet::CreateCoinStake(unsigned int nBits,
         if(fIsTPoS)
         {
             scriptPubKey = GetScriptForDestination(tposContract.tposAddress.Get());
-            LogPrint(BCLog::KERNEL, "finding tpos, contract tposAddress: %s\n", tposContract.tposAddress.ToString().c_str());
+            LogPrint(BCLog::KERNEL, "finding stake, stake contract ownerAddress: %s\n", tposContract.tposAddress.ToString().c_str());
         }
 
         if (!SelectStakeCoins(setStakeCoins, nBalance /*- nReserveBalance*/, fGenerateSegwit, scriptPubKey)) {

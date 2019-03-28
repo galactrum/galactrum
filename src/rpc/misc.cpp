@@ -481,8 +481,8 @@ UniValue getstakingstatus(const JSONRPCRequest& request)
             "  \"mintablecoins\": true|false,      (boolean) if the wallet has mintable coins\n"
             "  \"enoughcoins\": true|false,        (boolean) if available coins are greater than reserve balance\n"
             "  \"mnsync\": true|false,             (boolean) if masternode data is synced\n"
-            "  \"staking status\": true|false,     (boolean) if the wallet is staking or not\n"
-            "  \"staking tpos txid\" ,             (string)  if the wallet is tposing or not\n"
+            "  \"staking status\": true|false,     (boolean) if the wallet is staking\n"
+            "  \"stake contract txid\" ,           (string)  if the wallet is staking with stake contract\n"
             "}\n"
             "\nExamples:\n" +
             HelpExampleCli("getstakingstatus", "") + HelpExampleRpc("getstakingstatus", ""));
@@ -519,7 +519,7 @@ UniValue getstakingstatus(const JSONRPCRequest& request)
             TPoSContract contract;
             if(!TPoSUtils::CheckContract(txId, contract, true, true))
             {
-                tposStatus = "Failed to find tpos contract, probably spent";
+                tposStatus = "Failed to find stake contract, probably spent";
                 return false;
             }
 
@@ -551,7 +551,7 @@ UniValue getstakingstatus(const JSONRPCRequest& request)
         isTPoS = helper();
     }
 
-    obj.push_back(Pair("staking tpos txid", isTPoS ? txId.ToString() : tposStatus));
+    obj.push_back(Pair("stake contract txid", isTPoS ? txId.ToString() : tposStatus));
 
     return obj;
 }
