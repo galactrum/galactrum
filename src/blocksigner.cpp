@@ -1,6 +1,6 @@
 #include <blocksigner.h>
-#include <tpos/tposutils.h>
-#include <tpos/activestakenode.h>
+#include <stakenode/tposutils.h>
+#include <stakenode/activestakenode.h>
 #include <keystore.h>
 #include <primitives/block.h>
 #include <utilstrencodings.h>

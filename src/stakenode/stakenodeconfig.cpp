@@ -1,6 +1,6 @@
 
 #include <netbase.h>
-#include <tpos/stakenodeconfig.h>
+#include <stakenode/stakenodeconfig.h>
 #include <util.h>
 #include <chainparams.h>
 #include <utilstrencodings.h>

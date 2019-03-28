@@ -29,11 +29,11 @@
 #include <blocksigner.h>
 #include <masternode-sync.h>
 #include <masternode-payments.h>
-#include <tpos/tposutils.h>
-#include <tpos/activestakenode.h>
-#include <tpos/stakenodeman.h>
-#include <tpos/stakenode.h>
-#include <tpos/stakenode-sync.h>
+#include <stakenode/tposutils.h>
+#include <stakenode/activestakenode.h>
+#include <stakenode/stakenodeman.h>
+#include <stakenode/stakenode.h>
+#include <stakenode/stakenode-sync.h>
 
 #include <algorithm>
 #include <queue>

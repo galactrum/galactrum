@@ -5,7 +5,7 @@
 #ifndef STAKENODEMAN_H
 #define STAKENODEMAN_H
 
-#include <tpos/stakenode.h>
+#include <stakenode/stakenode.h>
 #include <sync.h>
 
 using namespace std;

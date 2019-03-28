@@ -20,7 +20,7 @@
 #include <wallet/coinselection.h>
 #include <wallet/walletdb.h>
 #include <wallet/rpcwallet.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 
 #include <algorithm>
 #include <atomic>

@@ -8,10 +8,10 @@
 #include <masternode-sync.h>
 #include <masternode-payments.h>
 #include <governance/governance.h>
-#include <tpos/stakenode-sync.h>
-#include <tpos/stakenodeman.h>
+#include <stakenode/stakenode-sync.h>
+#include <stakenode/stakenodeman.h>
 #include <activemasternode.h>
-#include <tpos/activestakenode.h>
+#include <stakenode/activestakenode.h>
 #include <instantx.h>
 #include <init.h>
 #include <boost/thread.hpp>

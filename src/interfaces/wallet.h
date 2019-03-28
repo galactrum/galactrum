@@ -11,7 +11,7 @@
 #include <script/standard.h>           // For CTxDestination
 #include <support/allocators/secure.h> // For SecureString
 #include <ui_interface.h>              // For ChangeType
-#include <tpos/tposutils.h>            // For TPoSContract
+#include <stakenode/tposutils.h>            // For TPoSContract
 
 #include <functional>
 #include <map>

@@ -9,8 +9,8 @@
 #include <masternodeman.h>
 #include <masternode-payments.h>
 #include <masternode-sync.h>
-#include <tpos/stakenode-sync.h>
-#include <tpos/stakenodeman.h>
+#include <stakenode/stakenode-sync.h>
+#include <stakenode/stakenodeman.h>
 
 void CDSNotificationInterface::InitializeCurrentBlockTip()
 {

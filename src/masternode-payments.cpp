@@ -14,7 +14,7 @@
 #include <netmessagemaker.h>
 #include <script/standard.h>
 #include <key_io.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 
 #include <boost/lexical_cast.hpp>
 

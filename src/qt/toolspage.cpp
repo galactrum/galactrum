@@ -21,7 +21,7 @@
 #include "util.h"
 #include "utilmoneystr.h"
 #include "script/sign.h"
-#include "tpos/tposutils.h"
+#include "stakenode/tposutils.h"
 #include "tposaddressestablemodel.h"
 #include <interfaces/wallet.h>
 #include <wallet/coincontrol.h>

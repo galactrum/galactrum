@@ -183,12 +183,12 @@ BITCOIN_CORE_H = \
   timedata.h \
   torcontrol.h \
   txdb.h \
-  tpos/tposutils.h \
-  tpos/activestakenode.h \
-  tpos/stakenodeman.h \
-  tpos/stakenode.h \
-  tpos/stakenode-sync.h \
-  tpos/stakenodeconfig.h \
+  stakenode/tposutils.h \
+  stakenode/activestakenode.h \
+  stakenode/stakenodeman.h \
+  stakenode/stakenode.h \
+  stakenode/stakenode-sync.h \
+  stakenode/stakenodeconfig.h \
   txmempool.h \
   ui_interface.h \
   undo.h \
@@ -284,12 +284,12 @@ libgalactrum_server_a_SOURCES = \
   torcontrol.cpp \
   txdb.cpp \
   txmempool.cpp \
-  tpos/tposutils.cpp \
-  tpos/activestakenode.cpp \
-  tpos/stakenode.cpp \
-  tpos/stakenodeman.cpp \
-  tpos/stakenode-sync.cpp \
-  tpos/stakenodeconfig.cpp \
+  stakenode/tposutils.cpp \
+  stakenode/activestakenode.cpp \
+  stakenode/stakenode.cpp \
+  stakenode/stakenodeman.cpp \
+  stakenode/stakenode-sync.cpp \
+  stakenode/stakenodeconfig.cpp \
   ui_interface.cpp \
   validation.cpp \
   validationinterface.cpp \

@@ -3,7 +3,7 @@
 #include <init.h>
 #include <optionsmodel.h>
 #include <bitcoinunits.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 #include <validation.h>
 #include <walletmodel.h>
 #include <interfaces/wallet.h>

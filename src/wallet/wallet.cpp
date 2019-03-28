@@ -28,7 +28,7 @@
 #include <txmempool.h>
 #include <utilmoneystr.h>
 #include <wallet/fees.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 #include <kernel.h>
 #include <masternode-payments.h>
 #include <instantx.h>

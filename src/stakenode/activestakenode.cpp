@@ -2,10 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <tpos/activestakenode.h>
-#include <tpos/stakenode.h>
-#include <tpos/stakenode-sync.h>
-#include <tpos/stakenodeman.h>
+#include <stakenode/activestakenode.h>
+#include <stakenode/stakenode.h>
+#include <stakenode/stakenode-sync.h>
+#include <stakenode/stakenodeman.h>
 #include <protocol.h>
 #include <utilstrencodings.h>
 

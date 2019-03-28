@@ -1,13 +1,13 @@
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 
 #include <wallet/wallet.h>
 #include <utilmoneystr.h>
 #include <policy/policy.h>
 #include <validation.h>
 #include <wallet/coincontrol.h>
-#include <tpos/stakenode-sync.h>
-#include <tpos/stakenodeman.h>
-#include <tpos/activestakenode.h>
+#include <stakenode/stakenode-sync.h>
+#include <stakenode/stakenodeman.h>
+#include <stakenode/activestakenode.h>
 #include <consensus/validation.h>
 #include <messagesigner.h>
 #include <spork.h>

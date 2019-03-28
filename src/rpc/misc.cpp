@@ -23,12 +23,12 @@
 #include <wallet/rpcwallet.h>
 #include <wallet/wallet.h>
 #include <wallet/walletdb.h>
-#include <tpos/stakenode-sync.h>
+#include <stakenode/stakenode-sync.h>
 #include <masternode-sync.h>
 #include <miner.h>
-#include <tpos/stakenode.h>
-#include <tpos/stakenodeman.h>
-#include <tpos/activestakenode.h>
+#include <stakenode/stakenode.h>
+#include <stakenode/stakenodeman.h>
+#include <stakenode/activestakenode.h>
 #endif
 #include <warnings.h>
 

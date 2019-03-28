@@ -38,7 +38,7 @@
 
 #include <walletinitinterface.h>
 #include <masternodeconfig.h>
-#include <tpos/stakenodeconfig.h>
+#include <stakenode/stakenodeconfig.h>
 
 #include <memory>
 #include <stdint.h>

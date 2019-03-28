@@ -28,7 +28,7 @@
 #include <validation.h>
 #include <warnings.h>
 #include <masternodeman.h>
-#include <tpos/stakenodeman.h>
+#include <stakenode/stakenodeman.h>
 
 #if defined(HAVE_CONFIG_H)
 #include <config/galactrum-config.h>

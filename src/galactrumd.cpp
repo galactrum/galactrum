@@ -19,7 +19,7 @@
 #include <httprpc.h>
 #include <utilstrencodings.h>
 #include <masternodeconfig.h>
-#include <tpos/stakenodeconfig.h>
+#include <stakenode/stakenodeconfig.h>
 #include <walletinitinterface.h>
 
 #include <boost/thread.hpp>

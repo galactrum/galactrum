@@ -43,7 +43,7 @@
 #include <kernel.h>
 #include <masternode-payments.h>
 #include <blocksigner.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 
 #include <future>
 #include <sstream>

@@ -2,11 +2,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <tpos/activestakenode.h>
+#include <stakenode/activestakenode.h>
 #include <addrman.h>
-#include <tpos/stakenode-sync.h>
-#include <tpos/stakenodeman.h>
-#include <tpos/stakenode.h>
+#include <stakenode/stakenode-sync.h>
+#include <stakenode/stakenodeman.h>
+#include <stakenode/stakenode.h>
 #include <netfulfilledman.h>
 #include <net_processing.h>
 #include <script/standard.h>

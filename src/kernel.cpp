@@ -16,7 +16,7 @@
 #include <policy/policy.h>
 #include <init.h>
 #include <validation.h>
-#include <tpos/tposutils.h>
+#include <stakenode/tposutils.h>
 #include <utiltime.h>
 
 #include <numeric>
