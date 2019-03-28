@@ -1207,8 +1207,8 @@ void ToolsPage::onStakeClicked()
                 sendToTPoSAddress(tposAddress);
             }
         };
-
-        if (walletModel->getEncryptionStatus() == WalletModel::Locked)
+        WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
+        if (encStatus == WalletModel::Locked || encStatus == walletModel->UnlockedForStakingOnly)
         {
             WalletModel::UnlockContext ctx(walletModel->requestUnlock());
             if (!ctx.isValid())
@@ -1254,7 +1254,8 @@ void ToolsPage::onCancelClicked()
 
     try
     {
-        if (walletModel->getEncryptionStatus() == WalletModel::Locked)
+        WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
+        if (encStatus == WalletModel::Locked || encStatus == walletModel->UnlockedForStakingOnly)
         {
             WalletModel::UnlockContext ctx(walletModel->requestUnlock());
             if (!ctx.isValid())
