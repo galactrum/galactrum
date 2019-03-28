@@ -170,7 +170,7 @@ use the directory path to get the pid from the pid file:
 
 ```bash
 cat /tmp/user/1000/testo9vsdjo3/node1/regtest/galactrumd.pid
-gdb /home/example/galactrumd <pid>
+gdb /home/galactrum/galactrumd <pid>
 ```
 
 Note: gdb attach step may require `sudo`
