@@ -26,13 +26,6 @@ sudo mv galactrum-$VER/bin/galactrum{d,-cli} /usr/local/bin
 sudo sh -c "echo 'reindex=1' >> /home/masternode/.galactrum/galactrum.conf"
 sudo systemctl start galactrumd
 sudo rm -rf /home/masternode/sentinel
-sudo git clone https://github.com/galactrum/sentinel /home/masternode/sentinel
-sudo chown -R masternode:masternode /home/masternode/sentinel
-cd /home/masternode/sentinel
-virtualenv venv
-. venv/bin/activate
-pip install -r requirements.txt
-sudo sh -c 'echo "galactrum_conf=/home/masternode/.galactrum/galactrum.conf"  >> /home/masternode/sentinel/test/test_sentinel.conf'
-sudo sh -c 'echo "galactrum_conf=/home/masternode/.galactrum/galactrum.conf"  >> /home/masternode/sentinel/sentinel.conf'
+sleep 3
 sudo sed -i '/reindex/d' /home/masternode/.galactrum/galactrum.conf
 cd -
