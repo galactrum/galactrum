@@ -28,4 +28,3 @@ sudo systemctl start galactrumd
 sudo rm -rf /home/masternode/sentinel
 sleep 3
 sudo sed -i '/reindex/d' /home/masternode/.galactrum/galactrum.conf
-cd -
