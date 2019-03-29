@@ -175,22 +175,6 @@ WantedBy=multi-user.target
 sudo systemctl enable galactrumd
 sudo systemctl start galactrumd
 
-# Download and install sentinel
-echo && echo "Installing Sentinel..."
-sleep 3
-sudo apt-get -y install virtualenv python-pip
-sudo git clone https://github.com/galactrum/sentinel /home/masternode/sentinel
-cd /home/masternode/sentinel
-virtualenv venv
-. venv/bin/activate
-pip install -r requirements.txt
-export EDITOR=nano
-(crontab -l -u masternode 2>/dev/null; echo '* * * * * cd /home/masternode/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1') | sudo crontab -u masternode -
-sudo chown -R masternode:masternode /home/masternode/sentinel
-sudo sh -c 'echo "galactrum_conf=/home/masternode/.galactrum/galactrum.conf"  >> /home/masternode/sentinel/test/test_sentinel.conf'
-sudo sh -c 'echo "galactrum_conf=/home/masternode/.galactrum/galactrum.conf"  >> /home/masternode/sentinel/sentinel.conf'
-cd ~
-
 # Add alias to run galactrum-cli
 echo && echo "Masternode setup complete!"
 touch ~/.bash_aliases
