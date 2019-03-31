@@ -26,5 +26,5 @@ sudo mv galactrum-$VER/bin/galactrum{d,-cli} /usr/local/bin
 sudo sh -c "echo 'reindex=1' >> /home/masternode/.galactrum/galactrum.conf"
 sudo systemctl start galactrumd
 sudo rm -rf /home/masternode/sentinel
-sleep 3
+sleep 15
 sudo sed -i '/reindex/d' /home/masternode/.galactrum/galactrum.conf
