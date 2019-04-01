@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 sudo systemctl stop galactrumd
 sudo sh -c "echo 'reindex=1' >> /home/masternode/.galactrum/galactrum.conf"
 sudo systemctl start galactrumd
