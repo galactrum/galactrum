@@ -40,6 +40,10 @@ unsigned int static PoSWorkRequired(const CBlockIndex* pindexLast, const Consens
     return bnNew.GetCompact();
 }
 
+unsigned int static PoW2PoSRequired(const CBlockIndex* pindexLast, const Consensus::Params& params) {
+    return Params().GetConsensus().nWSTargetDiff; // Gets hardcoded diff for last PoW block.
+}
+
 unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const Consensus::Params& params) {
     /* current difficulty formula, galactrum - DarkGravity v3, written by Evan Duffield - evan@galactrum.org */
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
@@ -131,8 +135,10 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-    // Most recent algo first
-    if(pindexLast->nHeight + 1 >= params.nLastPoWBlock) {
+    if (pindexLast->nHeight + 1 >= params.nLastPoWBlock) {
+        if(pindexLast->nHeight + 1  <= (params.nLastPoWBlock + params.nPoSDiffAdjustRange)){
+            return PoW2PoSRequired(pindexLast, params);
+        }
         return PoSWorkRequired(pindexLast, params);
     }
     else if (pindexLast->nHeight + 1 >= params.nPowDGWHeight) {

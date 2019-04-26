@@ -92,6 +92,8 @@ struct Params {
     int nStakeMinAge;
     int nStakeMaxAge;
     int nCoinbaseMaturity;
+    unsigned int nWSTargetDiff;
+    int nPoSDiffAdjustRange;
     int nTPoSContractSignatureDeploymentTime;
 };
 } // namespace Consensus

@@ -96,6 +96,8 @@ public:
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMaxAge = 60 * 60 * 24; // one day
+        consensus.nWSTargetDiff = 0x1e0ffff0; // Genesis Difficulty
+        consensus.nPoSDiffAdjustRange = 5;
         consensus.nCoinbaseMaturity = 100;
         consensus.nTPoSContractSignatureDeploymentTime = 1523127600;
         consensus.nPowDGWHeight = 4000;
@@ -145,6 +147,7 @@ public:
         vSeeds.emplace_back("seed4.galactrum.network");
         vSeeds.emplace_back("seed6.galactrum.network");
 
+
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
@@ -175,6 +178,7 @@ public:
                 {150000, uint256S("0x00000000001e451d6d650e02ee6a9beef83d3ea9cf6936e3c2a6ef3f1c2466ae")},
                 {200000, uint256S("0x00000000003ef7b9adb4162d20427238375abbe313d65df4187667115454d822")},
                 {225000, uint256S("0x0000000000001b34aac84e4a96491b34dc9092e798a0173dbe54476bb82a1769")},
+                {337000, uint256S("0x000000000020c853506d3b864a8f45a3729cac8862150daab41489f7d44edfa8")},
             }
         };
 
@@ -224,6 +228,8 @@ public:
         consensus.nPowDGWHeight = 60;
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMaxAge = 60 * 60 * 24; // one day
+        consensus.nWSTargetDiff = 0x1e0ffff0; // Genesis Difficulty
+        consensus.nPoSDiffAdjustRange = 5;
         consensus.nCoinbaseMaturity = 20;
         consensus.nTPoSContractSignatureDeploymentTime = 1522782000;
         consensus.nRuleChangeActivationThreshold = 30; // 75% for testchains
@@ -331,6 +337,8 @@ public:
         consensus.nLastPoWBlock = 75;
         consensus.nStakeMinAge = 60 * 60;
         consensus.nStakeMaxAge = 60 * 60 * 24; // one day
+        consensus.nWSTargetDiff = 0x1e0ffff0; // Genesis Difficulty
+        consensus.nPoSDiffAdjustRange = 5;
         consensus.nCoinbaseMaturity = 20;
         consensus.nTPoSContractSignatureDeploymentTime = 1522782000;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
