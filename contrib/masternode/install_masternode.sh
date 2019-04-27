@@ -1,6 +1,6 @@
 #/bin/bash
 
-VER=1.3.0
+VER=1.4.0
 
 clear
 cd ~

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=1.3.0
+VER=1.4.0
 
 wget https://github.com/galactrum/galactrum/releases/download/v$VER/galactrum-$VER-linux64.tar.gz
 tar -xvf galactrum-$VER-linux64.tar.gz
